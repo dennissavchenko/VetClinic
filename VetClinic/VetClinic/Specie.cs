@@ -5,7 +5,6 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
-    
     public List<int> PetsIds { get; set; }
     
     public Specie() {}
