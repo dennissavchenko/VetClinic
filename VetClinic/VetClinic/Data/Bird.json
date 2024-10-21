@@ -7,45 +7,7 @@
     "Sex": 1,
     "Weight": 0.5,
     "DateOfBirth": "2020-04-10T00:00:00",
-    "Colors": [
-      8
-    ],
-    "Age": 4
-  },
-  {
-    "WingsSpan": 0.25,
-    "CanFly": true,
-    "Id": 8,
-    "Name": "Tweety",
-    "Sex": 1,
-    "Weight": 0.5,
-    "DateOfBirth": "2020-04-10T00:00:00",
-    "Colors": [
-      8
-    ],
-    "Age": 4
-  },
-  {
-    "WingsSpan": 0.25,
-    "CanFly": true,
-    "Id": 12,
-    "Name": "Tweety",
-    "Sex": 1,
-    "Weight": 0.5,
-    "DateOfBirth": "2020-04-10T00:00:00",
-    "Colors": [
-      8
-    ],
-    "Age": 4
-  },
-  {
-    "WingsSpan": 0.25,
-    "CanFly": true,
-    "Id": 16,
-    "Name": "Tweety",
-    "Sex": 1,
-    "Weight": 0.5,
-    "DateOfBirth": "2020-04-10T00:00:00",
+    "SpecieId": 3,
     "Colors": [
       8
     ],
