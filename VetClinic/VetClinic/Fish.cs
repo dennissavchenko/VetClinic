@@ -8,7 +8,7 @@ public class Fish : Pet
     public WaterType WaterType { get; set; }
     public double WaterTemperature { get; set; }
     
-    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, colors)
+    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, Specie specie, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, specie, colors)
     {
         WaterType = waterType;
         WaterTemperature = waterTemperature;
@@ -22,12 +22,12 @@ public class Fish : Pet
         return "Fish: " + base.ToString() + $", WaterType={WaterType}, WaterTemperature={WaterTemperature}";
     }
     
-    public static List<Fish> GetExtent()
+    public new static List<Fish> GetExtent()
     {
         return StoredObject<Fish>.GetExtent();
     }
     
-    public static void PrintExtent()
+    public new static void PrintExtent()
     {
         foreach (var fish in GetExtent())
         {
