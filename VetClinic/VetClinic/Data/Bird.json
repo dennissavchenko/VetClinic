@@ -1,0 +1,15 @@
+[
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 4,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  }
+]
