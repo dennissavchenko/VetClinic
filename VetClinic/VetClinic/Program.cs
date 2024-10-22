@@ -13,7 +13,6 @@ Bird bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 4, 10), eagl
 Client client1 = new Client("Marek","Kowalski","081821727","marek@gmail.com");
 Prescription pr1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2020, 3, 22));
 Medication md1 = new Medication("abc", Form.pill);
-Veterinarian vet1 = new Veterinarian("Jan","Kowal","23131331","jan@","surgeon","Intern");
 
 
 
@@ -27,5 +26,4 @@ Specie.PrintExtent();
 Client.PrintExtent();
 Prescription.PrintExtent();
 Medication.PrintExtent(); 
-Veterinarian.PrintExtent();
 
