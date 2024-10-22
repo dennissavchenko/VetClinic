@@ -8,7 +8,7 @@ public class Fish : Pet
     public WaterType WaterType { get; set; }
     public double WaterTemperature { get; set; }
     
-    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, Specie specie, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, specie, colors)
+    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, colors)
     {
         WaterType = waterType;
         WaterTemperature = waterTemperature;

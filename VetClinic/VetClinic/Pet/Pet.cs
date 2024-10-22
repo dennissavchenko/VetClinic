@@ -10,7 +10,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     public Sex Sex { get; set; }
     public Double Weight { get; set; }
     public DateTime DateOfBirth { get; set; }
-    public int SpecieId { get; set; }
     public List<Color> Colors { get; set; }
     public int Age
     {
@@ -21,20 +20,18 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     
     public Pet() {}
 
-    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, Specie specie, List<Color> colors)
+    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors)
     {
         Name = name;
         Sex = sex;
         Weight = weight;
         DateOfBirth = dateOfBirth;
-        SpecieId = specie.Id;
         Colors = colors;
         AddToExtent(this);
-        specie.AddPetId(Id);
     }
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight}, DateOfBirth={DateOfBirth.ToShortDateString()}, Specie={Specie.GetSpecieById(SpecieId).Name}, Colors=({string.Join(", ", Colors)}), Age={Age}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight}, DateOfBirth={DateOfBirth.ToShortDateString()}, Colors=({string.Join(", ", Colors)}), Age={Age}";
     }
 }

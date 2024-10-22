@@ -6,7 +6,7 @@ public class Bird : Pet
     public double WingsSpan { get; set; }
     public bool CanFly { get; set; }
     
-    public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, Specie specie, List<Color> colors, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, specie, colors)
+    public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors)
     {
         WingsSpan = wingsSpan;
         CanFly = canFly;

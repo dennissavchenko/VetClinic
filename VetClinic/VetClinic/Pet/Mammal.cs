@@ -4,7 +4,7 @@ public class Mammal : Pet
 {
     public bool Nocturnal { get; set; }
     
-    public Mammal(string name, Sex sex, double weight, DateTime dateOfBirth, Specie specie, List<Color> colors, bool nocturnal) : base(name, sex, weight, dateOfBirth, specie, colors)
+    public Mammal(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, bool nocturnal) : base(name, sex, weight, dateOfBirth, colors)
     {
         Nocturnal = nocturnal;
         StoredObject<Mammal>.AddToExtent(this);
