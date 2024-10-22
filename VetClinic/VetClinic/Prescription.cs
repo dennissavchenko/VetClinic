@@ -6,7 +6,7 @@ public class Prescription: StoredObject<Prescription>, IIdentifiable
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
 
-    public Prescription() { }
+    public Prescription() {}
 
     public Prescription( DateTime startDate, DateTime endDate)
     {

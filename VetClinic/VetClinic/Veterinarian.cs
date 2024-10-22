@@ -10,7 +10,7 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     public string Specialization { get; set; }
     public string ExperienceLevel { get; set; }
     
-    public static int MaxAppointmentsPerDay = 8;
+    public static readonly int MaxAppointmentsPerDay = 8;
     
     public Veterinarian() {}
 

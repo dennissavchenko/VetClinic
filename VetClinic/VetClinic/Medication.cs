@@ -8,7 +8,7 @@ public class Medication : StoredObject<Medication>, IIdentifiable
     public string Name { get; set; }
     public Form Form { get; set; }
         
-    public Medication() { }
+    public Medication() {}
         
     public Medication(string name, Form form)
     {

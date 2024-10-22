@@ -1,4 +1,4 @@
-﻿using VetClinic;
+﻿namespace VetClinic;
 
 public class Dose : StoredObject<Dose>, IIdentifiable
 {
@@ -6,7 +6,7 @@ public class Dose : StoredObject<Dose>, IIdentifiable
     public string Description { get; set; }
     public double Amount { get; set; }
 
-    public Dose() { }
+    public Dose() {}
 
     public Dose(string description, double amount)
     {

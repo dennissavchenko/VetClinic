@@ -1,6 +1,6 @@
 ﻿namespace VetClinic;
 
-public class Client :StoredObject<Client>,IIdentifiable
+public class Client: StoredObject<Client>, IIdentifiable
 {
 
     public int Id { get; set; } 
