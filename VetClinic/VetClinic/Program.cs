@@ -11,6 +11,12 @@ Fish fish1 = new Fish("Goldie", Sex.Female, 0.3, new DateTime(2021, 6, 15), clow
 Mammal mammal1 = new Mammal("Burek", Sex.Male, 12.5, new DateTime(2018, 3, 22), cat, [Color.Brown], true);
 Bird bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 4, 10), eagle, [Color.Yellow], 0.25, true);
 Client client1 = new Client("Marek","Kowalski","081821727","marek@gmail.com");
+Prescription pr1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2020, 3, 22));
+Medication md1 = new Medication("abc", Form.pill);
+
+
+
+
 
 Pet.PrintExtent();
 Fish.PrintExtent();
@@ -18,4 +24,6 @@ Mammal.PrintExtent();
 Bird.PrintExtent();
 Specie.PrintExtent();
 Client.PrintExtent();
+Prescription.PrintExtent();
+Medication.PrintExtent(); 
 
