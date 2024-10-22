@@ -22,7 +22,7 @@ public class Client :StoredObject<Client>,IIdentifiable
 
     public override string ToString()
     {
-        return $"Id={Id}, FirstName={FirstName}, LastName={LastName}, honeNumber={PhoneNumber}, Email={Email}";
+        return $"Id={Id}, FirstName={FirstName}, LastName={LastName}, PhoneNumber={PhoneNumber}, Email={Email}";
     }
 
 

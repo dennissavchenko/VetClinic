@@ -11,31 +11,5 @@
       2
     ],
     "Age": 6
-  },
-  {
-    "Nocturnal": true,
-    "Id": 7,
-    "Name": "Burek",
-    "Sex": 0,
-    "Weight": 12.5,
-    "DateOfBirth": "2018-03-22T00:00:00",
-    "SpecieId": 6,
-    "Colors": [
-      2
-    ],
-    "Age": 6
-  },
-  {
-    "Nocturnal": true,
-    "Id": 11,
-    "Name": "Burek",
-    "Sex": 0,
-    "Weight": 12.5,
-    "DateOfBirth": "2018-03-22T00:00:00",
-    "SpecieId": 10,
-    "Colors": [
-      2
-    ],
-    "Age": 6
   }
 ]
