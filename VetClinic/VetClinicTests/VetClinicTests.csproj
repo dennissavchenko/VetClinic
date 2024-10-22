@@ -25,8 +25,4 @@
     <ProjectReference Include="..\VetClinic\VetClinic.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\" />
-  </ItemGroup>
-
 </Project>
