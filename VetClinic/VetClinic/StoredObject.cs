@@ -54,6 +54,9 @@ public abstract class StoredObject<T> where T : IIdentifiable
     public static void PrintExtent()
     {
         LoadExtent();
+        Console.WriteLine("------------------------------------------------");
+        Console.WriteLine(typeof(T).Name + " extent:");
+        Console.WriteLine("------------------------------------------------");
         foreach (var obj in _extent)
         {
             Console.WriteLine(obj);

@@ -15,6 +15,9 @@ Client client1 = new Client("Marek","Kowalski","081821727","marek@gmail.com");
 Veterinarian veterinarian = new Veterinarian("Jack", "Black", "555555555", "jack@g.com", "surgeon", "high");
 Payment payment1 = new Payment(100, Type.Cash, DateTime.Now);
 Appointment appointment1 = new Appointment(DateTime.Now, 1234);
+Prescription prescription1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2020, 3, 22));
+Medication medication1 = new Medication("abc", Form.Pill);
+Dose dose1 = new Dose("xyz", 2.5);
 
 Pet.PrintExtent();
 Fish.PrintExtent();
@@ -25,4 +28,7 @@ Client.PrintExtent();
 Veterinarian.PrintExtent();
 Payment.PrintExtent();
 Appointment.PrintExtent();
+Prescription.PrintExtent();
+Medication.PrintExtent(); 
+Dose.PrintExtent();
 
