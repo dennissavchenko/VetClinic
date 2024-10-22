@@ -2,11 +2,10 @@
 
 public enum Type { Cash, Card }
 
-public class Payment :StoredObject<Payment>,IIdentifiable
+public class Payment: StoredObject<Payment>, IIdentifiable
 {
     public int Id { get; set; }
     public int Amount { get; set; }
-    
     public Type Type { get; set; }
     public DateTime DateTime { get; set; }
     
@@ -22,7 +21,7 @@ public class Payment :StoredObject<Payment>,IIdentifiable
     
     public override string ToString()
     {
-        return $"Id={Id}, Amount={Amount}, Type={Type}, DateTime]{DateTime}";
+        return $"Id={Id}, Amount={Amount}, Type={Type}, DateTime={DateTime}";
     }
     
 }

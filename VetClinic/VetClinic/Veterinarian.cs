@@ -1,6 +1,6 @@
 ﻿namespace VetClinic;
 
-public class Veterinarian :StoredObject<Veterinarian>,IIdentifiable
+public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
 {
     public int Id { get; set; }
     public string FirstName { get; set; }
@@ -9,7 +9,8 @@ public class Veterinarian :StoredObject<Veterinarian>,IIdentifiable
     public string Email { get; set; }
     public string Specialization { get; set; }
     public string ExperienceLevel { get; set; }
-    public const int MaxAppointmentsPerDay = 8; //Is it okay if I leave it without passing it in the constructor?
+    
+    public static int MaxAppointmentsPerDay = 8;
     
     public Veterinarian() {}
 

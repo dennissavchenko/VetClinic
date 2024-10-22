@@ -1,6 +1,6 @@
 ﻿namespace VetClinic;
 
-public class Appointment :StoredObject<Appointment>,IIdentifiable
+public class Appointment: StoredObject<Appointment>, IIdentifiable
 {
     public int Id { get; set; }
     public DateTime DateTime { get; set; }
@@ -19,4 +19,5 @@ public class Appointment :StoredObject<Appointment>,IIdentifiable
     {
         return $"Id={Id}, DateTime={DateTime}, Price={Price}";
     }
+    
 }
