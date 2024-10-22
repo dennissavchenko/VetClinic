@@ -1,0 +1,11 @@
+[
+  {
+    "Id": 1,
+    "FirstName": "Jan",
+    "LastName": "Kowal",
+    "PhoneNumber": "23131331",
+    "Email": "jan@",
+    "Specialization": "surgeon",
+    "ExperienceLevel": "Intern"
+  }
+]
