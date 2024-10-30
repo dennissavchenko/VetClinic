@@ -24,6 +24,9 @@ public class Mammal : Pet
     
     public new static void PrintExtent()
     {
+        Console.WriteLine("------------------------------------------------");
+        Console.WriteLine(nameof(Mammal) + " extent:");
+        Console.WriteLine("------------------------------------------------");
         foreach (var mammal in GetExtent())
         {
             Console.WriteLine(mammal);

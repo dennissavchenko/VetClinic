@@ -18,6 +18,10 @@ Appointment appointment1 = new Appointment(DateTime.Now, 1234);
 Prescription prescription1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2020, 3, 22));
 Medication medication1 = new Medication("abc", Form.Pill);
 Dose dose1 = new Dose("xyz", 2.5);
+Injured injured1 = new Injured("Lola", Sex.Female, 3.5, new DateTime(2020, 2, 14), [Color.Gray], InjuryType.Fracture, new DateTime(2021, 3, 15));
+Healthy healthy1 = new Healthy("Momo", Sex.Male, 2.5, new DateTime(2015, 4, 13), [Color.Black, Color.White],
+    ActivityLevel.Low, new DateTime(2021, 1, 12));
+Pregnant pregnant1 = new Pregnant("Mimi", Sex.Female, 1.5, new DateTime(2019, 6, 15), [Color.Cream], new DateTime(2021, 6, 15), 3);
 
 Pet.PrintExtent();
 Fish.PrintExtent();
@@ -31,4 +35,7 @@ Appointment.PrintExtent();
 Prescription.PrintExtent();
 Medication.PrintExtent(); 
 Dose.PrintExtent();
+Injured.PrintExtent();
+Healthy.PrintExtent();
+Pregnant.PrintExtent();
 

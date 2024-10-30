@@ -8,7 +8,8 @@ public class Fish : Pet
     public WaterType WaterType { get; set; }
     public double WaterTemperature { get; set; }
     
-    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, colors)
+    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, 
+        colors)
     {
         WaterType = waterType;
         WaterTemperature = waterTemperature;
@@ -29,6 +30,9 @@ public class Fish : Pet
     
     public new static void PrintExtent()
     {
+        Console.WriteLine("------------------------------------------------");
+        Console.WriteLine(nameof(Fish) + " extent:");
+        Console.WriteLine("------------------------------------------------");
         foreach (var fish in GetExtent())
         {
             Console.WriteLine(fish);

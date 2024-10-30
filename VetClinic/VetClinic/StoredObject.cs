@@ -13,15 +13,11 @@ public abstract class StoredObject<T> where T : IIdentifiable
         LoadExtent();
         return _extent;
     }
-    public static void UpdateExtent(List<T> extent)
-    {
-        _extent = extent;
-        SaveExtent();
-    }
-    public static void AddToExtent(T obj)
+    protected static void AddToExtent(T obj)
     {
         LoadExtent();
-        if (obj.Id < 1) {
+        if (obj.Id < 1)
+        {
             obj.Id = _extent.Count + 1;
         }
         _extent.Add(obj);
@@ -53,11 +49,10 @@ public abstract class StoredObject<T> where T : IIdentifiable
     }
     public static void PrintExtent()
     {
-        LoadExtent();
         Console.WriteLine("------------------------------------------------");
         Console.WriteLine(typeof(T).Name + " extent:");
         Console.WriteLine("------------------------------------------------");
-        foreach (var obj in _extent)
+        foreach (var obj in GetExtent())
         {
             Console.WriteLine(obj);
         }
