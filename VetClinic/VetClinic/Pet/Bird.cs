@@ -27,6 +27,9 @@ public class Bird : Pet
     
     public new static void PrintExtent()
     {
+        Console.WriteLine("------------------------------------------------");
+        Console.WriteLine(nameof(Bird) + " extent:");
+        Console.WriteLine("------------------------------------------------");
         foreach (var bird in GetExtent())
         {
             Console.WriteLine(bird);

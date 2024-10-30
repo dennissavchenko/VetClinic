@@ -11,11 +11,11 @@ public class Client: StoredObject<Client>, IIdentifiable
 
     public Client() {}
 
-    public Client(String firstname, String lastname, string phonenumber, string email) 
+    public Client(String firstName, String lastName, string phoneNumber, string email) 
     {
-        FirstName = firstname;
-        LastName = lastname;
-        PhoneNumber = phonenumber; 
+        FirstName = firstName;
+        LastName = lastName;
+        PhoneNumber = phoneNumber; 
         Email = email;
         AddToExtent(this);
     }

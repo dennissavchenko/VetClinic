@@ -43,5 +43,39 @@
       8
     ],
     "Age": 4
+  },
+  {
+    "Id": 5,
+    "Name": "Lola",
+    "Sex": 1,
+    "Weight": 3.5,
+    "DateOfBirth": "2020-02-14T00:00:00",
+    "Colors": [
+      3
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 6,
+    "Name": "Momo",
+    "Sex": 0,
+    "Weight": 2.5,
+    "DateOfBirth": "2015-04-13T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 9
+  },
+  {
+    "Id": 7,
+    "Name": "Mimi",
+    "Sex": 1,
+    "Weight": 1.5,
+    "DateOfBirth": "2019-06-15T00:00:00",
+    "Colors": [
+      7
+    ],
+    "Age": 5
   }
 ]
