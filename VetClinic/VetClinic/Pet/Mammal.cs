@@ -2,7 +2,7 @@ namespace VetClinic;
 
 public class Mammal : Pet
 {
-    public bool Nocturnal { get; set; }
+    public bool Nocturnal { get; set; } // it is just boolean now, not optional
     
     public Mammal(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, bool nocturnal) : base(name, sex, weight, dateOfBirth, colors)
     {
