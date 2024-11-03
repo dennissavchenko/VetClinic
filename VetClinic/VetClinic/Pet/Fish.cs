@@ -1,3 +1,5 @@
+using VetClinic.Exceptions;
+
 namespace VetClinic;
 
 public enum WaterType { Freshwater, Saltwater, Brackish }
@@ -12,6 +14,10 @@ public class Fish : Pet
         colors)
     {
         WaterType = waterType;
+        if (waterTemperature <= 0)
+        {
+            throw new NegativeValueException("Water temperature must be positive.");
+        }
         WaterTemperature = waterTemperature;
         StoredObject<Fish>.AddToExtent(this);
     }

@@ -1,4 +1,5 @@
 using VetClinic;
+using VetClinic.Exceptions;
 
 namespace VetClinicTests;
 
@@ -98,4 +99,38 @@ public class PetTests
             // Assert
             Assert.That(age,  Is.EqualTo(DateTime.Now.Year - 2020));
         }
+
+        [Test]
+        public void Name_ShouldThrowAnEmptyStringException_ForEmptyNameString()
+        {
+            // Act & Assert
+            Assert.Throws<EmptyStringException>(() =>
+            {
+                // Arrange
+                var pet = new Pet("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+            });
+        }
+        
+        [Test]
+        public void Weight_ShouldThrowANegativeValueException_ForNegativeWeight()
+        {
+            // Act & Assert
+            Assert.Throws<NegativeValueException>(() => 
+            {
+                // Arrange
+                var pet = new Pet("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+            });
+        }
+        
+        [Test]
+        public void DateOfBirth_ShouldThrowAnInvalidDateException_ForFutureDates()
+        {
+            // Act & Assert
+            Assert.Throws<InvalidDateException>(() => 
+            {
+                // Arrange
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow]);
+            });
+        }
+        
     }
