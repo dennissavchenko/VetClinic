@@ -36,8 +36,6 @@
             {
                 if (string.IsNullOrEmpty(value))
                     throw new ArgumentException("PhoneNumber can't be empty.");
-                if (!System.Text.RegularExpressions.Regex.IsMatch(value, @"^\+?[1-9]\d{1,14}$"))
-                    throw new ArgumentException("PhoneNumber must be a valid international format (e.g., +123456789).");
                 _phoneNumber = value;
             }
         }

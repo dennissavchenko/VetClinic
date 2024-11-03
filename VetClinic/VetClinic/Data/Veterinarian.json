@@ -7,5 +7,23 @@
     "Email": "jack@g.com",
     "Specialization": "surgeon",
     "ExperienceLevel": "high"
+  },
+  {
+    "Id": 2,
+    "FirstName": "Jack",
+    "LastName": "Black",
+    "PhoneNumber": "555555555",
+    "Email": "jack@g.com",
+    "Specialization": "surgeon",
+    "ExperienceLevel": "high"
+  },
+  {
+    "Id": 3,
+    "FirstName": "Jack",
+    "LastName": "Black",
+    "PhoneNumber": "555555555",
+    "Email": "jack@g.com",
+    "Specialization": "surgeon",
+    "ExperienceLevel": "high"
   }
 ]
