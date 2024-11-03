@@ -14,19 +14,24 @@
                 if (value == default)
                     throw new ArgumentException("StartDate is mandatory and cannot be empty.");
                 _startDate = value;
+
+                if (_endDate != default && _endDate < _startDate)
+                    throw new ArgumentException("EndDate must be later than StartDate.");
             }
         }
-
-        public DateTime EndDate
+ public DateTime EndDate
         {
             get => _endDate;
             set
             {
                 if (value == default)
                     throw new ArgumentException("EndDate is mandatory and cannot be empty.");
+                if (value < _startDate)
+                    throw new ArgumentException("EndDate must be later than StartDate.");
                 _endDate = value;
             }
         }
+       
 
         public Prescription() { }
 

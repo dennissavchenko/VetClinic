@@ -1,4 +1,4 @@
-﻿using VetClinic;
+using VetClinic;
 using Type = VetClinic.Type;
 
 Specie dog = new Specie("Dog", "Canis lupus familiaris");
@@ -15,7 +15,7 @@ Bird bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 4, 10), [Col
 Veterinarian veterinarian = new Veterinarian("Jack", "Black", "555555555", "jack@g.com", "surgeon", "high");
 Payment payment1 = new Payment(100, Type.Cash, DateTime.Now);
 Appointment appointment1 = new Appointment(DateTime.Now, 1234);
-Prescription prescription1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2020, 3, 22));
+Prescription prescription1 = new Prescription(new DateTime(2019, 3, 24), new DateTime(2018, 3, 22));
 Medication medication1 = new Medication("abc", Form.Pill);
 Dose dose1 = new Dose("xyz", 2.5);
 Injured injured1 = new Injured("Lola", Sex.Female, 3.5, new DateTime(2020, 2, 14), [Color.Gray], InjuryType.Fracture, new DateTime(2021, 3, 15));
