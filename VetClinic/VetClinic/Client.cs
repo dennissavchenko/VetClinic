@@ -1,4 +1,6 @@
-﻿namespace VetClinic
+﻿using VetClinic.Exceptions;
+
+namespace VetClinic
 {
     public class Client : StoredObject<Client>, IIdentifiable
     {
@@ -10,8 +12,8 @@
             get => _firstName;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("FirstName can't be empty");
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new EmptyStringException("FirstName can't be empty");
                 _firstName = value;
             }
         }
@@ -22,8 +24,8 @@
             get => _lastName;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("LastName can't be empty");
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new EmptyStringException("LastName can't be empty");
                 _lastName = value;
             }
         }
@@ -34,8 +36,10 @@
             get => _phoneNumber;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("PhoneNumber can't be empty.");
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new EmptyStringException("PhoneNumber can't be empty.");
+                if (value.Length != 9)
+                    throw new ArgumentException("PhoneNumber must have 9 digits.");
                 _phoneNumber = value;
             }
         }
@@ -46,8 +50,8 @@
             get => _email;
             set
             {
-                if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Email can't be empty.");
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new EmptyStringException("Email can't be empty.");
                 if (!System.Text.RegularExpressions.Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
                     throw new ArgumentException("Email must be a valid format.");
                 _email = value;
