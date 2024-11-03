@@ -74,9 +74,7 @@ public class PetTests
         public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
         {
             // Arrange
-            var pet = new Pet("Bella", Sex.Female, 10.0, new DateTime(2019, 12, 15), [Color.Golden]);
-            typeof(Pet).GetField("_extent", System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic)
-                ?.SetValue(null, new List<Pet>());
+            File.WriteAllText(_testPath, "[{\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":5.5,\"DateOfBirth\":\"2020-05-01T00:00:00\",\"Colors\":[9]}]");
 
             // Act
             var extent = Pet.GetExtent();

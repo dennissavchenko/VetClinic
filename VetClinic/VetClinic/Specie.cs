@@ -1,3 +1,5 @@
+using VetClinic.Exceptions;
+
 namespace VetClinic;
 
 /*THIS CLASS IS GOING TO BE INSTEAD OF STATUS; IT WILL HAVE THE SAME KIND OF ASSOCIATION WITH PET AS STATUS HAD*/
@@ -12,6 +14,8 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     
     public Specie(string name, string description)
     {
+        if (string.IsNullOrWhiteSpace(name)) throw new EmptyStringException("Name cannot be empty!");
+        if (string.IsNullOrWhiteSpace(description)) throw new EmptyStringException("Description cannot be empty!");
         Name = name;
         Description = description;
         AddToExtent(this);

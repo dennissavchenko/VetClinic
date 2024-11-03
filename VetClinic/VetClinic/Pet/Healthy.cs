@@ -8,7 +8,7 @@ public class Healthy : Pet
     public ActivityLevel ActivityLevel { get; set; }
     public DateTime? LastVaccinationDate { get; set; } // instead of nocturnal and canFly now lastVaccinationDate is optional
     
-    public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, ActivityLevel activityLevel, DateTime lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors)
+    public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, ActivityLevel activityLevel, DateTime? lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors)
     {
         ActivityLevel = activityLevel;
         if (lastVaccinationDate > DateTime.Now)
@@ -27,7 +27,7 @@ public class Healthy : Pet
 
     public override string ToString()
     {
-        return "Healthy: " + base.ToString() + $", ActivityLevel={ActivityLevel.ToString()} LastVaccinationDate={LastVaccinationDate.ToString()}";
+        return "Healthy: " + base.ToString() + $", ActivityLevel={ActivityLevel.ToString()}, LastVaccinationDate={(LastVaccinationDate == null ? "NotVaccinated" : LastVaccinationDate.ToString())}";
     }
     
     public new static List<Healthy> GetExtent()
