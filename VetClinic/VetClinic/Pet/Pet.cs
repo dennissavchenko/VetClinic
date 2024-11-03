@@ -24,7 +24,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
 
     public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors)
     {
-        if (name.Length == 0)
+        if (string.IsNullOrWhiteSpace(name))
         {
             throw new EmptyStringException("Pet's name cannot be empty!");
         }

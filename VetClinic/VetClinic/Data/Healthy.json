@@ -1,7 +1,7 @@
 [
   {
     "ActivityLevel": 0,
-    "LastVaccinationDate": "2021-01-12T00:00:00",
+    "LastVaccinationDate": null,
     "Id": 6,
     "Name": "Momo",
     "Sex": 0,

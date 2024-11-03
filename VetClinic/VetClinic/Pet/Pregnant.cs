@@ -9,13 +9,13 @@ public class Pregnant : Pet
     
     public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors)
     {
-        if (dueDate < DateTime.Now)
-        {
-            throw new InvalidDateException("Due date cannot be in the past.");
-        }
         if (dueDate < dateOfBirth)
         {
             throw new InvalidDateException("Due date cannot be before the date of birth.");
+        }
+        if (dueDate < DateTime.Now)
+        {
+            throw new InvalidDateException("Due date cannot be in the past.");
         }
         DueDate = dueDate;
         if (litterSize <= 0)
