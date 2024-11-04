@@ -6,19 +6,28 @@ public enum InjuryType { Fracture, Wound, Sprain }
 public class Injured : Pet
 {
     public InjuryType InjuryType { get; set; }
-    public DateTime InjuryDate { get; set; }
+    private DateTime _injuryDate;
+    public DateTime InjuryDate
+    {
+        get => _injuryDate;
+        set
+        {
+            if (value > DateTime.Now)
+            {
+                throw new InvalidDateException("Injury date cannot be in the future.");
+            }
+            if (value < DateOfBirth)
+            {
+                throw new InvalidDateException("Injury date cannot be before the date of birth.");
+            }
+
+            _injuryDate = value;
+        } 
+    }
     
     public Injured(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, InjuryType injuryType, DateTime injuryDate) : base(name, sex, weight, dateOfBirth, colors)
     {
         InjuryType = injuryType;
-        if (injuryDate > DateTime.Now)
-        {
-            throw new InvalidDateException("Injury date cannot be in the future.");
-        }
-        if (injuryDate < dateOfBirth)
-        {
-            throw new InvalidDateException("Injury date cannot be before the date of birth.");
-        }
         InjuryDate = injuryDate;
         StoredObject<Injured>.AddToExtent(this);
     }

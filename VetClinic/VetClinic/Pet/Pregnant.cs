@@ -4,24 +4,41 @@ namespace VetClinic;
 
 public class Pregnant : Pet
 {
-    public DateTime DueDate { get; set; }
-    public int LitterSize { get; set; }
+    private DateTime _dueDate;
+    public DateTime DueDate
+    {
+        get => _dueDate;
+        set
+        {
+            if (value < DateOfBirth)
+            {
+                throw new InvalidDateException("Due date cannot be before the date of birth.");
+            }
+            if (value < DateTime.Now)
+            {
+                throw new InvalidDateException("Due date cannot be in the past.");
+            }
+
+            _dueDate = value;
+        } 
+    }
+    private int _litterSize;
+    public int LitterSize
+    {
+        get => _litterSize;
+        set
+        {
+            if (value <= 0)
+            {
+                throw new NegativeValueException("Expected litter size must be greater than 0.");
+            } 
+            _litterSize = value;
+        } 
+    }
     
     public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors)
     {
-        if (dueDate < dateOfBirth)
-        {
-            throw new InvalidDateException("Due date cannot be before the date of birth.");
-        }
-        if (dueDate < DateTime.Now)
-        {
-            throw new InvalidDateException("Due date cannot be in the past.");
-        }
         DueDate = dueDate;
-        if (litterSize <= 0)
-        {
-            throw new NegativeValueException("Expected litter size must be greater than 0.");
-        }
         LitterSize = litterSize;
         StoredObject<Pregnant>.AddToExtent(this);
     }

@@ -4,16 +4,23 @@ namespace VetClinic;
 
 public class Bird : Pet
 {
-    
-    public double WingsSpan { get; set; }
+
+    private double _wingsSpan;
+    public double WingsSpan
+    {
+        get => _wingsSpan;
+        set {
+            if(value <= 0)
+            {
+                throw new NegativeValueException("Wings span must be positive.");
+            }
+            _wingsSpan = value;
+        } 
+    }
     public bool CanFly { get; set; } // it is just boolean now, not optional
     
     public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors)
     {
-        if(wingsSpan <= 0)
-        {
-            throw new NegativeValueException("Wings span must be positive.");
-        }
         WingsSpan = wingsSpan;
         CanFly = canFly;
         StoredObject<Bird>.AddToExtent(this);
