@@ -1,4 +1,6 @@
-﻿namespace VetClinic
+﻿using VetClinic.Exceptions;
+
+namespace VetClinic
 {
     public class Prescription : StoredObject<Prescription>, IIdentifiable
     {
@@ -12,11 +14,11 @@
             set
             {
                 if (value == default)
-                    throw new ArgumentException("StartDate is mandatory and cannot be empty.");
+                    throw new EmptyStringException("StartDate is mandatory and cannot be empty.");
                 _startDate = value;
 
                 if (_endDate != default && _endDate < _startDate)
-                    throw new ArgumentException("EndDate must be later than StartDate.");
+                    throw new InvalidDateException("EndDate must be later than StartDate.");
             }
         }
  public DateTime EndDate
@@ -25,9 +27,9 @@
             set
             {
                 if (value == default)
-                    throw new ArgumentException("EndDate is mandatory and cannot be empty.");
+                    throw new EmptyStringException("EndDate is mandatory and cannot be empty.");
                 if (value < _startDate)
-                    throw new ArgumentException("EndDate must be later than StartDate.");
+                    throw new InvalidDateException("EndDate must be later than StartDate.");
                 _endDate = value;
             }
         }

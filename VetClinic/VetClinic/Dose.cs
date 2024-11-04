@@ -1,4 +1,6 @@
-﻿namespace VetClinic
+﻿using VetClinic.Exceptions;
+
+namespace VetClinic
 {
     public class Dose : StoredObject<Dose>, IIdentifiable
     {
@@ -11,7 +13,7 @@
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Description can't be empty.");
+                    throw new EmptyStringException("Description can't be empty.");
                 _description = value;
             }
         }
@@ -23,7 +25,7 @@
             set
             {
                 if (value <= 0)
-                    throw new ArgumentException("Amount must be a positive value.");
+                    throw new NegativeValueException("Amount must be a positive value.");
                 _amount = value;
             }
         }
