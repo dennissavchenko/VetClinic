@@ -347,5 +347,50 @@
       8
     ],
     "Age": 4
+  },
+  {
+    "Id": 32,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 33,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 34,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 35,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
   }
 ]

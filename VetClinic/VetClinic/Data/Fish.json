@@ -89,5 +89,18 @@
       4
     ],
     "Age": 3
+  },
+  {
+    "WaterType": 0,
+    "WaterTemperature": 24,
+    "Id": 33,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
   }
 ]

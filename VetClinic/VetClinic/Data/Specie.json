@@ -138,5 +138,25 @@
     "Id": 28,
     "Name": "Clownfish",
     "Description": "Amphiprioninae"
+  },
+  {
+    "Id": 29,
+    "Name": "Dog",
+    "Description": "Canis lupus familiaris"
+  },
+  {
+    "Id": 30,
+    "Name": "Cat",
+    "Description": "Felis catus"
+  },
+  {
+    "Id": 31,
+    "Name": "Eagle",
+    "Description": "Aquila chrysaetos"
+  },
+  {
+    "Id": 32,
+    "Name": "Clownfish",
+    "Description": "Amphiprioninae"
   }
 ]

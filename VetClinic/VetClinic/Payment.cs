@@ -1,6 +1,6 @@
 ﻿namespace VetClinic;
 
-public enum Type { Cash, Card }
+public enum PaymentType { Cash, Card }
 
 public class Payment: StoredObject<Payment>, IIdentifiable
 { 
@@ -19,15 +19,15 @@ public class Payment: StoredObject<Payment>, IIdentifiable
         }
     }
 
-    private Type _type;
-    public Type Type
+    private PaymentType _paymentType;
+    public PaymentType PaymentType
     {
-        get => _type;
+        get => _paymentType;
         set
         {
-            if (!Enum.IsDefined(typeof(Type), value))
+            if (!Enum.IsDefined(typeof(PaymentType), value))
                 throw new ArgumentException("Invalid type of payment.");
-            _type = value;
+            _paymentType = value;
         }
     }
     
@@ -35,17 +35,17 @@ public class Payment: StoredObject<Payment>, IIdentifiable
     
     public Payment() {}
 
-    public Payment(int amount, Type paymentType, DateTime dateTime)
+    public Payment(int amount, PaymentType paymentPaymentType, DateTime dateTime)
     {
         Amount = amount;
-        Type = paymentType;
+        PaymentType = paymentPaymentType;
         DateTime = dateTime;
         AddToExtent(this);
     }
     
     public override string ToString()
     {
-        return $"Id={Id}, Amount={Amount}, Type={Type}, DateTime={DateTime}";
+        return $"Id={Id}, Amount={Amount}, Type={PaymentType}, DateTime={DateTime}";
     }
     
 }
