@@ -1,5 +1,7 @@
 ﻿using System.Net;
 using VetClinic;
+using VetClinic.Exceptions;
+using InvalidDataException = VetClinic.Exceptions.InvalidDataException;
 
 namespace VetClinicTests;
 
@@ -92,6 +94,87 @@ public class ClientTests
 
 
     }
+
+    [Test]
+    public void FirstName_ShouldThrowAnEmptyStringException_ForEmptyFirstNameString()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyStringException>(() =>
+        {
+            // Arrange
+            var client = new Client("", "Kowalski", "828222222", "a@gmail.com");
+
+        });
+    }
+
+    [Test]
+    public void LastName_ShouldThrowAnEmptyStringException_ForEmptyLastNameString()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyStringException>(() =>
+        {
+            // Arrange
+            var client = new Client("Anna", "", "828222222", "a@gmail.com");
+
+        });
+    }
+
+    [Test]
+    public void PhoneNumber_ShouldThrowAnEmptyStringException_ForEmptyPhoneNumberString()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyStringException>(() =>
+        {
+            // Arrange
+            var client = new Client("Anna", "Kowalski", "", "a@gmail.com");
+
+        });
+    }
+
+    [Test]
+    public void PhoneNumber_ShouldThrowAnInvalidDataException_ForInvalidPhoneNumberString()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidDataException>(() =>
+        {
+            // Arrange
+            var client = new Client("Anna", "Kowalski", "828222", "annakowal@gmail.com");
+
+        });
+    }
+
+
+    [Test]
+    public void Email_ShouldThrowAnEmptyStringException_ForEmptyEmailString()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyStringException>(() =>
+        {
+            // Arrange
+            var client = new Client("Anna", "Kowalski", "828222222", "");
+
+        });
+    }
+
+    [Test]
+    public void Email_ShouldThrowAnInvalidDataException_ForInvalidEmailString()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidDataException>(() =>
+        {
+            // Arrange
+            var client = new Client("Anna", "Kowalski", "828222222", "annakowalgmail.com");
+
+        });
+    }
 }
+    
+
+
+  
+
+
+
+
 
 

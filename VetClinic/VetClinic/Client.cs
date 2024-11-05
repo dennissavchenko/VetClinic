@@ -1,4 +1,5 @@
 ﻿using VetClinic.Exceptions;
+using InvalidDataException = VetClinic.Exceptions.InvalidDataException;
 
 namespace VetClinic
 {
@@ -12,7 +13,7 @@ namespace VetClinic
             get => _firstName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value))
                     throw new EmptyStringException("FirstName can't be empty");
                 _firstName = value;
             }
@@ -24,7 +25,7 @@ namespace VetClinic
             get => _lastName;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value))
                     throw new EmptyStringException("LastName can't be empty");
                 _lastName = value;
             }
@@ -36,10 +37,10 @@ namespace VetClinic
             get => _phoneNumber;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value))
                     throw new EmptyStringException("PhoneNumber can't be empty.");
                 if (value.Length != 9)
-                    throw new ArgumentException("PhoneNumber must have 9 digits.");
+                    throw new InvalidDataException("PhoneNumber must have 9 digits.");
                 _phoneNumber = value;
             }
         }
@@ -50,10 +51,10 @@ namespace VetClinic
             get => _email;
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (string.IsNullOrEmpty(value))
                     throw new EmptyStringException("Email can't be empty.");
                 if (!System.Text.RegularExpressions.Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"))
-                    throw new ArgumentException("Email must be a valid format.");
+                    throw new InvalidDataException("Email must be a valid format.");
                 _email = value;
             }
         }

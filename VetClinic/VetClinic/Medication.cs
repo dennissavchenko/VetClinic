@@ -1,4 +1,7 @@
-﻿namespace VetClinic
+﻿using VetClinic.Exceptions;
+using InvalidDataException = VetClinic.Exceptions.InvalidDataException;
+
+namespace VetClinic
 {
     public enum Form { Pill, Injection, Cream, Powder }
 
@@ -13,7 +16,7 @@
             set
             {
                 if (string.IsNullOrEmpty(value))
-                    throw new ArgumentException("Name is mandatory and cannot be empty.");
+                    throw new EmptyStringException("Name is mandatory and cannot be empty.");
                 _name = value;
             }
         }
@@ -25,7 +28,7 @@
             set
             {
                 if (!Enum.IsDefined(typeof(Form), value))
-                    throw new ArgumentException("Form is mandatory and must be a valid value.");
+                    throw new InvalidDataException("Form is mandatory and must be a valid value.");
                 _form = value;
             }
         }
