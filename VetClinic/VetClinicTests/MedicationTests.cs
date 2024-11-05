@@ -86,9 +86,7 @@ namespace VetClinicTests
                 Assert.That(extent[0].Name, Is.EqualTo("gel"));
                 Assert.That(extent[0].Form, Is.EqualTo(Form.Cream));
             }
-
-         
-
+            
             [Test]
             public void Name_ShouldThrowAnEmptyStringException_ForEmptyNameString()
             {
@@ -99,10 +97,5 @@ namespace VetClinicTests
                     var medication = new Medication("",Form.Pill);
                 });
             }
-
-    
-
-
-
     }
 }

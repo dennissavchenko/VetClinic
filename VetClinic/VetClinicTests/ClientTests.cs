@@ -130,7 +130,7 @@ public class ClientTests
     }
 
     [Test]
-    public void PhoneNumber_ShouldThrowAnInvalidDataException_ForInvalidPhoneNumberString()
+    public void PhoneNumber_ShouldThrowAnInvalidFormatException_ForInvalidPhoneNumberString()
     {
         // Act & Assert
         Assert.Throws<InvalidFormatException>(() =>
