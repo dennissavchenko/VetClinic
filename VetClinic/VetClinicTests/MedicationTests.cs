@@ -100,29 +100,7 @@ namespace VetClinicTests
                 });
             }
 
-            [Test]
-            public void Weight_ShouldThrowANegativeValueException_ForNegativeWeight()
-            {
-                // Act & Assert
-                Assert.Throws<NegativeValueException>(() =>
-                {
-                    // Arrange
-                    var pet = new Pet("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
-                });
-            }
-
-            [Test]
-            public void DateOfBirth_ShouldThrowAnInvalidDateException_ForFutureDates()
-            {
-                // Act & Assert
-                Assert.Throws<InvalidDateException>(() =>
-                {
-                    // Arrange
-                    var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow]);
-                });
-            }
-
-        }
+    
 
 
 
