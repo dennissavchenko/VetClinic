@@ -103,18 +103,6 @@ public class PregnantTests
         Assert.That(extent[0].LitterSize, Is.EqualTo(3));
     }
 
-    // Tests for invalid conditions
-    [Test]
-    public void DueDate_ShouldThrowInvalidDateException_ForPastDueDate()
-    {
-        // Act & Assert
-        Assert.Throws<InvalidDateException>(() =>
-        {
-            // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddDays(-1), 3);
-        });
-    }
-
     [Test]
     public void DueDate_ShouldThrowInvalidDateException_ForDueDateBeforeDateOfBirth()
     {
@@ -141,8 +129,7 @@ public class PregnantTests
             var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), -3);
         });
     }
-
-    // Include Pet tests here (Assuming the Pet class has similar validations)
+    
     [Test]
     public void Name_ShouldThrowAnEmptyStringException_ForEmptyNameString()
     {

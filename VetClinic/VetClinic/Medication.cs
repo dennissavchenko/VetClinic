@@ -1,5 +1,4 @@
 ﻿using VetClinic.Exceptions;
-using InvalidDataException = VetClinic.Exceptions.InvalidDataException;
 
 namespace VetClinic
 {
@@ -20,18 +19,7 @@ namespace VetClinic
                 _name = value;
             }
         }
-
-        private Form _form;
-        public Form Form
-        {
-            get => _form;
-            set
-            {
-                if (!Enum.IsDefined(typeof(Form), value))
-                    throw new InvalidDataException("Form is mandatory and must be a valid value.");
-                _form = value;
-            }
-        }
+        public Form Form { get; set; }
 
         public Medication() { }
 

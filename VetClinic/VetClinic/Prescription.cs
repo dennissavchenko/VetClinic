@@ -7,34 +7,28 @@ namespace VetClinic
         public int Id { get; set; }
         private DateTime _startDate;
         private DateTime _endDate;
-
         public DateTime StartDate
         {
             get => _startDate;
             set
             {
-                if (value == default)
-                    throw new EmptyStringException("StartDate is mandatory and cannot be empty.");
+                if (_endDate != default && value > _endDate)
+                    throw new InvalidDateException("Start date must be before end date.");
                 _startDate = value;
-
-                if (_endDate != default && _endDate < _startDate)
-                    throw new InvalidDateException("EndDate must be later than StartDate.");
             }
         }
- public DateTime EndDate
+
+        public DateTime EndDate
         {
             get => _endDate;
             set
             {
-                if (value == default)
-                    throw new EmptyStringException("EndDate is mandatory and cannot be empty.");
-                if (value < _startDate)
-                    throw new InvalidDateException("EndDate must be later than StartDate.");
+                if (_startDate != default && value < _startDate)
+                    throw new InvalidDateException("End date must be after start date.");
                 _endDate = value;
             }
         }
-       
-
+        
         public Prescription() { }
 
         public Prescription(DateTime startDate, DateTime endDate)

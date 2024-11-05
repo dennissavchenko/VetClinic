@@ -1,7 +1,5 @@
-﻿using System.Net;
-using VetClinic;
+﻿using VetClinic;
 using VetClinic.Exceptions;
-using InvalidDataException = VetClinic.Exceptions.InvalidDataException;
 
 namespace VetClinicTests;
 
@@ -135,7 +133,7 @@ public class ClientTests
     public void PhoneNumber_ShouldThrowAnInvalidDataException_ForInvalidPhoneNumberString()
     {
         // Act & Assert
-        Assert.Throws<InvalidDataException>(() =>
+        Assert.Throws<InvalidFormatException>(() =>
         {
             // Arrange
             var client = new Client("Anna", "Kowalski", "828222", "annakowal@gmail.com");
@@ -160,7 +158,7 @@ public class ClientTests
     public void Email_ShouldThrowAnInvalidDataException_ForInvalidEmailString()
     {
         // Act & Assert
-        Assert.Throws<InvalidDataException>(() =>
+        Assert.Throws<InvalidFormatException>(() =>
         {
             // Arrange
             var client = new Client("Anna", "Kowalski", "828222222", "annakowalgmail.com");

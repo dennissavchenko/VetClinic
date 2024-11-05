@@ -14,11 +14,6 @@ public class Pregnant : Pet
             {
                 throw new InvalidDateException("Due date cannot be before the date of birth.");
             }
-            if (value < DateTime.Now)
-            {
-                throw new InvalidDateException("Due date cannot be in the past.");
-            }
-
             _dueDate = value;
         } 
     }

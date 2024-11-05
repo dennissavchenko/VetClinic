@@ -29,15 +29,15 @@ public class PrescriptionTests
     public void AddToExtent_ShouldAddPrescriptionCorrectly()
     {
         // Arrange
-        var prescription = new Prescription(new DateTime(2018, 5, 1), new DateTime(2018, 6, 1));
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
 
         // Act
         var extent = Prescription.GetExtent();
 
         // Assert
         Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].StartDate, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].EndDate, Is.EqualTo(new DateTime(2018, 6, 1)));
+        Assert.That(extent[0].StartDate, Is.EqualTo(DateTime.Today));
+        Assert.That(extent[0].EndDate, Is.EqualTo(DateTime.Today.AddMonths(1)));
 
     }
 
@@ -45,8 +45,8 @@ public class PrescriptionTests
     public void AddToExtent_ShouldAssignIdCorrectly()
     {
         // Arrange
-        var prescription1 = new Prescription(new DateTime(2020, 6, 10), new DateTime(2020, 8, 10));
-        var prescription2 = new Prescription(new DateTime(2019, 8, 15), new DateTime(2020, 6, 10));
+        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
 
         // Act
         var extent = Prescription.GetExtent();
@@ -61,14 +61,14 @@ public class PrescriptionTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var prescription = new Prescription(new DateTime(2017, 3, 20), new DateTime(2017, 6, 20));
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
 
         // Act
         var json = File.ReadAllText(_testPath);
 
         // Assert
-        Assert.IsTrue(json.Contains("\"StarDate\": \"2017-03-20T00:00:00\""));
-        Assert.IsTrue(json.Contains("\"EndDate\": \"2017-06-20T00:00:00\""));
+        Assert.IsTrue(json.Contains($"\"StartDate\": \"{DateTime.Today:yyyy-MM-ddTHH:mm:ss}"));
+        Assert.IsTrue(json.Contains($"\"EndDate\": \"{DateTime.Today.AddMonths(1):yyyy-MM-ddTHH:mm:ss}"));
 
     }
 
@@ -86,30 +86,19 @@ public class PrescriptionTests
         Assert.That(extent[0].StartDate, Is.EqualTo(new DateTime(2020, 05, 01)));
         Assert.That(extent[0].EndDate, Is.EqualTo(new DateTime(2020, 06, 01)));
     }
-
-
-
+    
     [Test]
-    public void StartDate_ShouldThrowAnEmptyStringException_ForEmptyStartDate()
+    public void StartDate_EndDate_ShouldThrowAnInvalidDateException_StartDateBiggerThanEndDate()
     {
         // Act & Assert
-        Assert.Throws<EmptyStringException>(() =>
+        Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var prescription = new Prescription(new DateTime(), new DateTime(2020, 1, 1));
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(-2));
         });
     }
-
-    [Test]
-    public void EndDate_ShouldThrowAEmptyStringException_ForEmptyEndDate()
-    {
-        // Act & Assert
-        Assert.Throws<EmptyStringException>(() =>
-        {
-            // Arrange
-            var prescription = new Prescription(new DateTime(2020, 1, 1), new DateTime());
-        });
-    }
+    
 }
+
 //Missing unitTesting for class Prescription/Dose/Medication.
 //Missing additional error handling for startdate/endDate in prescription
