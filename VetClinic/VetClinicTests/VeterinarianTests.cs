@@ -91,7 +91,7 @@ public class VeterinarianTests
         Assert.That(extent[0].FirstName, Is.EqualTo("Adam"));
         Assert.That(extent[0].LastName, Is.EqualTo("Szulc"));
         Assert.That(extent[0].PhoneNumber, Is.EqualTo("091234567"));
-        Assert.That(extent[0].Email, Is.EqualTo("aszulc@gmail.com"));
+        Assert.That(extent[0].Email, Is.EqualTo("adam.szulc@example.com"));
         Assert.That(extent[0].Specialization, Is.EqualTo("Ophthalmology"));
         Assert.That(extent[0].ExperienceLevel, Is.EqualTo("Senior"));
     }
@@ -157,7 +157,7 @@ public class VeterinarianTests
         Assert.Throws<InvalidFormatException>(() =>
         {
             // Arrange
-            var veterinarian = new Veterinarian("Anna", "Kowalska", "555666777", "akowal@gmail.com", "Dentistry", "Intermediate");
+            var veterinarian = new Veterinarian("Anna", "Kowalska", "555666777", "akowalgmail.com", "Dentistry", "Intermediate");
         });
     }
 
