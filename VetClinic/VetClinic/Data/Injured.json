@@ -11,5 +11,18 @@
       3
     ],
     "Age": 4
+  },
+  {
+    "InjuryType": 0,
+    "InjuryDate": "2021-03-15T00:00:00",
+    "Id": 64,
+    "Name": "Lola",
+    "Sex": 1,
+    "Weight": 3.5,
+    "DateOfBirth": "2020-02-14T00:00:00",
+    "Colors": [
+      3
+    ],
+    "Age": 4
   }
 ]

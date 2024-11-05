@@ -89,5 +89,109 @@
       8
     ],
     "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 35,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 39,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 43,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 47,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 51,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 55,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 59,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "WingsSpan": 0.25,
+    "CanFly": true,
+    "Id": 63,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
   }
 ]

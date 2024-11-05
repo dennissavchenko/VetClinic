@@ -82,5 +82,101 @@
       2
     ],
     "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 34,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 38,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 42,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 46,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 50,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 54,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 58,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Nocturnal": true,
+    "Id": 62,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
   }
 ]

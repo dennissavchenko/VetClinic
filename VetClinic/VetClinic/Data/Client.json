@@ -3,21 +3,21 @@
     "Id": 1,
     "FirstName": "Marek",
     "LastName": "Kowalski",
-    "PhoneNumber": "081821727",
+    "PhoneNumber": "123456789",
     "Email": "marek@gmail.com"
   },
   {
     "Id": 2,
     "FirstName": "Marek",
     "LastName": "Kowalski",
-    "PhoneNumber": "\u002B123456789",
+    "PhoneNumber": "123456789",
     "Email": "marek@gmail.com"
   },
   {
     "Id": 3,
     "FirstName": "Marek",
     "LastName": "Kowalski",
-    "PhoneNumber": "\u002B123456789",
+    "PhoneNumber": "123456789",
     "Email": "marek@gmail.com"
   }
 ]

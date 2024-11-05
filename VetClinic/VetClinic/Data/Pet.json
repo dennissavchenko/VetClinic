@@ -347,5 +347,399 @@
       8
     ],
     "Age": 4
+  },
+  {
+    "Id": 32,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 33,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 34,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 35,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 36,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 37,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 38,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 39,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 40,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 41,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 42,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 43,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 44,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 45,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 46,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 47,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 48,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 49,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 50,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 51,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 52,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 53,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 54,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 55,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 56,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 57,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 58,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 59,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 60,
+    "Name": "Pio\u0142un",
+    "Sex": 0,
+    "Weight": 5.2,
+    "DateOfBirth": "2019-05-12T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 5
+  },
+  {
+    "Id": 61,
+    "Name": "Goldie",
+    "Sex": 1,
+    "Weight": 0.3,
+    "DateOfBirth": "2021-06-15T00:00:00",
+    "Colors": [
+      4
+    ],
+    "Age": 3
+  },
+  {
+    "Id": 62,
+    "Name": "Burek",
+    "Sex": 0,
+    "Weight": 12.5,
+    "DateOfBirth": "2018-03-22T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 6
+  },
+  {
+    "Id": 63,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2020-04-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 64,
+    "Name": "Lola",
+    "Sex": 1,
+    "Weight": 3.5,
+    "DateOfBirth": "2020-02-14T00:00:00",
+    "Colors": [
+      3
+    ],
+    "Age": 4
+  },
+  {
+    "Id": 65,
+    "Name": "Momo",
+    "Sex": 0,
+    "Weight": 2.5,
+    "DateOfBirth": "2015-04-13T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 9
+  },
+  {
+    "Id": 66,
+    "Name": "Mimi",
+    "Sex": 1,
+    "Weight": 1.5,
+    "DateOfBirth": "2019-06-15T00:00:00",
+    "Colors": [
+      7
+    ],
+    "Age": 5
   }
 ]

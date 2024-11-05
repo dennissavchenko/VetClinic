@@ -77,7 +77,7 @@ namespace VetClinicTests
         public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
         {
             // Arrange
-            File.WriteAllText(_testPath, "[{\"Id\":1,\"Description\":\"Take two per day\",\"Amount\":30");
+            File.WriteAllText(_testPath, "[{\"Id\":1,\"Description\":\"Take two per day\",\"Amount\":30}]");
 
             // Act
             var extent = Dose.GetExtent();
