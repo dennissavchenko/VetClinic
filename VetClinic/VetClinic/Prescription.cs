@@ -11,9 +11,7 @@ namespace VetClinic
         {
             get => _startDate;
             set
-            {
-                if (value < DateTime.Now.Date)
-                    throw new InvalidDateException("Start date cannot be in the past."); //Im not sure about this
+            { 
                 if (_endDate != default && value > _endDate)
                     throw new InvalidDateException("Start date must be before end date.");
                 _startDate = value;

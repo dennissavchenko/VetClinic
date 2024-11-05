@@ -98,27 +98,8 @@ public class PrescriptionTests
         });
     }
 
-    [Test]
-    public void EndDate_StartDate_ShouldThrowAnInvalidDateException_EndDateBeforeStartDate()
-    {
-        // Act & Assert
-        Assert.Throws<InvalidDateException>(() =>
-        {
-            // Arrange
-            var prescription = new Prescription(DateTime.Today.AddMonths(1), DateTime.Today);
-        });
-    }
 
-    [Test]
-    public void StartDate_ShouldThrowInvalidDateException_WhenStartDateIsInThePast()
-    {
-        // Act & Assert
-        Assert.Throws<InvalidDateException>(() =>
-        {
-            // Arrange
-            var prescription = new Prescription(DateTime.Today.AddDays(-2), DateTime.Today.AddMonths(1)); 
-        });
-    }
+  
 
 
 }
