@@ -94,11 +94,31 @@ public class PrescriptionTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(-2));
+            var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(-2));
         });
     }
-    
-}
 
-//Missing unitTesting for class Prescription/Dose/Medication.
-//Missing additional error handling for startdate/endDate in prescription
+    [Test]
+    public void EndDate_StartDate_ShouldThrowAnInvalidDateException_EndDateBeforeStartDate()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidDateException>(() =>
+        {
+            // Arrange
+            var prescription = new Prescription(DateTime.Today.AddMonths(1), DateTime.Today);
+        });
+    }
+
+    [Test]
+    public void StartDate_ShouldThrowInvalidDateException_WhenStartDateIsInThePast()
+    {
+        // Act & Assert
+        Assert.Throws<InvalidDateException>(() =>
+        {
+            // Arrange
+            var prescription = new Prescription(DateTime.Today.AddDays(-2), DateTime.Today.AddMonths(1)); 
+        });
+    }
+
+
+}

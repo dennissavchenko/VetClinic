@@ -12,7 +12,7 @@ namespace VetClinic
             get => _description;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                     throw new EmptyStringException("Description can't be empty.");
                 _description = value;
             }

@@ -14,7 +14,7 @@ namespace VetClinic
             get => _name;
             set
             {
-                if (string.IsNullOrEmpty(value))
+                if (string.IsNullOrWhiteSpace(value))
                     throw new EmptyStringException("Name is mandatory and cannot be empty.");
                 _name = value;
             }
