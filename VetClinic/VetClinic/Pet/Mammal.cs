@@ -1,3 +1,5 @@
+using System.Text;
+
 namespace VetClinic;
 
 public class Mammal : Pet
@@ -31,6 +33,16 @@ public class Mammal : Pet
         {
             Console.WriteLine(mammal);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var mammal in GetExtent())
+        {
+            list.Add(mammal.ToString());
+        }
+        return list;
     }
     
 }

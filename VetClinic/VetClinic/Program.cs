@@ -22,6 +22,7 @@ Healthy healthy1 = new Healthy("Momo", Sex.Male, 2.5, new DateTime(2015, 4, 13),
     ActivityLevel.Low, null);
 Pregnant pregnant1 = new Pregnant("Mimi", Sex.Female, 1.5, new DateTime(2019, 6, 15), [Color.Cream], DateTime.Today.AddMonths(1), 3);
 
+Console.WriteLine(Pet.GetExtentAsString());
 Pet.PrintExtent();
 Fish.PrintExtent();
 Mammal.PrintExtent();

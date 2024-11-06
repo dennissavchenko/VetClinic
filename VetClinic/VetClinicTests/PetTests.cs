@@ -27,32 +27,21 @@ public class PetTests
         public void AddToExtent_ShouldAddPetCorrectly()
         {
             // Arrange
-            var pet = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown]);
+            var pet1 = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown]);
+            var pat2 = new Pet("Momo", Sex.Male, 10, new DateTime(2018, 6, 12), [Color.Black, Color.White]);
 
             // Act
-            var extent = Pet.GetExtent();
+            var extent = Pet.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Buddy"));
-            Assert.That(extent[0].Sex, Is.EqualTo(Sex.Male));
-            Assert.That(extent[0].Weight, Is.EqualTo(15.5));
-        }
-
-        [Test]
-        public void AddToExtent_ShouldAssignIdCorrectly()
-        {
-            // Arrange
-            var pet1 = new Pet("Luna", Sex.Female, 4.5, new DateTime(2020, 6, 10), [Color.Gray]);
-            var pet2 = new Pet("Simba", Sex.Male, 6.2, new DateTime(2019, 8, 15), [Color.Yellow]);
-
-            // Act
-            var extent = Pet.GetExtent();
-
-            // Assert
-            Assert.That(extent.Count, Is.EqualTo(2));
-            Assert.That(extent[0].Id, Is.EqualTo(1));
-            Assert.That(extent[1].Id, Is.EqualTo(2));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Name=Buddy"));
+            Assert.IsTrue(extent[0].Contains("Sex=0"));
+            Assert.IsTrue(extent[0].Contains("Weight=15.5"));
+            Assert.IsTrue(extent[1].Contains("Id=2"));
+            Assert.IsTrue(extent[1].Contains("Name=Momo"));
+            Assert.IsTrue(extent[1].Contains("Sex=0"));
+            Assert.IsTrue(extent[1].Contains("Weight=10"));
         }
 
         [Test]
@@ -77,12 +66,13 @@ public class PetTests
             File.WriteAllText(_testPath, "[{\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":5.5,\"DateOfBirth\":\"2020-05-01T00:00:00\",\"Colors\":[9]}]");
 
             // Act
-            var extent = Pet.GetExtent();
+            var extent = Pet.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-            Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Name=Bella"));
+            Assert.IsTrue(extent[0].Contains("Sex=1"));
+            Assert.IsTrue(extent[0].Contains("Weight=5.5"));
         }
 
         [Test]

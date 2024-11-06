@@ -1,3 +1,4 @@
+using System.Text;
 using System.Text.Json;
 
 namespace VetClinic;
@@ -8,7 +9,7 @@ public abstract class StoredObject<T> where T : IIdentifiable
     private static List<T> _extent = new ();
     private static string _path = "../../../Data/" + typeof(T).Name + ".json";
     
-    public static List<T> GetExtent()
+    protected static List<T> GetExtent()
     {
         LoadExtent();
         return _extent;
@@ -23,12 +24,12 @@ public abstract class StoredObject<T> where T : IIdentifiable
         _extent.Add(obj);
         SaveExtent();
     }
-    public static void SaveExtent()
+    private static void SaveExtent()
     {
         string json = JsonSerializer.Serialize(_extent, new JsonSerializerOptions { WriteIndented = true });
         File.WriteAllText(_path, json);
     }
-    public static void LoadExtent()
+    private static void LoadExtent()
     {
         if (File.Exists(_path))
         {
@@ -56,7 +57,16 @@ public abstract class StoredObject<T> where T : IIdentifiable
         {
             Console.WriteLine(obj);
         }
-        
+    }
+
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var obj in GetExtent())
+        {
+            list.Add(obj.ToString() ?? "");
+        }
+        return list;
     }
     
 }
