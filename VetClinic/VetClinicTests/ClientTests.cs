@@ -27,34 +27,26 @@ public class ClientTests
     public void AddToExtent_ShouldAddClientCorrectly()
     {
         // Arrange
-        var client = new Client("Maciej", "Dominiak", "334499950", "Maciej@gmail.com");
+        var client1 = new Client("Maciej", "Dominiak", "334499950", "Maciej@gmail.com");
+        var client2 = new Client("Marco", "Rossi", "334494350", "Marco@gmail.com");
 
         // Act
-        var extent = Client.GetExtent();
+        var extent = Client.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].FirstName, Is.EqualTo("Maciej"));
-        Assert.That(extent[0].LastName, Is.EqualTo("Dominiak"));
-        Assert.That(extent[0].PhoneNumber, Is.EqualTo("334499950"));
-        Assert.That(extent[0].Email, Is.EqualTo("Maciej@gmail.com"));
+        Assert.That(extent[0].Contains("Id=1"));
 
-    }
+        Assert.That(extent[0].Contains("FirstName=Maciej"));
+        Assert.That(extent[0].Contains("LastName=Dominiak"));
+        Assert.That(extent[0].Contains("PhoneNumber=334499950"));
+        Assert.That(extent[0].Contains("Email=Maciej@gmail.com"));
+        Assert.That(extent[1].Contains("Id=2"));
 
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var client1 = new Client("Darma", "Bartoszewska", "234284882", "darma@gmail.com");
-        var client2 = new Client("Joel", "Smith", "278811800", "joel@gmail.com");
+        Assert.That(extent[1].Contains("FirstName=Marco"));
+        Assert.That(extent[1].Contains("LastName=Rossi"));
+        Assert.That(extent[1].Contains("PhoneNumber=334494350"));
+        Assert.That(extent[1].Contains("Email=Marco@gmail.com"));
 
-        // Act
-        var extent = Client.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
     }
 
     [Test]
@@ -81,14 +73,14 @@ public class ClientTests
         File.WriteAllText(_testPath, "[{ \"Id\": 1, \"FirstName\": \"Marek\", \"LastName\": \"Kowalski\", \"PhoneNumber\": \"081821727\", \"Email\": \"marek@gmail.com\" }]");
 
         // Act
-        var extent = Client.GetExtent();
+        var extent = Client.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].FirstName, Is.EqualTo("Marek"));
-        Assert.That(extent[0].LastName, Is.EqualTo("Kowalski"));
-        Assert.That(extent[0].PhoneNumber, Is.EqualTo("081821727"));
-        Assert.That(extent[0].Email, Is.EqualTo("marek@gmail.com"));
+        Assert.That(extent[0].Contains("Id=1"));
+        Assert.That(extent[0].Contains("FirstName=Marek"));
+        Assert.That(extent[0].Contains("LastName=Kowalski"));
+        Assert.That(extent[0].Contains("PhoneNumber=081821727"));
+        Assert.That(extent[0].Contains("Email=marek@gmail.com"));
 
 
     }
