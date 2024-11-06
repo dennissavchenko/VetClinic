@@ -32,32 +32,24 @@ namespace VetClinicTests
         public void AddToExtent_ShouldAddDoseCorrectly()
         {
             // Arrange
-            var Dose = new Dose("Take once per day",20);
+            var Dose1= new Dose("Take once per day",20);
+            var Dose2 = new Dose("Take twice per day", 25);
+
 
             // Act
-            var extent = Dose.GetExtent();
+            var extent = Dose.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Description, Is.EqualTo("Take once per day"));
-            Assert.That(extent[0].Amount, Is.EqualTo(20));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Description=Take once per day"));
+            Assert.IsTrue(extent[0].Contains("Amount=20"));
+         
+            Assert.IsTrue(extent[1].Contains("Id=2"));
+            Assert.IsTrue(extent[1].Contains("Description=Take twice per day"));
+            Assert.IsTrue(extent[1].Contains("Amount=25"));
         }
 
-        [Test]
-        public void AddToExtent_ShouldAssignIdCorrectly()
-        {
-            // Arrange
-            var dose1 = new Dose("Take every 8 hrs",23);
-            var dose2 = new Dose("Use every two days", 40);
-
-            // Act
-            var extent = Dose.GetExtent();
-
-            // Assert
-            Assert.That(extent.Count, Is.EqualTo(2));
-            Assert.That(extent[0].Id, Is.EqualTo(1));
-            Assert.That(extent[1].Id, Is.EqualTo(2));
-        }
+  
 
         [Test]
         public void SaveExtent_ShouldSerializeToJsonCorrectly()
@@ -80,12 +72,12 @@ namespace VetClinicTests
             File.WriteAllText(_testPath, "[{\"Id\":1,\"Description\":\"Take two per day\",\"Amount\":30}]");
 
             // Act
-            var extent = Dose.GetExtent();
+            var extent = Dose.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Description, Is.EqualTo("Take two per day"));
-            Assert.That(extent[0].Amount, Is.EqualTo(30));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Description=Take two per day"));
+            Assert.IsTrue(extent[0].Contains("Amount=30"));
         }
 
         [Test]

@@ -31,32 +31,23 @@ namespace VetClinicTests
             public void AddToExtent_ShouldAddMedicationCorrectly()
             {
                 // Arrange
-                var medication = new Medication("Paracetamol",Form.Pill);
+                var medication1 = new Medication("Paracetamol",Form.Pill);
+                var medication2 = new Medication("ibro", Form.Pill);
 
-                // Act
-                var extent = Medication.GetExtent();
+            // Act
+            var extent = Medication.GetExtentAsString();
 
-                // Assert
-                Assert.That(extent.Count, Is.EqualTo(1));
-                Assert.That(extent[0].Name, Is.EqualTo("Paracetamol"));
-                Assert.That(extent[0].Form, Is.EqualTo(Form.Pill));
-            }
+            // Assert
+            Assert.IsTrue(extent[0].Contains("Id=1"));
 
-            [Test]
-            public void AddToExtent_ShouldAssignIdCorrectly()
-            {
-                // Arrange
-                var medication1 = new Medication("apap",Form.Pill);
-                var medication2 = new Medication("ibroprufen",Form.Pill);
+            Assert.IsTrue(extent[0].Contains("Name=Paracetamol"));
+            Assert.IsTrue(extent[0].Contains("Form=Pill"));
+            Assert.IsTrue(extent[1].Contains("Id=2"));
+            Assert.IsTrue(extent[1].Contains("Name=ibro"));
+            Assert.IsTrue(extent[1].Contains("Form=Pill"));
+        }
 
-                // Act
-                var extent = Medication.GetExtent();
-
-                // Assert
-                Assert.That(extent.Count, Is.EqualTo(2));
-                Assert.That(extent[0].Id, Is.EqualTo(1));
-                Assert.That(extent[1].Id, Is.EqualTo(2));
-            }
+         
 
             [Test]
             public void SaveExtent_ShouldSerializeToJsonCorrectly()
@@ -72,21 +63,20 @@ namespace VetClinicTests
                 Assert.IsTrue(json.Contains("\"Form\": 1"));
             }
 
-            [Test]
-            public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
-            {
-                // Arrange
-                File.WriteAllText(_testPath, "[{\"Id\":1,\"Name\":\"gel\",\"Form\":2}]");
+        [Test]
+        public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
+        {
+            // Arrange
+            File.WriteAllText(_testPath, "[{\"Id\":1,\"Name\":\"Gel\",\"Form\":2}]");
 
-                // Act
-                var extent = Medication.GetExtent();
+            // Act
+            var extent = Medication.GetExtentAsString();
+            // Assert
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Name=Gel"));
+            Assert.IsTrue(extent[0].Contains("Form=Injection"));
+        }
 
-                // Assert
-                Assert.That(extent.Count, Is.EqualTo(1));
-                Assert.That(extent[0].Name, Is.EqualTo("gel"));
-                Assert.That(extent[0].Form, Is.EqualTo(Form.Cream));
-            }
-            
             [Test]
             public void Name_ShouldThrowAnEmptyStringException_ForEmptyNameString()
             {

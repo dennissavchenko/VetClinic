@@ -32,7 +32,7 @@ public class PrescriptionTests
         var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
 
         // Act
-        var extent = Prescription.GetExtent();
+        var extent = Prescription.GetExtentAsString();
 
         // Assert
         Assert.That(extent.Count, Is.EqualTo(1));
