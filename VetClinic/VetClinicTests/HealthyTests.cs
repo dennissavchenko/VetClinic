@@ -1,5 +1,6 @@
 using VetClinic;
 using VetClinic.Exceptions;
+using DateTime = System.DateTime;
 
 namespace VetClinicTests;
 
@@ -33,63 +34,34 @@ public class HealthyTests
     public void AddToExtent_ShouldAddHealthyPetCorrectly()
     {
         // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet1 = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1),  [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet2 = new Healthy("Tom", Sex.Male, 12.6, new DateTime(2017, 1, 11), [Color.White], ActivityLevel.High, null);
 
         // Act
-        var extent = Healthy.GetExtent();
+        var extent = Healthy.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].ActivityLevel, Is.EqualTo(ActivityLevel.Medium));
-        Assert.That(extent[0].LastVaccinationDate, Is.EqualTo(new DateTime(2020, 5, 10)));
-    }
-    
-    [Test]
-    public void AddToExtent_ShouldAddHealthyPetCorrectly_LastVaccinationDate_IsNull()
-    {
-        // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, null);
-
-        // Act
-        var extent = Healthy.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].ActivityLevel, Is.EqualTo(ActivityLevel.Medium));
-        Assert.That(extent[0].LastVaccinationDate, Is.EqualTo(null));
-    }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var healthyPet1 = new Healthy("Luna", Sex.Female, 6.0, new DateTime(2019, 3, 15), new List<Color> { Color.Brown }, ActivityLevel.High, new DateTime(2021, 7, 10));
-        var healthyPet2 = new Healthy("Max", Sex.Male, 9.5, new DateTime(2017, 8, 22), new List<Color> { Color.Gray }, ActivityLevel.Low, new DateTime(2020, 12, 5));
-
-        // Act
-        var extent = Healthy.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("Colors=(White)"));
+        Assert.IsTrue(extent[0].Contains("ActivityLevel=Medium"));
+        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=5/10/2020"));
+        Assert.IsTrue(extent[1].Contains("Id=2"));
+        Assert.IsTrue(extent[1].Contains("Name=Tom"));
+        Assert.IsTrue(extent[1].Contains("Sex=Male"));
+        Assert.IsTrue(extent[1].Contains("Weight=12.6"));
+        Assert.IsTrue(extent[1].Contains("ActivityLevel=High"));
+        Assert.IsTrue(extent[1].Contains("LastVaccinationDate=NotVaccinated"));
     }
 
     [Test]
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
 
         // Act
         var json = File.ReadAllText(_testPathHealthy);
@@ -109,17 +81,17 @@ public class HealthyTests
         File.WriteAllText(_testPathHealthy, "[{\"ActivityLevel\":1,\"LastVaccinationDate\":\"2020-05-10T00:00:00\",\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":8.0,\"DateOfBirth\":\"2018-05-01T00:00:00\",\"Colors\":[1],\"Age\":5}]");
 
         // Act
-        var extent = Healthy.GetExtent();
+        var extent = Healthy.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].ActivityLevel, Is.EqualTo(ActivityLevel.Medium));
-        Assert.That(extent[0].LastVaccinationDate, Is.EqualTo(new DateTime(2020, 5, 10)));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("ActivityLevel=Medium"));
+        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=5/10/2020"));
+        
     }
     
     [Test]
@@ -129,7 +101,7 @@ public class HealthyTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+            var healthyPet = new Healthy("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
         });
     }
 
@@ -140,7 +112,7 @@ public class HealthyTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, -1.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+            var healthyPet = new Healthy("Bella", Sex.Female, -1.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
         });
     }
     
@@ -151,7 +123,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var healthyPet = new Healthy("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow], ActivityLevel.High, new DateTime(2020, 1, 1));
+            var healthyPet = new Healthy("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.White], ActivityLevel.High, new DateTime(2020, 1, 1));
         });
     }
 
@@ -162,7 +134,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, DateTime.Now.AddDays(1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, DateTime.Now.AddDays(1));
         });
     }
 
@@ -173,7 +145,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2017, 1, 1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2017, 1, 1));
         });
     }
 
@@ -181,7 +153,7 @@ public class HealthyTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
 
         // Act
         int age = healthyPet.Age;

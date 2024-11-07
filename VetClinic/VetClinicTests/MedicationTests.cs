@@ -32,19 +32,19 @@ namespace VetClinicTests
             {
                 // Arrange
                 var medication1 = new Medication("Paracetamol",Form.Pill);
-                var medication2 = new Medication("ibro", Form.Pill);
+                var medication2 = new Medication("Alfalfa", Form.Syrup);
 
             // Act
             var extent = Medication.GetExtentAsString();
 
             // Assert
             Assert.IsTrue(extent[0].Contains("Id=1"));
-
             Assert.IsTrue(extent[0].Contains("Name=Paracetamol"));
             Assert.IsTrue(extent[0].Contains("Form=Pill"));
             Assert.IsTrue(extent[1].Contains("Id=2"));
-            Assert.IsTrue(extent[1].Contains("Name=ibro"));
-            Assert.IsTrue(extent[1].Contains("Form=Pill"));
+            Assert.IsTrue(extent[1].Contains("Name=Alfalfa"));
+            Assert.IsTrue(extent[1].Contains("Form=Syrup"));
+            
         }
 
          
@@ -74,7 +74,7 @@ namespace VetClinicTests
             // Assert
             Assert.IsTrue(extent[0].Contains("Id=1"));
             Assert.IsTrue(extent[0].Contains("Name=Gel"));
-            Assert.IsTrue(extent[0].Contains("Form=Injection"));
+            Assert.IsTrue(extent[0].Contains("Form=Cream"));
         }
 
             [Test]

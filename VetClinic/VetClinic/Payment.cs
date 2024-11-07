@@ -45,7 +45,7 @@ public class Payment: StoredObject<Payment>, IIdentifiable
     
     public override string ToString()
     {
-        return $"Id={Id}, Amount={Amount}, Type={PaymentType}, DateTime={DateTime}";
+        return $"Id={Id}, Amount={Amount}, PaymentType={PaymentType.ToString()}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}";
     }
     
 }

@@ -35,13 +35,11 @@ public class ClientTests
 
         // Assert
         Assert.That(extent[0].Contains("Id=1"));
-
         Assert.That(extent[0].Contains("FirstName=Maciej"));
         Assert.That(extent[0].Contains("LastName=Dominiak"));
         Assert.That(extent[0].Contains("PhoneNumber=334499950"));
         Assert.That(extent[0].Contains("Email=Maciej@gmail.com"));
         Assert.That(extent[1].Contains("Id=2"));
-
         Assert.That(extent[1].Contains("FirstName=Marco"));
         Assert.That(extent[1].Contains("LastName=Rossi"));
         Assert.That(extent[1].Contains("PhoneNumber=334494350"));

@@ -27,33 +27,37 @@ public class PaymentTests
     public void AddToExtent_ShouldAddPaymentCorrectly()
     {
         // Arrange
-        var paymentDate = new DateTime(2018, 5, 1);
-        var payment = new Payment(200, PaymentType.Cash, paymentDate);
+        var payment1 = new Payment(150, PaymentType.Cash, new DateTime(2018, 5, 1, 16, 32, 34));
+        var payment2 = new Payment(200, PaymentType.Card, new DateTime(2018, 5, 2, 16, 2, 51));
 
         // Act
-        var extent = Payment.GetExtent();
+        var extent = Payment.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Amount, Is.EqualTo(200));
-        Assert.That(extent[0].PaymentType, Is.EqualTo(PaymentType.Cash));
-        Assert.That(extent[0].DateTime, Is.EqualTo(paymentDate));
+        Assert.That(extent[0].Contains("Id=1"));
+        Assert.That(extent[0].Contains("PaymentType=Cash"));
+        Assert.That(extent[0].Contains("DateTime=2018-05-01T16:32:34"));
+        Assert.That(extent[0].Contains("Amount=150"));
+        Assert.That(extent[1].Contains("Id=2"));
+        Assert.That(extent[1].Contains("PaymentType=Card"));
+        Assert.That(extent[1].Contains("DateTime=2018-05-02T16:02:51"));
+        Assert.That(extent[1].Contains("Amount=200"));
     }
     
     [Test]
     public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
     {
         // Arrange
-        File.WriteAllText(_testPath, "[{ \"Id\": 1, \"Amount\": 150, \"Type\": \"Cash\", \"DateTime\": \"2018-05-01T00:00:00\" }]");
+        File.WriteAllText(_testPath, "[{ \"Id\": 1, \"Amount\": 150, \"Type\": 0, \"DateTime\": \"2018-05-01T16:32:34\" }]");
 
         // Act
-        var extent = Payment.GetExtent();
+        var extent = Payment.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Amount, Is.EqualTo(150));
-        Assert.That(extent[0].PaymentType, Is.EqualTo(PaymentType.Cash));
-        Assert.That(extent[0].DateTime, Is.EqualTo(new DateTime(2018, 5, 1)));
+        Assert.That(extent[0].Contains("Id=1"));
+        Assert.That(extent[0].Contains("PaymentType=Cash"));
+        Assert.That(extent[0].Contains("DateTime=2018-05-01T16:32:34"));
+        Assert.That(extent[0].Contains("Amount=150"));
     }
 
     [Test]

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using VetClinic.Exceptions;
+﻿using VetClinic.Exceptions;
 using VetClinic;
 
 namespace VetClinicTests
@@ -32,8 +27,8 @@ namespace VetClinicTests
         public void AddToExtent_ShouldAddDoseCorrectly()
         {
             // Arrange
-            var Dose1= new Dose("Take once per day",20);
-            var Dose2 = new Dose("Take twice per day", 25);
+            var dose1 = new Dose("Take once per day",20);
+            var dose2 = new Dose("Take twice per day", 25);
 
 
             // Act
@@ -47,6 +42,7 @@ namespace VetClinicTests
             Assert.IsTrue(extent[1].Contains("Id=2"));
             Assert.IsTrue(extent[1].Contains("Description=Take twice per day"));
             Assert.IsTrue(extent[1].Contains("Amount=25"));
+            
         }
 
   

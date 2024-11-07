@@ -39,7 +39,7 @@ public class Healthy : Pet
         return "Healthy: " + base.ToString() + $", ActivityLevel={ActivityLevel.ToString()}, LastVaccinationDate={(LastVaccinationDate == null ? "NotVaccinated" : LastVaccinationDate.ToString())}";
     }
     
-    public new static List<Healthy> GetExtent()
+    private new static List<Healthy> GetExtent()
     {
         return StoredObject<Healthy>.GetExtent();
     }
@@ -53,6 +53,16 @@ public class Healthy : Pet
         {
             Console.WriteLine(healthy);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var healthy in GetExtent())
+        {
+            list.Add(healthy.ToString());
+        }
+        return list;
     }
     
 }

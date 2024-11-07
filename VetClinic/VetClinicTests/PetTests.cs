@@ -36,11 +36,13 @@ public class PetTests
             // Assert
             Assert.IsTrue(extent[0].Contains("Id=1"));
             Assert.IsTrue(extent[0].Contains("Name=Buddy"));
-            Assert.IsTrue(extent[0].Contains("Sex=0"));
+            Assert.IsTrue(extent[0].Contains("Sex=Male"));
             Assert.IsTrue(extent[0].Contains("Weight=15.5"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+            Assert.IsTrue(extent[0].Contains("Colors=(Brown)"));
             Assert.IsTrue(extent[1].Contains("Id=2"));
             Assert.IsTrue(extent[1].Contains("Name=Momo"));
-            Assert.IsTrue(extent[1].Contains("Sex=0"));
+            Assert.IsTrue(extent[1].Contains("Sex=Male"));
             Assert.IsTrue(extent[1].Contains("Weight=10"));
         }
 
@@ -71,7 +73,7 @@ public class PetTests
             // Assert
             Assert.IsTrue(extent[0].Contains("Id=1"));
             Assert.IsTrue(extent[0].Contains("Name=Bella"));
-            Assert.IsTrue(extent[0].Contains("Sex=1"));
+            Assert.IsTrue(extent[0].Contains("Sex=Female"));
             Assert.IsTrue(extent[0].Contains("Weight=5.5"));
         }
 

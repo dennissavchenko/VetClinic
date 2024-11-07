@@ -34,43 +34,34 @@ public class PregnantTests
     public void AddToExtent_ShouldAddPregnantPetCorrectly()
     {
         // Arrange
-        var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Today.AddMonths(1), 3);
+        var pregnantPet1 = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], new DateTime(2020, 5, 1), 3);
+        var pregnantPet2 = new Pregnant("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], new DateTime(2021, 5, 1), 10);
 
         // Act
-        var extent = Pregnant.GetExtent();
+        var extent = Pregnant.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].DueDate, Is.EqualTo(DateTime.Today.AddMonths(1)));
-        Assert.That(extent[0].LitterSize, Is.EqualTo(3));
-    }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var pregnantPet1 = new Pregnant("Luna", Sex.Female, 6.0, new DateTime(2019, 3, 15), new List<Color> { Color.Brown }, DateTime.Now.AddMonths(1), 2);
-        var pregnantPet2 = new Pregnant("Max", Sex.Male, 9.5, new DateTime(2017, 8, 22), new List<Color> { Color.Gray }, DateTime.Now.AddMonths(2), 4);
-
-        // Act
-        var extent = Pregnant.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("Colors=(White)"));
+        Assert.IsTrue(extent[0].Contains("DueDate=5/1/2020"));
+        Assert.IsTrue(extent[0].Contains("LitterSize=3"));
+        Assert.IsTrue(extent[1].Contains("Id=2"));
+        Assert.IsTrue(extent[1].Contains("Name=Momo"));
+        Assert.IsTrue(extent[1].Contains("Sex=Male"));
+        Assert.IsTrue(extent[1].Contains("Weight=4.6"));
+        Assert.IsTrue(extent[1].Contains("DueDate=5/1/2021"));
+        Assert.IsTrue(extent[1].Contains("LitterSize=10"));
     }
 
     [Test]
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Today.AddMonths(1), 3);
+        var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Today.AddMonths(1), 3);
 
         // Act
         var json = File.ReadAllText(_testPathPregnant);
@@ -87,20 +78,20 @@ public class PregnantTests
     public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
     {
         // Arrange
-        File.WriteAllText(_testPathPregnant, "[{\"DueDate\":\"2024-12-01T00:00:00\",\"LitterSize\":3,\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":8.0,\"DateOfBirth\":\"2018-05-01T00:00:00\",\"Colors\":[1],\"Age\":6}]");
+        File.WriteAllText(_testPathPregnant, "[{\"DueDate\":\"2020-05-01T00:00:00\",\"LitterSize\":3,\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":8.0,\"DateOfBirth\":\"2018-05-01T00:00:00\",\"Colors\":[1],\"Age\":6}]");
 
         // Act
-        var extent = Pregnant.GetExtent();
+        var extent = Pregnant.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].DueDate, Is.EqualTo(new DateTime(2024, 12, 1)));
-        Assert.That(extent[0].LitterSize, Is.EqualTo(3));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("Colors=(White)"));
+        Assert.IsTrue(extent[0].Contains("DueDate=5/1/2020"));
+        Assert.IsTrue(extent[0].Contains("LitterSize=3"));
     }
 
     [Test]
@@ -110,7 +101,7 @@ public class PregnantTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, new DateTime(2017, 5, 10), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], new DateTime(2017, 5, 10), 3);
         });
     }
 
@@ -121,12 +112,12 @@ public class PregnantTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), 0);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 0);
         });
 
         Assert.Throws<NegativeValueException>(() =>
         {
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), -3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), -3);
         });
     }
     
@@ -137,7 +128,7 @@ public class PregnantTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 3);
         });
     }
 
@@ -148,7 +139,7 @@ public class PregnantTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 3);
         });
     }
 
@@ -159,7 +150,7 @@ public class PregnantTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), new List<Color> { Color.White }, DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], DateTime.Now.AddMonths(1), 3);
         });
     }
 }

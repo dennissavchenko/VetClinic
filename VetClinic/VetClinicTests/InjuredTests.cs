@@ -1,5 +1,6 @@
 using VetClinic;
 using VetClinic.Exceptions;
+using DateTime = System.DateTime;
 
 namespace VetClinicTests;
 
@@ -33,43 +34,34 @@ public class InjuredTests
     public void AddToExtent_ShouldAddInjuredPetCorrectly()
     {
         // Arrange
-        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2021, 5, 10));
+        var injuredPet1 = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
+        var injuredPet2 = new Injured("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], InjuryType.Sprain, new DateTime(2020, 5, 10));
 
         // Act
-        var extent = Injured.GetExtent();
+        var extent = Injured.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].InjuryType, Is.EqualTo(InjuryType.Wound));
-        Assert.That(extent[0].InjuryDate, Is.EqualTo(new DateTime(2021, 5, 10)));
-    }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var injuredPet1 = new Injured("Luna", Sex.Female, 6.0, new DateTime(2019, 3, 15), new List<Color> { Color.Brown }, InjuryType.Fracture, new DateTime(2021, 7, 10));
-        var injuredPet2 = new Injured("Max", Sex.Male, 9.5, new DateTime(2017, 8, 22), new List<Color> { Color.Gray }, InjuryType.Sprain, new DateTime(2020, 12, 5));
-
-        // Act
-        var extent = Injured.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("Colors=(White)"));
+        Assert.IsTrue(extent[0].Contains("InjuryType=Wound"));
+        Assert.IsTrue(extent[0].Contains("InjuryDate=5/10/2021"));
+        Assert.IsTrue(extent[1].Contains("Id=2"));
+        Assert.IsTrue(extent[1].Contains("Name=Momo"));
+        Assert.IsTrue(extent[1].Contains("Sex=Male"));
+        Assert.IsTrue(extent[1].Contains("Weight=4.6"));
+        Assert.IsTrue(extent[1].Contains("InjuryType=Sprain"));
+        Assert.IsTrue(extent[1].Contains("InjuryDate=5/10/2020"));
     }
 
     [Test]
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2021, 5, 10));
+        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         
         // Act
         var json = File.ReadAllText(_testPathInjured);
@@ -89,17 +81,17 @@ public class InjuredTests
         File.WriteAllText(_testPathInjured, "[{\"InjuryType\":0,\"InjuryDate\":\"2021-05-10T00:00:00\",\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":8.0,\"DateOfBirth\":\"2018-05-01T00:00:00\",\"Colors\":[1],\"Age\":3}]");
 
         // Act
-        var extent = Injured.GetExtent();
+        var extent = Injured.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(8.0));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.White }));
-        Assert.That(extent[0].InjuryType, Is.EqualTo(InjuryType.Fracture));
-        Assert.That(extent[0].InjuryDate, Is.EqualTo(new DateTime(2021, 5, 10)));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=8"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("Colors=(White)"));
+        Assert.IsTrue(extent[0].Contains("InjuryType=Fracture"));
+        Assert.IsTrue(extent[0].Contains("InjuryDate=5/10/2021"));
     }
 
     [Test]
@@ -109,7 +101,7 @@ public class InjuredTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var injuredPet = new Injured("", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -120,7 +112,7 @@ public class InjuredTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -131,7 +123,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -142,7 +134,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, DateTime.Now.AddDays(1));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, DateTime.Now.AddDays(1));
         });
     }
     
@@ -150,7 +142,7 @@ public class InjuredTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Fracture, DateTime.Now.AddDays(-1));
+        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Fracture, DateTime.Now.AddDays(-1));
 
         // Act
         int age = injuredPet.Age;
@@ -166,7 +158,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), new List<Color> { Color.White }, InjuryType.Wound, new DateTime(2017, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2017, 5, 10));
         });
     }
 }

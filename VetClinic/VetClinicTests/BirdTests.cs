@@ -33,36 +33,27 @@ public class BirdTests
         public void AddToExtent_ShouldAddBirdCorrectly()
         {
             // Arrange
-            var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], 10, true);
+            var bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], 10, true);
+            var bird2 = new Bird("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], 50, false);
 
             // Act
-            var extent = Bird.GetExtent();
+            var extent = Bird.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Tweety"));
-            Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-            Assert.That(extent[0].Weight, Is.EqualTo(0.5));
-            Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2018, 5, 1)));
-            Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Brown }));
-            Assert.That(extent[0].WingsSpan, Is.EqualTo(10));
-            Assert.That(extent[0].CanFly, Is.EqualTo(true));
-        }
-
-        [Test]
-        public void AddToExtent_ShouldAssignIdCorrectly()
-        {
-            // Arrange
-            var bird1 = new Bird("Luna", Sex.Female, 0.1, new DateTime(2020, 6, 10), [Color.Gray], 15, true);
-            var bird2 = new Bird("Simba", Sex.Male, 0.2, new DateTime(2019, 8, 15), [Color.Yellow], 12, true);
-
-            // Act
-            var extent = Bird.GetExtent();
-
-            // Assert
-            Assert.That(extent.Count, Is.EqualTo(2));
-            Assert.That(extent[0].Id, Is.EqualTo(1));
-            Assert.That(extent[1].Id, Is.EqualTo(2));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Name=Tweety"));
+            Assert.IsTrue(extent[0].Contains("Sex=Female"));
+            Assert.IsTrue(extent[0].Contains("Weight=0.5"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+            Assert.IsTrue(extent[0].Contains("Colors=(Brown)"));
+            Assert.IsTrue(extent[0].Contains("WingsSpan=10"));
+            Assert.IsTrue(extent[0].Contains("CanFly=True"));
+            Assert.IsTrue(extent[1].Contains("Id=2"));
+            Assert.IsTrue(extent[1].Contains("Name=Momo"));
+            Assert.IsTrue(extent[1].Contains("Sex=Male"));
+            Assert.IsTrue(extent[1].Contains("Weight=0.45"));
+            Assert.IsTrue(extent[1].Contains("WingsSpan=50"));
+            Assert.IsTrue(extent[1].Contains("CanFly=False"));
         }
 
         [Test]
@@ -88,17 +79,17 @@ public class BirdTests
             File.WriteAllText(_testPathBird, "[{\"WingsSpan\":10,\"CanFly\":true,\"Id\":11,\"Name\":\"Tweety\",\"Sex\":1,\"Weight\":0.5,\"DateOfBirth\":\"2020-04-10T00:00:00\",\"Colors\":[8],\"Age\":4}]");
 
             // Act
-            var extent = Bird.GetExtent();
+            var extent = Bird.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Tweety"));
-            Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-            Assert.That(extent[0].Weight, Is.EqualTo(0.5));
-            Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2020, 4, 10)));
-            Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Yellow }));
-            Assert.That(extent[0].WingsSpan, Is.EqualTo(10));
-            Assert.That(extent[0].CanFly, Is.EqualTo(true));
+            Assert.IsTrue(extent[0].Contains("Id=1"));
+            Assert.IsTrue(extent[0].Contains("Name=Tweety"));
+            Assert.IsTrue(extent[0].Contains("Sex=Female"));
+            Assert.IsTrue(extent[0].Contains("Weight=0.5"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=4/10/2020"));
+            Assert.IsTrue(extent[0].Contains("Colors=(Yellow)"));
+            Assert.IsTrue(extent[0].Contains("WingsSpan=10"));
+            Assert.IsTrue(extent[0].Contains("CanFly=True"));
         }
 
         [Test]

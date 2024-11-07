@@ -1,7 +1,5 @@
-﻿using System.Reflection;
-using VetClinic;
+﻿using VetClinic;
 using VetClinic.Exceptions;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace VetClinicTests;
 
@@ -29,32 +27,20 @@ public class PrescriptionTests
     public void AddToExtent_ShouldAddPrescriptionCorrectly()
     {
         // Arrange
-        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var prescription2 = new Prescription(DateTime.Today.AddMonths(-1), DateTime.Today.AddDays(3));
 
         // Act
         var extent = Prescription.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].StartDate, Is.EqualTo(DateTime.Today));
-        Assert.That(extent[0].EndDate, Is.EqualTo(DateTime.Today.AddMonths(1)));
+        Assert.That(extent[0].Contains("Id=1"));
+        Assert.That(extent[0].Contains($"StartDate={DateTime.Today.ToShortDateString()}"));
+        Assert.That(extent[0].Contains($"EndDate={DateTime.Today.AddMonths(1).ToShortDateString()}"));
+        Assert.That(extent[1].Contains("Id=2"));
+        Assert.That(extent[1].Contains($"StartDate={DateTime.Today.AddMonths(-1).ToShortDateString()}"));
+        Assert.That(extent[1].Contains($"EndDate={DateTime.Today.AddDays(3).ToShortDateString()}"));
 
-    }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-        var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-
-        // Act
-        var extent = Prescription.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
     }
 
     [Test]
@@ -76,15 +62,15 @@ public class PrescriptionTests
     public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
     {
         // Arrange
-        File.WriteAllText(_testPath, "[{\"StartDate\":\"2020-05-01T00:00:00\",\"EndDate\":\"2020-06-01T00:00:00\"}]");
+        File.WriteAllText(_testPath, "[{\"Id\": 1, \"StartDate\":\"2020-05-01T00:00:00\",\"EndDate\":\"2020-06-01T00:00:00\"}]");
 
         // Act
-        var extent = Prescription.GetExtent();
+        var extent = Prescription.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].StartDate, Is.EqualTo(new DateTime(2020, 05, 01)));
-        Assert.That(extent[0].EndDate, Is.EqualTo(new DateTime(2020, 06, 01)));
+        Assert.That(extent[0].Contains("Id=1"));
+        Assert.That(extent[0].Contains("StartDate=5/1/2020"));
+        Assert.That(extent[0].Contains("EndDate=6/1/2020"));
     }
     
     [Test]
@@ -97,9 +83,5 @@ public class PrescriptionTests
             var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(-2));
         });
     }
-
-
-  
-
 
 }

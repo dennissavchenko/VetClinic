@@ -41,7 +41,7 @@ namespace VetClinic
 
         public override string ToString()
         {
-            return $"Description={Description}, Amount={Amount}";
+            return $"Id={Id}, Description={Description}, Amount={Amount}";
         }
     }
 }

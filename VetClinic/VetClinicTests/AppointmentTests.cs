@@ -26,32 +26,19 @@ public class AppointmentTests
         public void AddToExtent_ShouldAddAppointmentCorrectly()
         {
             // Arrange
-            var appointmentDate = new DateTime(2018, 5, 1);
-            var appointment = new Appointment(appointmentDate, 150);
+            var appointment1 = new Appointment(new DateTime(2018, 5, 1, 16, 30, 00), 150);
+            var appointment2 = new Appointment(new DateTime(2018, 5, 2, 16, 00, 00), 200);
 
             // Act
-            var extent = Appointment.GetExtent();
+            var extent = Appointment.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].DateTime, Is.EqualTo(appointmentDate));
-            Assert.That(extent[0].Price, Is.EqualTo(150));
-        }
-
-        [Test]
-        public void AddToExtent_ShouldAssignIdCorrectly()
-        {
-            // Arrange
-            var appointment1 = new Appointment(new DateTime(2018, 5, 1, 10, 0, 0), 100);
-            var appointment2 = new Appointment(new DateTime(2018, 5, 2, 15, 0, 0), 200);
-
-            // Act
-            var extent = Appointment.GetExtent();
-
-            // Assert
-            Assert.That(extent.Count, Is.EqualTo(2));
-            Assert.That(extent[0].Id, Is.EqualTo(1));
-            Assert.That(extent[1].Id, Is.EqualTo(2));
+            Assert.That(extent[0].Contains("Id=1"));
+            Assert.That(extent[0].Contains("DateTime=2018-05-01T16:30:00"));
+            Assert.That(extent[0].Contains("Price=150"));
+            Assert.That(extent[1].Contains("Id=2"));
+            Assert.That(extent[1].Contains("DateTime=2018-05-02T16:00:00"));
+            Assert.That(extent[1].Contains("Price=200"));
         }
 
         [Test]
@@ -75,12 +62,12 @@ public class AppointmentTests
             File.WriteAllText(_testPath, "[{ \"Id\": 1, \"DateTime\": \"2018-05-01T14:30:00\", \"Price\": 150 }]");
 
             // Act
-            var extent = Appointment.GetExtent();
+            var extent = Appointment.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].DateTime, Is.EqualTo(new DateTime(2018, 5, 1, 14, 30, 0)));
-            Assert.That(extent[0].Price, Is.EqualTo(150));
+            Assert.That(extent[0].Contains("Id=1"));
+            Assert.That(extent[0].Contains("DateTime=2018-05-01T14:30:00"));
+            Assert.That(extent[0].Contains("Price=150"));
         }
 
         [Test]

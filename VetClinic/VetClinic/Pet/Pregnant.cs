@@ -45,7 +45,7 @@ public class Pregnant : Pet
         return "Pregnant: " + base.ToString() + $", DueDate={DueDate.ToShortDateString()} LitterSize={LitterSize}";
     }
     
-    public new static List<Pregnant> GetExtent()
+    private new static List<Pregnant> GetExtent()
     {
         return StoredObject<Pregnant>.GetExtent();
     }
@@ -59,6 +59,16 @@ public class Pregnant : Pet
         {
             Console.WriteLine(pregnant);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var pregnant in GetExtent())
+        {
+            list.Add(pregnant.ToString());
+        }
+        return list;
     }
     
 }

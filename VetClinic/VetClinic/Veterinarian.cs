@@ -2,6 +2,9 @@
 
 namespace VetClinic;
 
+public enum ExperienceLevel { Intern, Junior, Intermediate, Advanced, Senior }
+public enum Specialization { Surgery, Radiology, Dentistry, Ophthalmology, Dermatology }
+
 public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
 {
     public int Id { get; set; }
@@ -58,36 +61,15 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
             _email = value;
         }
     }
-
-    private string _specialization;
-    public string Specialization
-    {
-        get => _specialization;
-        set
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new EmptyStringException("Specialization can't be empty.");
-            _specialization = value;
-        }
-    }
-
-    private string _experienceLevel;
-    public string ExperienceLevel
-    {
-        get => _experienceLevel;
-        set
-        {
-            if (string.IsNullOrWhiteSpace(value))
-                throw new EmptyStringException("Experience level can't be empty.");
-            _experienceLevel = value;
-        }
-    }
+    
+    public Specialization Specialization { get; set; }
+    public ExperienceLevel ExperienceLevel { get; set; }
     
     private static readonly int MaxAppointmentsPerDay = 8;
     
     public Veterinarian() {}
 
-    public Veterinarian(string firstName, string lastName, string phoneNumber, string email, string specialization, string experienceLevel)
+    public Veterinarian(string firstName, string lastName, string phoneNumber, string email, Specialization specialization, ExperienceLevel experienceLevel)
     {
         FirstName = firstName;
         LastName = lastName;
@@ -100,6 +82,6 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     
     public override string ToString()
     {
-        return $"Id={Id}, FirstName={FirstName}, LastName={LastName}, PhoneNumber={PhoneNumber}, Email={Email}, Specialization={Specialization}, ExperienceLevel={ExperienceLevel}, MaxAppointmentsPerDay={MaxAppointmentsPerDay}";
+        return $"Id={Id}, FirstName={FirstName}, LastName={LastName}, PhoneNumber={PhoneNumber}, Email={Email}, Specialization={Specialization.ToString()}, ExperienceLevel={ExperienceLevel.ToString()}, MaxAppointmentsPerDay={MaxAppointmentsPerDay}";
     }
 }

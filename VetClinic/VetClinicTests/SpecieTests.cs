@@ -28,30 +28,19 @@ public class SpecieTests
         {
             // Arrange
             Specie dog = new Specie("Dog", "Canis lupus familiaris");
-
-            // Act
-            var extent = Specie.GetExtent();
-
-            // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Dog"));
-            Assert.That(extent[0].Description, Is.EqualTo("Canis lupus familiaris"));
-        }
-
-        [Test]
-        public void AddToExtent_ShouldAssignIdCorrectly()
-        {
-            // Arrange
-            Specie dog = new Specie("Dog", "Canis lupus familiaris");
             Specie cat = new Specie("Cat", "Felis catus");
 
             // Act
-            var extent = Specie.GetExtent();
+            var extent = Specie.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(2));
-            Assert.That(extent[0].Id, Is.EqualTo(1));
-            Assert.That(extent[1].Id, Is.EqualTo(2));
+            Assert.That(extent[0].Contains("Id=1"));
+            Assert.That(extent[0].Contains("Name=Dog"));
+            Assert.That(extent[0].Contains("Description=Canis lupus familiaris"));
+            Assert.That(extent[1].Contains("Id=2"));
+            Assert.That(extent[1].Contains("Name=Cat"));
+            Assert.That(extent[1].Contains("Description=Felis catus"));
+            
         }
 
         [Test]
@@ -72,15 +61,15 @@ public class SpecieTests
         public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
         {
             // Arrange
-            File.WriteAllText(_testPath, "[{\"Name\":\"Dog\", \"Description\": \"Canis lupus familiaris\"}]");
+            File.WriteAllText(_testPath, "[{\"Id\": 1, \"Name\":\"Dog\", \"Description\": \"Canis lupus familiaris\"}]");
 
             // Act
-            var extent = Specie.GetExtent();
+            var extent = Specie.GetExtentAsString();
 
             // Assert
-            Assert.That(extent.Count, Is.EqualTo(1));
-            Assert.That(extent[0].Name, Is.EqualTo("Dog"));
-            Assert.That(extent[0].Description, Is.EqualTo("Canis lupus familiaris"));
+            Assert.That(extent[0].Contains("Id=1"));
+            Assert.That(extent[0].Contains("Name=Dog"));
+            Assert.That(extent[0].Contains("Description=Canis lupus familiaris"));
         }
 
         [Test]

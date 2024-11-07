@@ -33,43 +33,35 @@ public class FishTests
     public void AddToExtent_ShouldAddFishCorrectly()
     {
         // Arrange
-        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+        var fish1 = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], WaterType.Freshwater, 22.5);
+        var fish2 = new Fish("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], WaterType.Saltwater, 15.0);
 
         // Act
-        var extent = Fish.GetExtent();
+        var extent = Fish.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Goldie"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(0.2));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2021, 3, 15)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Golden }));
-        Assert.That(extent[0].WaterType, Is.EqualTo(WaterType.Freshwater));
-        Assert.That(extent[0].WaterTemperature, Is.EqualTo(22.5));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Goldie"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=0.2"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=3/15/2021"));
+        Assert.IsTrue(extent[0].Contains("Colors=(Golden)"));
+        Assert.IsTrue(extent[0].Contains("WaterType=Freshwater"));
+        Assert.IsTrue(extent[0].Contains("WaterTemperature=22.5"));
+        Assert.IsTrue(extent[1].Contains("Id=2"));
+        Assert.IsTrue(extent[1].Contains("Name=Momo"));
+        Assert.IsTrue(extent[1].Contains("Sex=Male"));
+        Assert.IsTrue(extent[1].Contains("Weight=0.45"));
+        Assert.IsTrue(extent[1].Contains("WaterType=Saltwater"));
+        Assert.IsTrue(extent[1].Contains("WaterTemperature=15"));
+        
     }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var fish1 = new Fish("Nemo", Sex.Male, 0.1, new DateTime(2022, 2, 5), new List<Color> { Color.Red }, WaterType.Saltwater, 25.0);
-        var fish2 = new Fish("Dory", Sex.Female, 0.15, new DateTime(2021, 1, 20), new List<Color> { Color.Blue }, WaterType.Freshwater, 23.0);
-
-        // Act
-        var extent = Fish.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
-    }
-
+    
     [Test]
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], WaterType.Freshwater, 22.5);
 
         // Act
         var json = File.ReadAllText(_testPathFish);
@@ -89,24 +81,24 @@ public class FishTests
         File.WriteAllText(_testPathFish, "[{\"WaterType\":0,\"WaterTemperature\":22.5,\"Id\":1,\"Name\":\"Goldie\",\"Sex\":1,\"Weight\":0.2,\"DateOfBirth\":\"2021-03-15T00:00:00\",\"Colors\":[5],\"Age\":2}]");
 
         // Act
-        var extent = Fish.GetExtent();
+        var extent = Fish.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Goldie"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(0.2));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2021, 3, 15)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Red }));
-        Assert.That(extent[0].WaterType, Is.EqualTo(WaterType.Freshwater));
-        Assert.That(extent[0].WaterTemperature, Is.EqualTo(22.5));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Goldie"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=0.2"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=3/15/2021"));
+        Assert.IsTrue(extent[0].Contains("Colors=(Red)"));
+        Assert.IsTrue(extent[0].Contains("WaterType=Freshwater"));
+        Assert.IsTrue(extent[0].Contains("WaterTemperature=22.5"));
     }
 
     [Test]
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
 
         // Act
         int age = fish.Age;
@@ -122,7 +114,7 @@ public class FishTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var fish = new Fish("", Sex.Female, 0.2, new DateTime(2021, 1, 1), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+            var fish = new Fish("", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
         });
     }
 
@@ -133,7 +125,7 @@ public class FishTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, -0.2, new DateTime(2021, 1, 1), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+            var fish = new Fish("Goldie", Sex.Female, -0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
         });
     }
 
@@ -144,7 +136,7 @@ public class FishTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, DateTime.Now.AddDays(1), new List<Color> { Color.Golden }, WaterType.Freshwater, 22.5);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, DateTime.Now.AddDays(1), [Color.Golden], WaterType.Freshwater, 22.5);
         });
     }
 
@@ -155,7 +147,7 @@ public class FishTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), new List<Color> { Color.Golden }, WaterType.Freshwater, -5.0);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, -5.0);
         });
     }
 }

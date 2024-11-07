@@ -33,7 +33,7 @@ public class Bird : Pet
         return "Bird: " + base.ToString() + $", WingsSpan={WingsSpan}, CanFly={CanFly}";
     }
     
-    public new static List<Bird> GetExtent()
+    private new static List<Bird> GetExtent()
     {
         return StoredObject<Bird>.GetExtent();
     }
@@ -47,6 +47,16 @@ public class Bird : Pet
         {
             Console.WriteLine(bird);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var bird in GetExtent())
+        {
+            list.Add(bird.ToString());
+        }
+        return list;
     }
     
 }

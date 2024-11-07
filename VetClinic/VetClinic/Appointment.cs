@@ -29,7 +29,7 @@ public class Appointment: StoredObject<Appointment>, IIdentifiable
     
     public override string ToString()
     {
-        return $"Id={Id}, DateTime={DateTime}, Price={Price}";
+        return $"Id={Id}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}, Price={Price}";
     }
     
 }

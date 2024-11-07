@@ -2,7 +2,7 @@
 
 namespace VetClinic
 {
-    public enum Form { Pill, Injection, Cream, Powder }
+    public enum Form { Pill, Injection, Cream, Powder, Syrup }
 
     public class Medication : StoredObject<Medication>, IIdentifiable
     {

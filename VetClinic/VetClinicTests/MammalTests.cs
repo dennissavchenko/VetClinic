@@ -33,42 +33,32 @@ public class MammalTests
     public void AddToExtent_ShouldAddMammalCorrectly()
     {
         // Arrange
-        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), new List<Color> { Color.Brown, Color.White }, true);
+        var mammal1 = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White], true);
+        var mammal2 = new Mammal("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], false);
 
         // Act
-        var extent = Mammal.GetExtent();
+        var extent = Mammal.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(12.5));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2019, 6, 15)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Brown, Color.White }));
-        Assert.That(extent[0].Nocturnal, Is.EqualTo(true));
-    }
-
-    [Test]
-    public void AddToExtent_ShouldAssignIdCorrectly()
-    {
-        // Arrange
-        var mammal1 = new Mammal("Luna", Sex.Female, 15.0, new DateTime(2020, 1, 10), new List<Color> { Color.Gray }, true);
-        var mammal2 = new Mammal("Max", Sex.Male, 20.5, new DateTime(2018, 3, 5), new List<Color> { Color.Black }, false);
-
-        // Act
-        var extent = Mammal.GetExtent();
-
-        // Assert
-        Assert.That(extent.Count, Is.EqualTo(2));
-        Assert.That(extent[0].Id, Is.EqualTo(1));
-        Assert.That(extent[1].Id, Is.EqualTo(2));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=12.5"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=6/15/2019"));
+        Assert.IsTrue(extent[0].Contains("Colors=(Brown, White)"));
+        Assert.IsTrue(extent[0].Contains("Nocturnal=True"));
+        Assert.IsTrue(extent[1].Contains("Id=2"));
+        Assert.IsTrue(extent[1].Contains("Name=Momo"));
+        Assert.IsTrue(extent[1].Contains("Sex=Male"));
+        Assert.IsTrue(extent[1].Contains("Weight=4.6"));
+        Assert.IsTrue(extent[1].Contains("Nocturnal=False"));
     }
 
     [Test]
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), new List<Color> { Color.Brown, Color.White }, true);
+        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White], true);
 
         // Act
         var json = File.ReadAllText(_testPathMammal);
@@ -87,23 +77,23 @@ public class MammalTests
         File.WriteAllText(_testPathMammal, "[{\"Nocturnal\":true,\"Id\":1,\"Name\":\"Bella\",\"Sex\":1,\"Weight\":12.5,\"DateOfBirth\":\"2019-06-15T00:00:00\",\"Colors\":[2,1],\"Age\":4}]");
 
         // Act
-        var extent = Mammal.GetExtent();
+        var extent = Mammal.GetExtentAsString();
 
         // Assert
-        Assert.That(extent.Count, Is.EqualTo(1));
-        Assert.That(extent[0].Name, Is.EqualTo("Bella"));
-        Assert.That(extent[0].Sex, Is.EqualTo(Sex.Female));
-        Assert.That(extent[0].Weight, Is.EqualTo(12.5));
-        Assert.That(extent[0].DateOfBirth, Is.EqualTo(new DateTime(2019, 6, 15)));
-        Assert.That(extent[0].Colors, Is.EqualTo(new List<Color> { Color.Brown, Color.White }));
-        Assert.That(extent[0].Nocturnal, Is.EqualTo(true));
+        Assert.IsTrue(extent[0].Contains("Id=1"));
+        Assert.IsTrue(extent[0].Contains("Name=Bella"));
+        Assert.IsTrue(extent[0].Contains("Sex=Female"));
+        Assert.IsTrue(extent[0].Contains("Weight=12.5"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=6/15/2019"));
+        Assert.IsTrue(extent[0].Contains("Colors=(Brown, White)"));
+        Assert.IsTrue(extent[0].Contains("Nocturnal=True"));
     }
 
     [Test]
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 1, 1), new List<Color> { Color.Brown }, true);
+        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
 
         // Act
         int age = mammal.Age;
@@ -119,7 +109,7 @@ public class MammalTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var mammal = new Mammal("", Sex.Female, 12.5, new DateTime(2019, 1, 1), new List<Color> { Color.Brown }, true);
+            var mammal = new Mammal("", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
         });
     }
 
@@ -130,7 +120,7 @@ public class MammalTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, -12.5, new DateTime(2019, 1, 1), new List<Color> { Color.Brown }, true);
+            var mammal = new Mammal("Bella", Sex.Female, -12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
         });
     }
 
@@ -141,7 +131,7 @@ public class MammalTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(1), new List<Color> { Color.Brown }, true);
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(1), [Color.Brown], true);
         });
     }
 }

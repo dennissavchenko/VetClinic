@@ -19,7 +19,7 @@ public class Mammal : Pet
         return "Mammal: " + base.ToString() + $", Nocturnal={Nocturnal}";
     }
     
-    public new static List<Mammal> GetExtent()
+    private new static List<Mammal> GetExtent()
     {
         return StoredObject<Mammal>.GetExtent();
     }

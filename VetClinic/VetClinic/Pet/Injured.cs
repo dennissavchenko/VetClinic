@@ -39,7 +39,7 @@ public class Injured : Pet
         return "Injured: " + base.ToString() + $", InjuryType={InjuryType.ToString()} InjuryDate={InjuryDate.ToShortDateString()}";
     }
     
-    public new static List<Injured> GetExtent()
+    private new static List<Injured> GetExtent()
     {
         return StoredObject<Injured>.GetExtent();
     }
@@ -53,6 +53,16 @@ public class Injured : Pet
         {
             Console.WriteLine(injured);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var injured in GetExtent())
+        {
+            list.Add(injured.ToString());
+        }
+        return list;
     }
     
 }

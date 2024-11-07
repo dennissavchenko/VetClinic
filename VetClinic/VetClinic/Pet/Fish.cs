@@ -37,7 +37,7 @@ public class Fish : Pet
         return "Fish: " + base.ToString() + $", WaterType={WaterType}, WaterTemperature={WaterTemperature}";
     }
     
-    public new static List<Fish> GetExtent()
+    private new static List<Fish> GetExtent()
     {
         return StoredObject<Fish>.GetExtent();
     }
@@ -51,6 +51,16 @@ public class Fish : Pet
         {
             Console.WriteLine(fish);
         }
+    }
+    
+    public new static List<string> GetExtentAsString()
+    {
+        List<string> list = new();
+        foreach (var fish in GetExtent())
+        {
+            list.Add(fish.ToString());
+        }
+        return list;
     }
     
 }
