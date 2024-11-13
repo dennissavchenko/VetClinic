@@ -15,7 +15,6 @@ public class VeterinarianTests
     }
     
     [TearDown]
-    
     public void Teardown()
     {
         if (File.Exists(_testPath))
