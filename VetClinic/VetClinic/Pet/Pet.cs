@@ -65,6 +65,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight}, DateOfBirth={DateOfBirth:MM/dd/yyyy}, Colors=({string.Join(", ", Colors)}), Age={Age}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight}, DateOfBirth={DateOfBirth:M/d/yyyy}, Colors=({string.Join(", ", Colors)}), Age={Age}";
     }
 }
