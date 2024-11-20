@@ -42,7 +42,7 @@ public class Pregnant : Pet
 
     public override string ToString()
     {
-        return "Pregnant: " + base.ToString() + $", DueDate={DueDate.ToShortDateString()} LitterSize={LitterSize}";
+        return "Pregnant: " + base.ToString() + $", DueDate={DueDate:yyyy-MM-dd} LitterSize={LitterSize}";
     }
     
     private new static List<Pregnant> GetExtent()

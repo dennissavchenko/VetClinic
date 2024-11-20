@@ -38,7 +38,7 @@ public class PetTests
             Assert.IsTrue(extent[0].Contains("Name=Buddy"));
             Assert.IsTrue(extent[0].Contains("Sex=Male"));
             Assert.IsTrue(extent[0].Contains("Weight=15.5"));
-            Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
             Assert.IsTrue(extent[0].Contains("Colors=(Brown)"));
             Assert.IsTrue(extent[1].Contains("Id=2"));
             Assert.IsTrue(extent[1].Contains("Name=Momo"));

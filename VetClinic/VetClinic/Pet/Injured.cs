@@ -36,7 +36,7 @@ public class Injured : Pet
 
     public override string ToString()
     {
-        return "Injured: " + base.ToString() + $", InjuryType={InjuryType.ToString()} InjuryDate={InjuryDate.ToShortDateString()}";
+        return "Injured: " + base.ToString() + $", InjuryType={InjuryType.ToString()} InjuryDate={InjuryDate:yyyy-MM-dd}";
     }
     
     private new static List<Injured> GetExtent()

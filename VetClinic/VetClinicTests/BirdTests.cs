@@ -44,7 +44,7 @@ public class BirdTests
             Assert.IsTrue(extent[0].Contains("Name=Tweety"));
             Assert.IsTrue(extent[0].Contains("Sex=Female"));
             Assert.IsTrue(extent[0].Contains("Weight=0.5"));
-            Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
             Assert.IsTrue(extent[0].Contains("Colors=(Brown)"));
             Assert.IsTrue(extent[0].Contains("WingsSpan=10"));
             Assert.IsTrue(extent[0].Contains("CanFly=True"));
@@ -86,7 +86,7 @@ public class BirdTests
             Assert.IsTrue(extent[0].Contains("Name=Tweety"));
             Assert.IsTrue(extent[0].Contains("Sex=Female"));
             Assert.IsTrue(extent[0].Contains("Weight=0.5"));
-            Assert.IsTrue(extent[0].Contains("DateOfBirth=4/10/2020"));
+            Assert.IsTrue(extent[0].Contains("DateOfBirth=2020-04-10"));
             Assert.IsTrue(extent[0].Contains("Colors=(Yellow)"));
             Assert.IsTrue(extent[0].Contains("WingsSpan=10"));
             Assert.IsTrue(extent[0].Contains("CanFly=True"));

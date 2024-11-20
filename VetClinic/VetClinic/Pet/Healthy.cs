@@ -36,7 +36,8 @@ public class Healthy : Pet
 
     public override string ToString()
     {
-        return "Healthy: " + base.ToString() + $", ActivityLevel={ActivityLevel.ToString()}, LastVaccinationDate={(LastVaccinationDate == null ? "NotVaccinated" : LastVaccinationDate.ToString())}";
+        return "Healthy: " + base.ToString() +
+               $", ActivityLevel={ActivityLevel.ToString()}, LastVaccinationDate={(LastVaccinationDate == null ? "NotVaccinated" : LastVaccinationDate.Value.ToString("yyyy-MM-dd"))}";
     }
     
     private new static List<Healthy> GetExtent()
