@@ -35,11 +35,11 @@ public class PrescriptionTests
 
         // Assert
         Assert.That(extent[0].Contains("Id=1"));
-        Assert.That(extent[0].Contains($"StartDate={DateTime.Today.ToShortDateString()}"));
-        Assert.That(extent[0].Contains($"EndDate={DateTime.Today.AddMonths(1).ToShortDateString()}"));
+        Assert.That(extent[0].Contains($"StartDate={DateTime.Today:yyyy-MM-dd}"));
+        Assert.That(extent[0].Contains($"EndDate={DateTime.Today.AddMonths(1):yyyy-MM-dd}"));
         Assert.That(extent[1].Contains("Id=2"));
-        Assert.That(extent[1].Contains($"StartDate={DateTime.Today.AddMonths(-1).ToShortDateString()}"));
-        Assert.That(extent[1].Contains($"EndDate={DateTime.Today.AddDays(3).ToShortDateString()}"));
+        Assert.That(extent[1].Contains($"StartDate={DateTime.Today.AddMonths(-1):yyyy-MM-dd}"));
+        Assert.That(extent[1].Contains($"EndDate={DateTime.Today.AddDays(3):yyyy-MM-dd}"));
 
     }
 
@@ -53,8 +53,8 @@ public class PrescriptionTests
         var json = File.ReadAllText(_testPath);
 
         // Assert
-        Assert.IsTrue(json.Contains($"\"StartDate\": \"{DateTime.Today:yyyy-MM-ddTHH:mm:ss}"));
-        Assert.IsTrue(json.Contains($"\"EndDate\": \"{DateTime.Today.AddMonths(1):yyyy-MM-ddTHH:mm:ss}"));
+        Assert.IsTrue(json.Contains($"\"StartDate\": \"{DateTime.Today:yyyy-MM-dd}"));
+        Assert.IsTrue(json.Contains($"\"EndDate\": \"{DateTime.Today.AddMonths(1):yyyy-MM-dd}"));
 
     }
 
@@ -69,8 +69,8 @@ public class PrescriptionTests
 
         // Assert
         Assert.That(extent[0].Contains("Id=1"));
-        Assert.That(extent[0].Contains("StartDate=5/1/2020"));
-        Assert.That(extent[0].Contains("EndDate=6/1/2020"));
+        Assert.That(extent[0].Contains("StartDate=2020-05-01"));
+        Assert.That(extent[0].Contains("EndDate=2020-06-01"));
     }
     
     [Test]

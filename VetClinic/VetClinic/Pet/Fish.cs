@@ -34,7 +34,7 @@ public class Fish : Pet
 
     public override string ToString()
     {
-        return "Fish: " + base.ToString() + $", WaterType={WaterType}, WaterTemperature={WaterTemperature}";
+        return "Fish: " + base.ToString() + $", WaterType={WaterType}, WaterTemperature={WaterTemperature.ToString(System.Globalization.CultureInfo.InvariantCulture)}";
     }
     
     private new static List<Fish> GetExtent()

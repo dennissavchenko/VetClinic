@@ -40,7 +40,7 @@ namespace VetClinic
 
         public override string ToString()
         {
-            return $"Id={Id}, StartDate={StartDate.ToShortDateString()}, EndDate={EndDate.ToShortDateString()}";
+            return $"Id={Id}, StartDate={StartDate:yyyy-MM-dd}, EndDate={EndDate:yyyy-MM-dd}";
         }
     }
 }
