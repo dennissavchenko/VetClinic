@@ -36,19 +36,40 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         } 
     }
     private DateTime _dateOfBirth;
+
     public DateTime DateOfBirth
     {
         get => _dateOfBirth;
         set
         {
-            if(value > DateTime.Now)
+            if (value > DateTime.Now)
             {
                 throw new InvalidDateException("Pet's date of birth cannot be in the future!");
             }
+
             _dateOfBirth = value;
-        } 
+        }
     }
-    public List<Color> Colors { get; set; } 
+    private List<Color> _colors;
+    public List<Color> Colors
+    {
+        get => _colors;
+        set
+        {
+            if (value == null || value.Count == 0)
+            {
+                throw new EmptyListException("Pet must have at least one color!");
+            }
+
+            if (value.Count != value.Distinct().Count())
+            {
+                throw new DuplicatesException("Duplicate colors are not allowed!");
+            }
+
+            _colors = value;
+        }
+    }
+
     public int Age => DateTime.Now.Year - DateOfBirth.Year;
     
     public Pet() {}

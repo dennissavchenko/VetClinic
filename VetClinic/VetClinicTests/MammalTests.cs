@@ -134,4 +134,27 @@ public class MammalTests
             var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(1), [Color.Brown], true);
         });
     }
+    
+    [Test]
+    public void Color_ShouldThrowAnEmptyListException()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyListException>(() => 
+        {
+            // Arrange
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [], true);
+        });
+    }
+        
+    [Test]
+    public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+    {
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => 
+        {
+            // Arrange
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [Color.Brown, Color.Brown], true);
+        });
+    }
+    
 }

@@ -153,4 +153,28 @@ public class PregnantTests
             var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], DateTime.Now.AddMonths(1), 3);
         });
     }
+    
+        
+    [Test]
+    public void Color_ShouldThrowAnEmptyListException()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyListException>(() => 
+        {
+            // Arrange
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], DateTime.Now.AddMonths(1), 3);
+        });
+    }
+        
+    [Test]
+    public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+    {
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => 
+        {
+            // Arrange
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], DateTime.Now.AddMonths(1), 3);
+        });
+    }
+
 }

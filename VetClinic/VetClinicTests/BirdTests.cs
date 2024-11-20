@@ -149,4 +149,26 @@ public class BirdTests
             });
         }
         
+        [Test]
+        public void Color_ShouldThrowAnEmptyListException()
+        {
+            // Act & Assert
+            Assert.Throws<EmptyListException>(() => 
+            {
+                // Arrange
+                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [], 10, true);
+            });
+        }
+        
+        [Test]
+        public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+        {
+            // Act & Assert
+            Assert.Throws<DuplicatesException>(() => 
+            {
+                // Arrange
+                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow, Color.Yellow], 10, true);
+            });
+        }
+        
     }

@@ -1,4 +1,5 @@
 ﻿using VetClinic;
+using VetClinic.Exceptions;
 
 namespace VetClinicTests;
 
@@ -64,7 +65,7 @@ public class PaymentTests
     public void Amount_ShouldThrowArgumentOutOfRangeException_ForZeroOrNegativeAmount()
     {
         // Act & Assert
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
+        Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
             var payment = new Payment(-100, PaymentType.Card, new DateTime(2018, 5, 1));

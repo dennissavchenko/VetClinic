@@ -123,4 +123,26 @@ public class PetTests
             });
         }
         
+        [Test]
+        public void Color_ShouldThrowAnEmptyListException()
+        {
+            // Act & Assert
+            Assert.Throws<EmptyListException>(() => 
+            {
+                // Arrange
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), []);
+            });
+        }
+        
+        [Test]
+        public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+        {
+            // Act & Assert
+            Assert.Throws<DuplicatesException>(() => 
+            {
+                // Arrange
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black]);
+            });
+        }
+        
     }

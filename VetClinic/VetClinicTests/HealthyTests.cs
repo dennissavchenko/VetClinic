@@ -161,4 +161,27 @@ public class HealthyTests
         // Assert
         Assert.That(age, Is.EqualTo(DateTime.Now.Year - 2018));
     }
+    
+    [Test]
+    public void Color_ShouldThrowAnEmptyListException()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyListException>(() => 
+        {
+            // Arrange
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], ActivityLevel.Medium, new DateTime(2020, 1, 1));
+        });
+    }
+        
+    [Test]
+    public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+    {
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => 
+        {
+            // Arrange
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.Black, Color.Black], ActivityLevel.Medium, new DateTime(2020, 1, 1));
+        });
+    }
+    
 }

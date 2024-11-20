@@ -161,4 +161,27 @@ public class InjuredTests
             var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2017, 5, 10));
         });
     }
+    
+    [Test]
+    public void Color_ShouldThrowAnEmptyListException()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyListException>(() => 
+        {
+            // Arrange
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], InjuryType.Wound, new DateTime(2020, 5, 10));
+        });
+    }
+        
+    [Test]
+    public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+    {
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => 
+        {
+            // Arrange
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], InjuryType.Wound, new DateTime(2020, 5, 10));
+        });
+    }
+    
 }

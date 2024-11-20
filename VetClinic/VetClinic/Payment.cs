@@ -1,4 +1,6 @@
-﻿namespace VetClinic;
+﻿using VetClinic.Exceptions;
+
+namespace VetClinic;
 
 public enum PaymentType { Cash, Card }
 
@@ -14,7 +16,7 @@ public class Payment: StoredObject<Payment>, IIdentifiable
         set
         {
             if (value <= 0)
-                throw new ArgumentOutOfRangeException(nameof(Amount), "Amount must be greater than zero.");
+                throw new NegativeValueException("Amount must be greater than zero.");
             _amount = value;
         }
     }

@@ -150,4 +150,26 @@ public class FishTests
             var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, -5.0);
         });
     }
+    
+    [Test]
+    public void Color_ShouldThrowAnEmptyListException()
+    {
+        // Act & Assert
+        Assert.Throws<EmptyListException>(() => 
+        {
+            // Arrange
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [], WaterType.Freshwater, -5.0);
+        });
+    }
+        
+    [Test]
+    public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
+    {
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => 
+        {
+            // Arrange
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden, Color.Golden], WaterType.Freshwater, -5.0);
+        });
+    }
 }
