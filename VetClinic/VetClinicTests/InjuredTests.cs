@@ -45,16 +45,16 @@ public class InjuredTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("Colors=(White)"));
         Assert.IsTrue(extent[0].Contains("InjuryType=Wound"));
-        Assert.IsTrue(extent[0].Contains("InjuryDate=5/10/2021"));
+        Assert.IsTrue(extent[0].Contains("InjuryDate=2021-05-10"));
         Assert.IsTrue(extent[1].Contains("Id=2"));
         Assert.IsTrue(extent[1].Contains("Name=Momo"));
         Assert.IsTrue(extent[1].Contains("Sex=Male"));
         Assert.IsTrue(extent[1].Contains("Weight=4.6"));
         Assert.IsTrue(extent[1].Contains("InjuryType=Sprain"));
-        Assert.IsTrue(extent[1].Contains("InjuryDate=5/10/2020"));
+        Assert.IsTrue(extent[1].Contains("InjuryDate=2020-05-10"));
     }
 
     [Test]
@@ -88,10 +88,10 @@ public class InjuredTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("Colors=(White)"));
         Assert.IsTrue(extent[0].Contains("InjuryType=Fracture"));
-        Assert.IsTrue(extent[0].Contains("InjuryDate=5/10/2021"));
+        Assert.IsTrue(extent[0].Contains("InjuryDate=2021-05-10"));
     }
 
     [Test]

@@ -45,15 +45,15 @@ public class PregnantTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("Colors=(White)"));
-        Assert.IsTrue(extent[0].Contains("DueDate=5/1/2020"));
+        Assert.IsTrue(extent[0].Contains("DueDate=2020-05-01"));
         Assert.IsTrue(extent[0].Contains("LitterSize=3"));
         Assert.IsTrue(extent[1].Contains("Id=2"));
         Assert.IsTrue(extent[1].Contains("Name=Momo"));
         Assert.IsTrue(extent[1].Contains("Sex=Male"));
         Assert.IsTrue(extent[1].Contains("Weight=4.6"));
-        Assert.IsTrue(extent[1].Contains("DueDate=5/1/2021"));
+        Assert.IsTrue(extent[1].Contains("DueDate=2021-05-01"));
         Assert.IsTrue(extent[1].Contains("LitterSize=10"));
     }
 
@@ -88,9 +88,9 @@ public class PregnantTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("Colors=(White)"));
-        Assert.IsTrue(extent[0].Contains("DueDate=5/1/2020"));
+        Assert.IsTrue(extent[0].Contains("DueDate=2020-05-01"));
         Assert.IsTrue(extent[0].Contains("LitterSize=3"));
     }
 

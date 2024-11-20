@@ -44,7 +44,7 @@ public class FishTests
         Assert.IsTrue(extent[0].Contains("Name=Goldie"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=0.2"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=3/15/2021"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2021-03-15"));
         Assert.IsTrue(extent[0].Contains("Colors=(Golden)"));
         Assert.IsTrue(extent[0].Contains("WaterType=Freshwater"));
         Assert.IsTrue(extent[0].Contains("WaterTemperature=22.5"));
@@ -88,7 +88,7 @@ public class FishTests
         Assert.IsTrue(extent[0].Contains("Name=Goldie"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=0.2"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=3/15/2021"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2021-03-15"));
         Assert.IsTrue(extent[0].Contains("Colors=(Red)"));
         Assert.IsTrue(extent[0].Contains("WaterType=Freshwater"));
         Assert.IsTrue(extent[0].Contains("WaterTemperature=22.5"));

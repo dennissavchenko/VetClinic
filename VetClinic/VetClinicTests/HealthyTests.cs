@@ -45,10 +45,10 @@ public class HealthyTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("Colors=(White)"));
         Assert.IsTrue(extent[0].Contains("ActivityLevel=Medium"));
-        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=5/10/2020"));
+        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=2020-05-10"));
         Assert.IsTrue(extent[1].Contains("Id=2"));
         Assert.IsTrue(extent[1].Contains("Name=Tom"));
         Assert.IsTrue(extent[1].Contains("Sex=Male"));
@@ -88,9 +88,9 @@ public class HealthyTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=8"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=5/1/2018"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2018-05-01"));
         Assert.IsTrue(extent[0].Contains("ActivityLevel=Medium"));
-        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=5/10/2020"));
+        Assert.IsTrue(extent[0].Contains("LastVaccinationDate=2020-05-10"));
         
     }
     

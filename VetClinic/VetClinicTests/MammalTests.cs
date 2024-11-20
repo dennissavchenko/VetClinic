@@ -44,7 +44,7 @@ public class MammalTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=12.5"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=6/15/2019"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2019-06-15"));
         Assert.IsTrue(extent[0].Contains("Colors=(Brown, White)"));
         Assert.IsTrue(extent[0].Contains("Nocturnal=True"));
         Assert.IsTrue(extent[1].Contains("Id=2"));
@@ -84,7 +84,7 @@ public class MammalTests
         Assert.IsTrue(extent[0].Contains("Name=Bella"));
         Assert.IsTrue(extent[0].Contains("Sex=Female"));
         Assert.IsTrue(extent[0].Contains("Weight=12.5"));
-        Assert.IsTrue(extent[0].Contains("DateOfBirth=6/15/2019"));
+        Assert.IsTrue(extent[0].Contains("DateOfBirth=2019-06-15"));
         Assert.IsTrue(extent[0].Contains("Colors=(Brown, White)"));
         Assert.IsTrue(extent[0].Contains("Nocturnal=True"));
     }
