@@ -8,9 +8,9 @@ public class Payment: StoredObject<Payment>, IIdentifiable
 { 
     public int Id { get; set; }
 
-    private int _amount;
+    private double _amount;
 
-    public int Amount
+    public double Amount
     {
         get => _amount;
         set
@@ -47,7 +47,7 @@ public class Payment: StoredObject<Payment>, IIdentifiable
     
     public override string ToString()
     {
-        return $"Id={Id}, Amount={Amount}, PaymentType={PaymentType.ToString()}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}";
+        return $"Id={Id}, Amount={Amount.ToString(System.Globalization.CultureInfo.InvariantCulture)}, PaymentType={PaymentType.ToString()}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}";
     }
     
 }

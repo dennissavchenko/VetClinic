@@ -9,6 +9,20 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     public int Id { get; set; }
     public string Name { get; set; }
     public string Description { get; set; }
+
+    private List<Pet> _pets = new ();
+    
+    public void AddPet (Pet pet)
+    {
+        if (_pets.Contains(pet)) return;
+        _pets.Add(pet);
+    }
+    
+    public void RemovePet (Pet pet)
+    {
+        if (!_pets.Contains(pet)) return;
+        _pets.Remove(pet);
+    }
     
     public Specie() {}
     

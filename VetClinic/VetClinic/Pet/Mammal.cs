@@ -6,7 +6,7 @@ public class Mammal : Pet
 {
     public bool Nocturnal { get; set; } // it is just boolean now, not optional
     
-    public Mammal(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, bool nocturnal) : base(name, sex, weight, dateOfBirth, colors)
+    public Mammal(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, bool nocturnal) : base(name, sex, weight, dateOfBirth, colors, specie)
     {
         Nocturnal = nocturnal;
         StoredObject<Mammal>.AddToExtent(this);

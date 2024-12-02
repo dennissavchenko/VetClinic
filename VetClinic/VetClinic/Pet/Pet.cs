@@ -72,20 +72,34 @@ public class Pet: StoredObject<Pet>, IIdentifiable
 
     public int Age => DateTime.Now.Year - DateOfBirth.Year;
     
+    private Specie _specie;
+    public Specie Specie { 
+        get => _specie;
+        set
+        {
+            if (value == null)
+            {
+                throw new NullReferenceException("Specie cannot be null.");
+            }
+            value.AddPet(this);
+            _specie = value;
+        } 
+    }
     public Pet() {}
 
-    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors)
+    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie)
     {
         Name = name;
         Sex = sex;
         Weight = weight;
         DateOfBirth = dateOfBirth;
         Colors = colors;
+        Specie = specie;
         AddToExtent(this);
     }
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}, Specie={Specie.Name}";
     }
 }

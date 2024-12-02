@@ -22,8 +22,8 @@ public class Fish : Pet
         } 
     }
     
-    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, 
-        colors)
+    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, 
+        colors, specie)
     {
         WaterType = waterType;
         WaterTemperature = waterTemperature;

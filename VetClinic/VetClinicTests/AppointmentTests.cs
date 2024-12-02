@@ -26,8 +26,8 @@ public class AppointmentTests
         public void AddToExtent_ShouldAddAppointmentCorrectly()
         {
             // Arrange
-            var appointment1 = new Appointment(new DateTime(2018, 5, 1, 16, 30, 00), 150);
-            var appointment2 = new Appointment(new DateTime(2018, 5, 2, 16, 00, 00), 200);
+            var appointment1 = new Appointment(new DateTime(2018, 5, 1, 16, 30, 00), AppointmentState.Scheduled, 150);
+            var appointment2 = new Appointment(new DateTime(2018, 5, 2, 16, 00, 00), AppointmentState.Canceled, 200);
 
             // Act
             var extent = Appointment.GetExtentAsString();
@@ -35,9 +35,11 @@ public class AppointmentTests
             // Assert
             Assert.That(extent[0].Contains("Id=1"));
             Assert.That(extent[0].Contains("DateTime=2018-05-01T16:30:00"));
+            Assert.That(extent[0].Contains("State=Scheduled"));
             Assert.That(extent[0].Contains("Price=150"));
             Assert.That(extent[1].Contains("Id=2"));
             Assert.That(extent[1].Contains("DateTime=2018-05-02T16:00:00"));
+            Assert.That(extent[1].Contains("State=Canceled"));
             Assert.That(extent[1].Contains("Price=200"));
         }
 
@@ -45,13 +47,14 @@ public class AppointmentTests
         public void SaveExtent_ShouldSerializeToJsonCorrectly()
         {
             // Arrange
-            var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), 150);
+            var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), AppointmentState.Canceled, 150);
 
             // Act
             var json = File.ReadAllText(_testPath);
 
             // Assert
             Assert.IsTrue(json.Contains("\"DateTime\": \"2018-05-01T14:30:00"));
+            Assert.IsTrue(json.Contains("\"State\": 3"));
             Assert.IsTrue(json.Contains("\"Price\": 150"));
         }
 
@@ -59,7 +62,7 @@ public class AppointmentTests
         public void LoadExtent_ShouldDeserializeFromJsonCorrectly()
         {
             // Arrange
-            File.WriteAllText(_testPath, "[{ \"Id\": 1, \"DateTime\": \"2018-05-01T14:30:00\", \"Price\": 150 }]");
+            File.WriteAllText(_testPath, "[{ \"Id\": 1, \"DateTime\": \"2018-05-01T14:30:00\", \"State\": 3, \"Price\": 150 }]");
 
             // Act
             var extent = Appointment.GetExtentAsString();
@@ -67,6 +70,7 @@ public class AppointmentTests
             // Assert
             Assert.That(extent[0].Contains("Id=1"));
             Assert.That(extent[0].Contains("DateTime=2018-05-01T14:30:00"));
+            Assert.That(extent[0].Contains("State=Canceled"));
             Assert.That(extent[0].Contains("Price=150"));
         }
 
@@ -77,7 +81,7 @@ public class AppointmentTests
             Assert.Throws<ArgumentOutOfRangeException>(() =>
             {
                 // Arrange
-                var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), -50);
+                var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), AppointmentState.Scheduled, -50);
             });
         }
     }

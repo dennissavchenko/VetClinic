@@ -25,7 +25,7 @@ public class Healthy : Pet
         } 
     } // instead of nocturnal and canFly now lastVaccinationDate is optional
     
-    public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, ActivityLevel activityLevel, DateTime? lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors)
+    public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, ActivityLevel activityLevel, DateTime? lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors, specie)
     {
         ActivityLevel = activityLevel;
         LastVaccinationDate = lastVaccinationDate;
