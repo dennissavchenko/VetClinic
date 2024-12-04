@@ -155,7 +155,7 @@ public class PetTests
             Assert.Throws<NullReferenceException>(() => 
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black], null);
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black], null);
             });
         }
         

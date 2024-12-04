@@ -62,13 +62,10 @@ namespace VetClinic
 
         public Dose() { }
 
-        public Dose(string description, double amount, Medication medication, Prescription prescription)
+        public Dose(string description, double amount)
         {
             Description = description;
             Amount = amount;
-            Medication = medication;
-            Prescription = prescription;
-
             AddToExtent(this);
         }
 

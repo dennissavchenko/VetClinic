@@ -141,32 +141,5 @@ public class SpecieTests
             // Act & Assert
             Assert.Throws<NotFoundException>(() => specie1.RemovePet(pet));
         }
-
-        [Test]
-        public void ModifyPet_ValidPet_ModifiesSuccessfully()
-        {
-            // Arrange
-            var specie = new Specie("Reptile", "Reptilian species");
-            var pet = new Pet("Lizzy", Sex.Female, 2.0, new DateTime(2019, 11, 11), new List<Color> { Color.Green }, specie);
-
-            // Act
-            pet.Name = "Lizard";
-            specie.ModifyPet(pet);
-
-            // Assert
-            Assert.That(specie.GetPets()[0].Name.Equals("Lizard"));
-        }
-
-        [Test]
-        public void ModifyPet_NonExistentPet_ThrowsException()
-        {
-            // Arrange
-            var specie1 = new Specie("Amphibian", "Amphibious species");
-            var specie2 = new Specie("Amphibian1", "Amphibious species");
-            var pet = new Pet("Froggy", Sex.Male, 0.2, new DateTime(2020, 6, 21), new List<Color> { Color.Green }, specie1);
-
-            // Act & Assert
-            Assert.Throws<NotFoundException>(() => specie2.ModifyPet(pet));
-        }
         
     }

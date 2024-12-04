@@ -19,7 +19,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
                 throw new EmptyStringException("Pet's name cannot be empty!");
             }
             _name = value;
-            OnObjectChanged();
         } 
     }
     public Sex Sex { get; set; }
@@ -34,7 +33,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
                 throw new NegativeValueException("Pet's weight must be greater than 0!");
             }
             _weight = value;
-            OnObjectChanged();
         } 
     }
     private DateTime _dateOfBirth;
@@ -50,7 +48,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             }
 
             _dateOfBirth = value;
-            OnObjectChanged();
         }
     }
     private List<Color> _colors;
@@ -70,14 +67,13 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             }
 
             _colors = value;
-            OnObjectChanged();
         }
     }
 
     public int Age => DateTime.Now.Year - DateOfBirth.Year;
     
-    private Specie _specie;
-    public Specie Specie { 
+    private Specie? _specie;
+    private Specie? Specie { 
         get => _specie;
         set
         {
@@ -85,29 +81,23 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             {
                 throw new NullReferenceException("Specie cannot be null.");
             }
-            if (_specie == null)
+            if (_specie != value && _specie != null)
             {
-                value.AddPet(this);
-                _specie = value;
+                _specie.RemovePet(this);
             }
+            value.AddPet(this);
+            _specie = value;
         } 
     }
     
     private static List<Pet> _extent = new();
     
-    public void OnObjectChanged()
+    public void AssignToSpecie(Specie? specie)
     {
-        if (_specie != null)
-        {
-            _specie.ModifyPet(this);
-        }
+        Specie = specie;
     }
     
-    public void ModifySpecie(Specie specie)
-    {
-        // if (specie == null) throw new NullReferenceException("Specie cannot be null.");
-        // _specie = specie;
-    }
+    
     
     public Pet() {}
 
@@ -125,7 +115,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age} Specie={Specie.Name}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}";
     }
 
     public static void PrintPetExtent()

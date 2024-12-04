@@ -13,7 +13,6 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         set
         {
             _id = value;
-            OnObjectChanged();
         }
     }
     
@@ -24,7 +23,6 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         set
         {
             _name = value;
-            OnObjectChanged();
         }
     }
 
@@ -35,21 +33,12 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         set
         {
             _description = value;
-            OnObjectChanged();
         }
     }
 
     private List<Pet> _pets = new();
     
     private static List<Specie> _extent = new();
-    
-    public void OnObjectChanged()
-    {
-        foreach (var pet in _pets)
-        {
-            pet.ModifySpecie(this);
-        }
-    }
 
     public List<Pet> GetPets()
     {
@@ -68,17 +57,6 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         if (pet == null) throw new NullReferenceException("Pet cannot be null.");
         if (!_pets.Contains(pet)) throw new NotFoundException("Pet not found in the list.");
         _pets.Remove(pet);
-    }
-    
-    public void ModifyPet (Pet pet)
-    {
-        // if (pet == null) throw new NullReferenceException("Pet cannot be null.");
-        // int index = _pets.IndexOf(pet);
-        // if (index == -1)
-        // {
-        //     throw new NotFoundException("Pet not found in the list.");
-        // }
-        // _pets[index] = pet;
     }
     
     public Specie() {}

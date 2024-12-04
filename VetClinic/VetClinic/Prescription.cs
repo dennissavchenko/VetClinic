@@ -7,7 +7,7 @@ namespace VetClinic
         public int Id { get; set; }
         private DateTime _startDate;
         private DateTime _endDate;
-        //public DateTime StartDate
+        public DateTime StartDate
         {
             get => _startDate;
             set
