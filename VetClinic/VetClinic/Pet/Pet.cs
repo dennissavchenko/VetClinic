@@ -94,7 +94,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     
     public void AssignToSpecie(Specie? specie)
     {
-        Specie = specie;
+        _specie = specie;
     }
     
     

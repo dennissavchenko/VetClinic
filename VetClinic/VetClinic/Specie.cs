@@ -50,6 +50,7 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         if (pet == null) throw new NullReferenceException("Pet cannot be null.");
         if (_pets.Contains(pet)) throw new DuplicatesException("Pet already exists in the list.");
         _pets.Add(pet);
+        pet.AssignToSpecie(this);
     }
     
     public void RemovePet (Pet pet)
@@ -57,6 +58,7 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         if (pet == null) throw new NullReferenceException("Pet cannot be null.");
         if (!_pets.Contains(pet)) throw new NotFoundException("Pet not found in the list.");
         _pets.Remove(pet);
+        pet.AssignToSpecie(null);
     }
     
     public Specie() {}
