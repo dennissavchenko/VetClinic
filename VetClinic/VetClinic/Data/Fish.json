@@ -10,6 +10,11 @@
     "Colors": [
       4
     ],
-    "Age": 3
+    "Age": 3,
+    "Specie": {
+      "Id": 4,
+      "Name": "Clownfish",
+      "Description": "Amphiprioninae"
+    }
   }
 ]

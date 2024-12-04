@@ -32,19 +32,26 @@ Healthy healthy1 = new Healthy("Momo", Sex.Male, 2.5, new DateTime(2015, 4, 13),
     ActivityLevel.Low, null);
 Pregnant pregnant1 = new Pregnant("Mimi", Sex.Female, 1.5, new DateTime(2019, 6, 15), [Color.Cream], cat, DateTime.Today.AddMonths(1), 3);
 
-Pet.PrintExtent();
-Fish.PrintExtent();
-Mammal.PrintExtent();
-Bird.PrintExtent();
-Specie.PrintExtent();
-Client.PrintExtent();
-Veterinarian.PrintExtent();
-Payment.PrintExtent();
-Appointment.PrintExtent();
-Prescription.PrintExtent();
-Medication.PrintExtent(); 
-Dose.PrintExtent();
-Injured.PrintExtent();
-Healthy.PrintExtent();
-Pregnant.PrintExtent();
+// Fish.PrintExtent();
+// Mammal.PrintExtent();
+// Bird.PrintExtent();
+// Pet.PrintCurrentExtent();
+// // Client.PrintExtent();
+// // Veterinarian.PrintExtent();
+// // Payment.PrintExtent();
+// // Appointment.PrintExtent();
+// // Prescription.PrintExtent();
+// // Medication.PrintExtent(); 
+// // Dose.PrintExtent();
+// // Injured.PrintExtent();
+// // Healthy.PrintExtent();
+// // Pregnant.PrintExtent();
+
+Pet.PrintPetExtent();
+dog.Name = "hello";
+Pet.PrintPetExtent();
+
+Specie.PrintSpecieExtent();
+pet1.Name = "hello";
+Specie.PrintSpecieExtent();
 

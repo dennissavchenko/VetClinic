@@ -19,6 +19,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
                 throw new EmptyStringException("Pet's name cannot be empty!");
             }
             _name = value;
+            OnObjectChanged();
         } 
     }
     public Sex Sex { get; set; }
@@ -33,6 +34,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
                 throw new NegativeValueException("Pet's weight must be greater than 0!");
             }
             _weight = value;
+            OnObjectChanged();
         } 
     }
     private DateTime _dateOfBirth;
@@ -48,6 +50,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             }
 
             _dateOfBirth = value;
+            OnObjectChanged();
         }
     }
     private List<Color> _colors;
@@ -67,6 +70,7 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             }
 
             _colors = value;
+            OnObjectChanged();
         }
     }
 
@@ -81,10 +85,30 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             {
                 throw new NullReferenceException("Specie cannot be null.");
             }
-            value.AddPet(this);
-            _specie = value;
+            if (_specie == null)
+            {
+                value.AddPet(this);
+                _specie = value;
+            }
         } 
     }
+    
+    private static List<Pet> _extent = new();
+    
+    public void OnObjectChanged()
+    {
+        if (_specie != null)
+        {
+            _specie.ModifyPet(this);
+        }
+    }
+    
+    public void ModifySpecie(Specie specie)
+    {
+        // if (specie == null) throw new NullReferenceException("Specie cannot be null.");
+        // _specie = specie;
+    }
+    
     public Pet() {}
 
     public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie)
@@ -96,10 +120,21 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         Colors = colors;
         Specie = specie;
         AddToExtent(this);
+        _extent.Add(this);
     }
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}, Specie={Specie.Name}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age} Specie={Specie.Name}";
     }
+
+    public static void PrintPetExtent()
+    {
+        Console.WriteLine("------------------------------------------------");
+        foreach (var pet in _extent)
+        {
+            Console.WriteLine(pet);
+        }
+    }
+    
 }

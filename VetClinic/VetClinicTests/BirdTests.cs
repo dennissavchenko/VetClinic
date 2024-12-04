@@ -6,12 +6,14 @@ namespace VetClinicTests;
 public class BirdTests
     {
         private string _testPathPet, _testPathBird;
+        private Specie _eagle;
 
         [SetUp]
         public void Setup()
         {
             _testPathBird = "../../../Data/Bird.json";
             _testPathPet = "../../../Data/Pet.json";
+            _eagle = new Specie("Eagle", "Aquila chrysaetos");
             File.Delete(_testPathBird);
             File.Delete(_testPathPet);
         }
@@ -33,8 +35,8 @@ public class BirdTests
         public void AddToExtent_ShouldAddBirdCorrectly()
         {
             // Arrange
-            var bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], 10, true);
-            var bird2 = new Bird("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], 50, false);
+            var bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], _eagle, 10, true);
+            var bird2 = new Bird("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], _eagle, 50, false);
 
             // Act
             var extent = Bird.GetExtentAsString();
@@ -60,7 +62,7 @@ public class BirdTests
         public void SaveExtent_ShouldSerializeToJsonCorrectly()
         {
             // Arrange
-            var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], 10, true);
+            var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], _eagle, 10, true);
             // Act
             var json = File.ReadAllText(_testPathBird);
 
@@ -96,7 +98,7 @@ public class BirdTests
         public void Age_ShouldBeCalculatedCorrectly()
         {
             // Arrange
-            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], _eagle);
 
             // Act
             int age = pet.Age;
@@ -112,7 +114,7 @@ public class BirdTests
             Assert.Throws<EmptyStringException>(() =>
             {
                 // Arrange
-                var bird = new Bird("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], 10, true);
+                var bird = new Bird("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], _eagle, 10, true);
             });
         }
         
@@ -123,7 +125,7 @@ public class BirdTests
             Assert.Throws<NegativeValueException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow], 10, true);
+                var bird = new Bird("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow], _eagle, 10, true);
             });
         }
         
@@ -134,7 +136,7 @@ public class BirdTests
             Assert.Throws<InvalidDateException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow], 10, true);
+                var bird = new Bird("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow], _eagle, 10, true);
             });
         }
         
@@ -145,7 +147,7 @@ public class BirdTests
             Assert.Throws<NegativeValueException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], -10, true);
+                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], _eagle, -10, true);
             });
         }
         
@@ -156,7 +158,7 @@ public class BirdTests
             Assert.Throws<EmptyListException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [], 10, true);
+                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [], _eagle, 10, true);
             });
         }
         
@@ -167,7 +169,7 @@ public class BirdTests
             Assert.Throws<DuplicatesException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow, Color.Yellow], 10, true);
+                var bird = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow, Color.Yellow], _eagle, 10, true);
             });
         }
         

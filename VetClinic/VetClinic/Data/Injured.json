@@ -10,6 +10,11 @@
     "Colors": [
       3
     ],
-    "Age": 4
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canis lupus familiaris"
+    }
   }
 ]

@@ -9,7 +9,12 @@
       0,
       1
     ],
-    "Age": 5
+    "Age": 5,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canis lupus familiaris"
+    }
   },
   {
     "Id": 2,
@@ -20,7 +25,12 @@
     "Colors": [
       4
     ],
-    "Age": 3
+    "Age": 3,
+    "Specie": {
+      "Id": 4,
+      "Name": "Clownfish",
+      "Description": "Amphiprioninae"
+    }
   },
   {
     "Id": 3,
@@ -31,7 +41,12 @@
     "Colors": [
       2
     ],
-    "Age": 6
+    "Age": 6,
+    "Specie": {
+      "Id": 2,
+      "Name": "Cat",
+      "Description": "Felis catus"
+    }
   },
   {
     "Id": 4,
@@ -42,7 +57,12 @@
     "Colors": [
       8
     ],
-    "Age": 4
+    "Age": 4,
+    "Specie": {
+      "Id": 3,
+      "Name": "Eagle",
+      "Description": "Aquila chrysaetos"
+    }
   },
   {
     "Id": 5,
@@ -53,7 +73,12 @@
     "Colors": [
       3
     ],
-    "Age": 4
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canis lupus familiaris"
+    }
   },
   {
     "Id": 6,
@@ -65,7 +90,12 @@
       0,
       1
     ],
-    "Age": 9
+    "Age": 9,
+    "Specie": {
+      "Id": 2,
+      "Name": "Cat",
+      "Description": "Felis catus"
+    }
   },
   {
     "Id": 7,
@@ -76,6 +106,11 @@
     "Colors": [
       7
     ],
-    "Age": 5
+    "Age": 5,
+    "Specie": {
+      "Id": 2,
+      "Name": "Cat",
+      "Description": "Felis catus"
+    }
   }
 ]

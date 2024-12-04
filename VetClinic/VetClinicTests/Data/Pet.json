@@ -1,0 +1,290 @@
+[
+  {
+    "Id": 1,
+    "Name": "Kitty",
+    "Sex": 1,
+    "Weight": 5,
+    "DateOfBirth": "2021-05-15T00:00:00",
+    "Colors": [
+      1
+    ],
+    "Age": 3,
+    "Specie": {
+      "Id": 1,
+      "Name": "Cat",
+      "Description": "Feline species"
+    }
+  },
+  {
+    "Id": 2,
+    "Name": "Buddy",
+    "Sex": 0,
+    "Weight": 15,
+    "DateOfBirth": "2020-01-01T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canine species"
+    }
+  },
+  {
+    "Id": 3,
+    "Name": "Froggy",
+    "Sex": 0,
+    "Weight": 0.2,
+    "DateOfBirth": "2020-06-21T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Amphibian",
+      "Description": "Amphibious species"
+    }
+  },
+  {
+    "Id": 4,
+    "Name": "Lizzy",
+    "Sex": 1,
+    "Weight": 2,
+    "DateOfBirth": "2019-11-11T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 5,
+    "Specie": {
+      "Id": 1,
+      "Name": "Reptile",
+      "Description": "Reptilian species"
+    }
+  },
+  {
+    "Id": 5,
+    "Name": "Nemo",
+    "Sex": 0,
+    "Weight": 1,
+    "DateOfBirth": "2023-04-12T00:00:00",
+    "Colors": [
+      6
+    ],
+    "Age": 1,
+    "Specie": {
+      "Id": 1,
+      "Name": "Fish",
+      "Description": "Aquatic species"
+    }
+  },
+  {
+    "Id": 6,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2022-03-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 2,
+    "Specie": {
+      "Id": 1,
+      "Name": "Bird",
+      "Description": "Avian species"
+    }
+  },
+  {
+    "Id": 7,
+    "Name": "Froggy",
+    "Sex": 0,
+    "Weight": 0.2,
+    "DateOfBirth": "2020-06-21T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Amphibian",
+      "Description": "Amphibious species"
+    }
+  },
+  {
+    "Id": 8,
+    "Name": "Lizzy",
+    "Sex": 1,
+    "Weight": 2,
+    "DateOfBirth": "2019-11-11T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 5,
+    "Specie": {
+      "Id": 1,
+      "Name": "Reptile",
+      "Description": "Reptilian species"
+    }
+  },
+  {
+    "Id": 9,
+    "Name": "Lizzy",
+    "Sex": 1,
+    "Weight": 2,
+    "DateOfBirth": "2019-11-11T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 5,
+    "Specie": {
+      "Id": 1,
+      "Name": "Reptile",
+      "Description": "Reptilian species"
+    }
+  },
+  {
+    "Id": 10,
+    "Name": "Nemo",
+    "Sex": 0,
+    "Weight": 1,
+    "DateOfBirth": "2023-04-12T00:00:00",
+    "Colors": [
+      6
+    ],
+    "Age": 1,
+    "Specie": {
+      "Id": 1,
+      "Name": "Fish",
+      "Description": "Aquatic species"
+    }
+  },
+  {
+    "Id": 11,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2022-03-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 2,
+    "Specie": {
+      "Id": 1,
+      "Name": "Bird",
+      "Description": "Avian species"
+    }
+  },
+  {
+    "Id": 12,
+    "Name": "Buddy",
+    "Sex": 0,
+    "Weight": 15,
+    "DateOfBirth": "2020-01-01T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canine species"
+    }
+  },
+  {
+    "Id": 13,
+    "Name": "Kitty",
+    "Sex": 1,
+    "Weight": 5,
+    "DateOfBirth": "2021-05-15T00:00:00",
+    "Colors": [
+      1
+    ],
+    "Age": 3,
+    "Specie": {
+      "Id": 1,
+      "Name": "Cat",
+      "Description": "Feline species"
+    }
+  },
+  {
+    "Id": 14,
+    "Name": "Buddy",
+    "Sex": 0,
+    "Weight": 15,
+    "DateOfBirth": "2020-01-01T00:00:00",
+    "Colors": [
+      2
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Dog",
+      "Description": "Canine species"
+    }
+  },
+  {
+    "Id": 15,
+    "Name": "Froggy",
+    "Sex": 0,
+    "Weight": 0.2,
+    "DateOfBirth": "2020-06-21T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 4,
+    "Specie": {
+      "Id": 1,
+      "Name": "Amphibian",
+      "Description": "Amphibious species"
+    }
+  },
+  {
+    "Id": 16,
+    "Name": "Lizzy",
+    "Sex": 1,
+    "Weight": 2,
+    "DateOfBirth": "2019-11-11T00:00:00",
+    "Colors": [
+      9
+    ],
+    "Age": 5,
+    "Specie": {
+      "Id": 1,
+      "Name": "Reptile",
+      "Description": "Reptilian species"
+    }
+  },
+  {
+    "Id": 17,
+    "Name": "Nemo",
+    "Sex": 0,
+    "Weight": 1,
+    "DateOfBirth": "2023-04-12T00:00:00",
+    "Colors": [
+      6
+    ],
+    "Age": 1,
+    "Specie": {
+      "Id": 1,
+      "Name": "Fish",
+      "Description": "Aquatic species"
+    }
+  },
+  {
+    "Id": 18,
+    "Name": "Tweety",
+    "Sex": 1,
+    "Weight": 0.5,
+    "DateOfBirth": "2022-03-10T00:00:00",
+    "Colors": [
+      8
+    ],
+    "Age": 2,
+    "Specie": {
+      "Id": 1,
+      "Name": "Bird",
+      "Description": "Avian species"
+    }
+  }
+]

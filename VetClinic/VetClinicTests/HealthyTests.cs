@@ -7,12 +7,14 @@ namespace VetClinicTests;
 public class HealthyTests
 {
     private string _testPathPet, _testPathHealthy;
+    private Specie _dog;
 
     [SetUp]
     public void Setup()
     {
         _testPathHealthy = "../../../Data/Healthy.json";
         _testPathPet = "../../../Data/Pet.json";
+        _dog = new Specie("Dog", "Canis lupus familiaris");
         File.Delete(_testPathHealthy);
         File.Delete(_testPathPet);
     }
@@ -34,8 +36,8 @@ public class HealthyTests
     public void AddToExtent_ShouldAddHealthyPetCorrectly()
     {
         // Arrange
-        var healthyPet1 = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1),  [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
-        var healthyPet2 = new Healthy("Tom", Sex.Male, 12.6, new DateTime(2017, 1, 11), [Color.White], ActivityLevel.High, null);
+        var healthyPet1 = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1),  [Color.White], _dog, ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet2 = new Healthy("Tom", Sex.Male, 12.6, new DateTime(2017, 1, 11), [Color.White], _dog, ActivityLevel.High, null);
 
         // Act
         var extent = Healthy.GetExtentAsString();
@@ -61,7 +63,7 @@ public class HealthyTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, new DateTime(2020, 5, 10));
 
         // Act
         var json = File.ReadAllText(_testPathHealthy);
@@ -101,7 +103,7 @@ public class HealthyTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
+            var healthyPet = new Healthy("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, new DateTime(2020, 5, 10));
         });
     }
 
@@ -112,7 +114,7 @@ public class HealthyTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, -1.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
+            var healthyPet = new Healthy("Bella", Sex.Female, -1.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, new DateTime(2020, 5, 10));
         });
     }
     
@@ -123,7 +125,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var healthyPet = new Healthy("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.White], ActivityLevel.High, new DateTime(2020, 1, 1));
+            var healthyPet = new Healthy("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.White], _dog, ActivityLevel.High, new DateTime(2020, 1, 1));
         });
     }
 
@@ -134,7 +136,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, DateTime.Now.AddDays(1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, DateTime.Now.AddDays(1));
         });
     }
 
@@ -145,7 +147,7 @@ public class HealthyTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2017, 1, 1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, new DateTime(2017, 1, 1));
         });
     }
 
@@ -153,7 +155,7 @@ public class HealthyTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], ActivityLevel.Medium, new DateTime(2020, 5, 10));
+        var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, ActivityLevel.Medium, new DateTime(2020, 5, 10));
 
         // Act
         int age = healthyPet.Age;
@@ -169,7 +171,7 @@ public class HealthyTests
         Assert.Throws<EmptyListException>(() => 
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], ActivityLevel.Medium, new DateTime(2020, 1, 1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], _dog, ActivityLevel.Medium, new DateTime(2020, 1, 1));
         });
     }
         
@@ -180,7 +182,7 @@ public class HealthyTests
         Assert.Throws<DuplicatesException>(() => 
         {
             // Arrange
-            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.Black, Color.Black], ActivityLevel.Medium, new DateTime(2020, 1, 1));
+            var healthyPet = new Healthy("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.Black, Color.Black], _dog, ActivityLevel.Medium, new DateTime(2020, 1, 1));
         });
     }
     

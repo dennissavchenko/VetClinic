@@ -11,6 +11,11 @@
       0,
       1
     ],
-    "Age": 9
+    "Age": 9,
+    "Specie": {
+      "Id": 2,
+      "Name": "Cat",
+      "Description": "Felis catus"
+    }
   }
 ]
