@@ -136,27 +136,17 @@ public class PetTests
                 var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [], _dog);
             });
         }
-        
+
         [Test]
         public void Color_ShouldThrowADuplicateException_DuplicatesInListDetected()
         {
             // Act & Assert
-            Assert.Throws<DuplicatesException>(() => 
+            Assert.Throws<DuplicatesException>(() =>
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black], _dog);
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black],
+                    _dog);
             });
         }
-        
-        [Test]
-        public void Specie_ShouldThrowANullReferenceException_SpecieIsNull()
-        {
-            // Act & Assert
-            Assert.Throws<NullReferenceException>(() => 
-            {
-                // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black], null);
-            });
-        }
-        
+
     }

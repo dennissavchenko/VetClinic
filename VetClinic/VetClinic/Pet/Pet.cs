@@ -77,15 +77,11 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         get => _specie;
         set
         {
-            if (value == null)
-            {
-                throw new NullReferenceException("Specie cannot be null.");
-            }
             if (_specie != value && _specie != null)
             {
                 _specie.RemovePet(this);
             }
-            value.AddPet(this);
+            value?.AddPet(this);
             _specie = value;
         } 
     }
@@ -96,8 +92,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     {
         _specie = specie;
     }
-    
-    
     
     public Pet() {}
 
