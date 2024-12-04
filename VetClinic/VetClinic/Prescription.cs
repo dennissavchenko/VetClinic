@@ -7,7 +7,7 @@ namespace VetClinic
         public int Id { get; set; }
         private DateTime _startDate;
         private DateTime _endDate;
-        public DateTime StartDate
+        //public DateTime StartDate
         {
             get => _startDate;
             set
@@ -28,7 +28,23 @@ namespace VetClinic
                 _endDate = value;
             }
         }
-        
+
+        private List<Dose> _doses = new();
+        public IReadOnlyList<Dose> Doses => _doses;
+
+        public void AddDose(Dose dose)
+        {
+            if (_doses.Contains(dose)) return;
+            _doses.Add(dose);
+            dose.Prescription = this; 
+        }
+
+        public void RemoveDose(Dose dose)
+        {
+            if (!_doses.Contains(dose)) return;
+            _doses.Remove(dose);
+            dose.Prescription = null; 
+        }
         public Prescription() { }
 
         public Prescription(DateTime startDate, DateTime endDate)

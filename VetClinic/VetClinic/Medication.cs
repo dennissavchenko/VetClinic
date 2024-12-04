@@ -21,7 +21,27 @@ namespace VetClinic
         }
         public Form Form { get; set; }
 
-        public Medication() { }
+
+        private List<Dose> _doses = new();
+        public IReadOnlyList<Dose> Doses => _doses;
+
+        public void AddDose(Dose dose)
+        {
+            if (_doses.Contains(dose)) return;
+            _doses.Add(dose);
+            dose.Medication = this; 
+        }
+
+        public void RemoveDose(Dose dose)
+        {
+            if (!_doses.Contains(dose)) return;
+            _doses.Remove(dose);
+            dose.Medication = null; 
+        }
+    
+
+
+    public Medication() { }
 
         public Medication(string name, Form form)
         {

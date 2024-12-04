@@ -30,12 +30,45 @@ namespace VetClinic
             }
         }
 
+        private Medication _medication;
+        public Medication Medication
+        {
+            get => _medication;
+            set
+            {
+                if (_medication == value) return;
+
+                _medication?.RemoveDose(this); // Remove from the current medication
+                _medication = value;
+                _medication?.AddDose(this); // Add to the new medication
+            }
+        }
+
+        private Prescription _prescription;
+        public Prescription Prescription
+        {
+            get => _prescription;
+            set
+            {
+                if (_prescription == value) return;
+
+                _prescription?.RemoveDose(this); // Remove from the current prescription
+                _prescription = value;
+                _prescription?.AddDose(this); // Add to the new prescription
+            }
+        }
+
+
+
         public Dose() { }
 
-        public Dose(string description, double amount)
+        public Dose(string description, double amount, Medication medication, Prescription prescription)
         {
             Description = description;
             Amount = amount;
+            Medication = medication;
+            Prescription = prescription;
+
             AddToExtent(this);
         }
 
