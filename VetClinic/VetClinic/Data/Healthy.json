@@ -1,0 +1,21 @@
+[
+  {
+    "ActivityLevel": 0,
+    "LastVaccinationDate": null,
+    "Id": 6,
+    "Name": "Momo",
+    "Sex": 0,
+    "Weight": 2.5,
+    "DateOfBirth": "2015-04-13T00:00:00",
+    "Colors": [
+      0,
+      1
+    ],
+    "Age": 9,
+    "Specie": {
+      "Id": 2,
+      "Name": "Cat",
+      "Description": "Felis catus"
+    }
+  }
+]

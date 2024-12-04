@@ -1,0 +1,22 @@
+[
+  {
+    "Id": 1,
+    "Name": "Dog",
+    "Description": "Canis lupus familiaris"
+  },
+  {
+    "Id": 2,
+    "Name": "Cat",
+    "Description": "Felis catus"
+  },
+  {
+    "Id": 3,
+    "Name": "Eagle",
+    "Description": "Aquila chrysaetos"
+  },
+  {
+    "Id": 4,
+    "Name": "Clownfish",
+    "Description": "Amphiprioninae"
+  }
+]

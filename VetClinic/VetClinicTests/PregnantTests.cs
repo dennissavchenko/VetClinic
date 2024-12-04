@@ -6,12 +6,14 @@ namespace VetClinicTests;
 public class PregnantTests
 {
     private string _testPathPregnant, _testPathPet;
+    private Specie _dog;
 
     [SetUp]
     public void Setup()
     {
         _testPathPregnant = "../../../Data/Pregnant.json";
         _testPathPet = "../../../Data/Pet.json";
+        _dog = new Specie("Dog", "Canis lupus familiaris");
         File.Delete(_testPathPregnant);
         File.Delete(_testPathPet);
     }
@@ -34,8 +36,8 @@ public class PregnantTests
     public void AddToExtent_ShouldAddPregnantPetCorrectly()
     {
         // Arrange
-        var pregnantPet1 = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], new DateTime(2020, 5, 1), 3);
-        var pregnantPet2 = new Pregnant("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], new DateTime(2021, 5, 1), 10);
+        var pregnantPet1 = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, new DateTime(2020, 5, 1), 3);
+        var pregnantPet2 = new Pregnant("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], _dog,new DateTime(2021, 5, 1), 10);
 
         // Act
         var extent = Pregnant.GetExtentAsString();
@@ -61,7 +63,7 @@ public class PregnantTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Today.AddMonths(1), 3);
+        var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, DateTime.Today.AddMonths(1), 3);
 
         // Act
         var json = File.ReadAllText(_testPathPregnant);
@@ -101,7 +103,7 @@ public class PregnantTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], new DateTime(2017, 5, 10), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, new DateTime(2017, 5, 10), 3);
         });
     }
 
@@ -112,12 +114,12 @@ public class PregnantTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 0);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, DateTime.Now.AddMonths(1), 0);
         });
 
         Assert.Throws<NegativeValueException>(() =>
         {
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), -3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, DateTime.Now.AddMonths(1), -3);
         });
     }
     
@@ -128,7 +130,7 @@ public class PregnantTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, DateTime.Now.AddMonths(1), 3);
         });
     }
 
@@ -139,7 +141,7 @@ public class PregnantTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], _dog, DateTime.Now.AddMonths(1), 3);
         });
     }
 
@@ -150,7 +152,7 @@ public class PregnantTests
         Assert.Throws<InvalidDateException>(() =>
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], _dog,DateTime.Now.AddMonths(1), 3);
         });
     }
     
@@ -162,7 +164,7 @@ public class PregnantTests
         Assert.Throws<EmptyListException>(() => 
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], _dog, DateTime.Now.AddMonths(1), 3);
         });
     }
         
@@ -173,7 +175,7 @@ public class PregnantTests
         Assert.Throws<DuplicatesException>(() => 
         {
             // Arrange
-            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], DateTime.Now.AddMonths(1), 3);
+            var pregnantPet = new Pregnant("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], _dog, DateTime.Now.AddMonths(1), 3);
         });
     }
 

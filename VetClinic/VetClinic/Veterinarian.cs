@@ -19,6 +19,7 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
             if (string.IsNullOrWhiteSpace(value))
                 throw new EmptyStringException("FirstName can't be empty");
             _firstName = value;
+            
         }
     }
 

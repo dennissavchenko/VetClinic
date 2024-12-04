@@ -6,12 +6,14 @@ namespace VetClinicTests;
 public class FishTests
 {
     private string _testPathPet, _testPathFish;
+    private Specie _fish;
 
     [SetUp]
     public void Setup()
     {
         _testPathFish = "../../../Data/Fish.json";
         _testPathPet = "../../../Data/Pet.json";
+        _fish = new Specie("Fish", "Actinopterygii");
         File.Delete(_testPathFish);
         File.Delete(_testPathPet);
     }
@@ -33,8 +35,8 @@ public class FishTests
     public void AddToExtent_ShouldAddFishCorrectly()
     {
         // Arrange
-        var fish1 = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], WaterType.Freshwater, 22.5);
-        var fish2 = new Fish("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], WaterType.Saltwater, 15.0);
+        var fish1 = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
+        var fish2 = new Fish("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], _fish, WaterType.Saltwater, 15.0);
 
         // Act
         var extent = Fish.GetExtentAsString();
@@ -61,7 +63,7 @@ public class FishTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], WaterType.Freshwater, 22.5);
+        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 3, 15), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
 
         // Act
         var json = File.ReadAllText(_testPathFish);
@@ -98,7 +100,7 @@ public class FishTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
+        var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
 
         // Act
         int age = fish.Age;
@@ -114,7 +116,7 @@ public class FishTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var fish = new Fish("", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
+            var fish = new Fish("", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
         });
     }
 
@@ -125,7 +127,7 @@ public class FishTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, -0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, 22.5);
+            var fish = new Fish("Goldie", Sex.Female, -0.2, new DateTime(2021, 1, 1), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
         });
     }
 
@@ -136,7 +138,7 @@ public class FishTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, DateTime.Now.AddDays(1), [Color.Golden], WaterType.Freshwater, 22.5);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, DateTime.Now.AddDays(1), [Color.Golden], _fish, WaterType.Freshwater, 22.5);
         });
     }
 
@@ -147,7 +149,7 @@ public class FishTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], WaterType.Freshwater, -5.0);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden], _fish, WaterType.Freshwater, -5.0);
         });
     }
     
@@ -158,7 +160,7 @@ public class FishTests
         Assert.Throws<EmptyListException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [], WaterType.Freshwater, -5.0);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [], _fish, WaterType.Freshwater, -5.0);
         });
     }
         
@@ -169,7 +171,7 @@ public class FishTests
         Assert.Throws<DuplicatesException>(() => 
         {
             // Arrange
-            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden, Color.Golden], WaterType.Freshwater, -5.0);
+            var fish = new Fish("Goldie", Sex.Female, 0.2, new DateTime(2021, 1, 1), [Color.Golden, Color.Golden], _fish, WaterType.Freshwater, -5.0);
         });
     }
 }

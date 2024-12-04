@@ -6,22 +6,79 @@ namespace VetClinic;
 
 public class Specie: StoredObject<Specie>, IIdentifiable
 {
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
+    private int _id;
+    public int Id
+    {
+        get => _id;
+        set
+        {
+            _id = value;
+            OnObjectChanged();
+        }
+    }
+    
+    private string _name;
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            _name = value;
+            OnObjectChanged();
+        }
+    }
 
-    private List<Pet> _pets = new ();
+    private string _description;
+    public string Description
+    {
+        get => _description;
+        set
+        {
+            _description = value;
+            OnObjectChanged();
+        }
+    }
+
+    private List<Pet> _pets = new();
+    
+    private static List<Specie> _extent = new();
+    
+    public void OnObjectChanged()
+    {
+        foreach (var pet in _pets)
+        {
+            pet.ModifySpecie(this);
+        }
+    }
+
+    public List<Pet> GetPets()
+    {
+        return _pets;
+    }
     
     public void AddPet (Pet pet)
     {
-        if (_pets.Contains(pet)) return;
+        if (pet == null) throw new NullReferenceException("Pet cannot be null.");
+        if (_pets.Contains(pet)) throw new DuplicatesException("Pet already exists in the list.");
         _pets.Add(pet);
     }
     
     public void RemovePet (Pet pet)
     {
-        if (!_pets.Contains(pet)) return;
+        if (pet == null) throw new NullReferenceException("Pet cannot be null.");
+        if (!_pets.Contains(pet)) throw new NotFoundException("Pet not found in the list.");
         _pets.Remove(pet);
+    }
+    
+    public void ModifyPet (Pet pet)
+    {
+        // if (pet == null) throw new NullReferenceException("Pet cannot be null.");
+        // int index = _pets.IndexOf(pet);
+        // if (index == -1)
+        // {
+        //     throw new NotFoundException("Pet not found in the list.");
+        // }
+        // _pets[index] = pet;
     }
     
     public Specie() {}
@@ -33,11 +90,25 @@ public class Specie: StoredObject<Specie>, IIdentifiable
         Name = name;
         Description = description;
         AddToExtent(this);
+        _extent.Add(this);
     }
 
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Description={Description}";;
+        return $"Id={Id}, Name={Name}, Description={Description}";
+    }
+
+    public static void PrintSpecieExtent()
+    {
+        Console.WriteLine("------------------------------------------------");
+        foreach (var specie in _extent)
+        {
+            Console.WriteLine(specie);
+            foreach (var pet in specie._pets)
+            {
+                Console.WriteLine("-->" + pet);
+            }
+        }
     }
     
 }

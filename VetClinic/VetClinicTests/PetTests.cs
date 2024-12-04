@@ -6,11 +6,13 @@ namespace VetClinicTests;
 public class PetTests
     {
         private string _testPath;
+        private Specie _dog;
 
         [SetUp]
         public void Setup()
         {
             _testPath = "../../../Data/Pet.json";
+            _dog = new Specie("Dog", "Canis lupus familiaris");
             File.Delete(_testPath);
         }
         
@@ -26,9 +28,10 @@ public class PetTests
         [Test]
         public void AddToExtent_ShouldAddPetCorrectly()
         {
+            Specie cat = new Specie("Cat", "Felis catus");
             // Arrange
-            var pet1 = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown]);
-            var pat2 = new Pet("Momo", Sex.Male, 10, new DateTime(2018, 6, 12), [Color.Black, Color.White]);
+            var pet1 = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown], _dog);
+            var pat2 = new Pet("Momo", Sex.Male, 10, new DateTime(2018, 6, 12), [Color.Black, Color.White], cat);
 
             // Act
             var extent = Pet.GetExtentAsString();
@@ -50,7 +53,7 @@ public class PetTests
         public void SaveExtent_ShouldSerializeToJsonCorrectly()
         {
             // Arrange
-            var pet = new Pet("Rex", Sex.Male, 22.0, new DateTime(2017, 3, 20), [Color.Black, Color.White ]);
+            var pet = new Pet("Rex", Sex.Male, 22.0, new DateTime(2017, 3, 20), [Color.Black, Color.White], _dog);
 
             // Act
             var json = File.ReadAllText(_testPath);
@@ -81,7 +84,7 @@ public class PetTests
         public void Age_ShouldBeCalculatedCorrectly()
         {
             // Arrange
-            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], _dog);
 
             // Act
             int age = pet.Age;
@@ -97,7 +100,7 @@ public class PetTests
             Assert.Throws<EmptyStringException>(() =>
             {
                 // Arrange
-                var pet = new Pet("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+                var pet = new Pet("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], _dog);
             });
         }
         
@@ -108,7 +111,7 @@ public class PetTests
             Assert.Throws<NegativeValueException>(() => 
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+                var pet = new Pet("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow], _dog);
             });
         }
         
@@ -119,7 +122,7 @@ public class PetTests
             Assert.Throws<InvalidDateException>(() => 
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow]);
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(1), [Color.Yellow], _dog);
             });
         }
         
@@ -130,7 +133,7 @@ public class PetTests
             Assert.Throws<EmptyListException>(() => 
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), []);
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [], _dog);
             });
         }
         
@@ -141,7 +144,18 @@ public class PetTests
             Assert.Throws<DuplicatesException>(() => 
             {
                 // Arrange
-                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black]);
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black], _dog);
+            });
+        }
+        
+        [Test]
+        public void Specie_ShouldThrowANullReferenceException_SpecieIsNull()
+        {
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() => 
+            {
+                // Arrange
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black, Color.Black], null);
             });
         }
         
