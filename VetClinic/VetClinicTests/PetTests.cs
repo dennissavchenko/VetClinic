@@ -157,5 +157,20 @@ public class PetTests
                 pet.AddSpecie(null);
             });
         }
+        
+        [Test]
+        public void AddSpecie_ShouldAddSpecieCorrectly()
+        {
+            // Arrange
+            var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black]);
+            var cat = new Specie("Cat", "Felis catus");
+            // Act
+            pet.AddSpecie(cat);
+            
+            // Assert
+            Assert.That(pet.GetSpecie()!.Equals(cat));
+        }
+        
+        
 
     }

@@ -1,4 +1,5 @@
 ﻿using VetClinic.Exceptions;
+using NullReferenceException = System.NullReferenceException;
 
 namespace VetClinic
 {
@@ -39,6 +40,7 @@ namespace VetClinic
 
         public void ModifyDose(Dose dose, Medication newMedication)
         {
+            if (dose == null || newMedication == null) throw new NullReferenceException();
             if (!_doses.Contains(dose)) throw new NotFoundException("Dose not found in the list.");
             _doses.Remove(dose);
             if(!newMedication.GetDoses().Contains(dose)) newMedication.AddDose(dose);
@@ -46,6 +48,7 @@ namespace VetClinic
 
         public void RemoveDose(Dose dose)
         {
+            if (dose == null) throw new NullReferenceException();
             if (Dose.GetDoses().Contains(dose)) throw new ForbiddenRemovalException("Association can only be removed if the dose is deleted from the system!");
             if (!_doses.Contains(dose)) throw new NotFoundException("This medication in not associated with the dose.");
             _doses.Remove(dose);

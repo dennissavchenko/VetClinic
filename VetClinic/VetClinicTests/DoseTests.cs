@@ -196,6 +196,58 @@ namespace VetClinicTests
                 dose.RemoveDose();
             });
         }
+        
+        [Test]
+        public void Dose_ShouldThrowANullReferenceException_ForMedication()
+        {
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                // Arrange
+                var prescription1 = new Prescription(new DateTime(2018, 3, 24), new DateTime(2019, 3, 22));
+                var dose = new Dose("Take once per day", 20, null, prescription1);
+            });
+        }
+        
+        [Test]
+        public void Dose_ShouldThrowANullReferenceException_ForPrescription()
+        {
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                // Arrange
+                var medication1 = new Medication("abc", Form.Pill);
+                var dose = new Dose("Take once per day", 20, medication1, null);
+            });
+        }
+        
+        [Test]
+        public void AddMedication_ShouldThrowANullReferenceException()
+        {
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                // Arrange
+                var prescription1 = new Prescription(new DateTime(2018, 3, 24), new DateTime(2019, 3, 22));
+                var medication1 = new Medication("abc", Form.Pill);
+                var dose = new Dose("Take once per day", 20, medication1, prescription1);
+                dose.AddMedication(null);
+            });
+        }
+        
+        [Test]
+        public void AddPrescription_ShouldThrowANullReferenceException()
+        {
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                // Arrange
+                var prescription1 = new Prescription(new DateTime(2018, 3, 24), new DateTime(2019, 3, 22));
+                var medication1 = new Medication("abc", Form.Pill);
+                var dose = new Dose("Take once per day", 20, medication1, prescription1);
+                dose.AddPrescription(null);
+            });
+        }
 
     }
 }

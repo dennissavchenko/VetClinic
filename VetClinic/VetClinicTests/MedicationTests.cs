@@ -106,6 +106,8 @@ namespace VetClinicTests
         Assert.That(medication2.GetDoses().Contains(dose));
     }
     
+    
+    
     [Test]
     public void ModifyDose_ShouldModifyDoseCorrectly()
     {
@@ -139,6 +141,20 @@ namespace VetClinicTests
     }
     
     [Test]
+    public void AddDose_ShouldThrowANullReferenceException()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            prescription1.AddDose(null);
+        });
+    }
+    
+    [Test]
     public void ModifyDose_ShouldThrowANotFoundException()
     {
         // Act & Assert
@@ -150,6 +166,36 @@ namespace VetClinicTests
             var medication2 = new Medication("mfd", Form.Cream);
             var dose = new Dose("Every day for two months", 60, medication1, prescription1);
             medication2.ModifyDose(dose, medication1);
+        });
+    }
+    
+    [Test]
+    public void ModifyDose_ShouldThrowANullReferenceException_ForDose()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var medication2 = new Medication("mfd", Form.Cream);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            medication2.ModifyDose(null, medication1);
+        });
+    }
+    
+    [Test]
+    public void ModifyDose_ShouldThrowANullReferenceException_ForMedication()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var medication2 = new Medication("mfd", Form.Cream);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            medication2.ModifyDose(null, medication1);
         });
     }
     
@@ -179,6 +225,20 @@ namespace VetClinicTests
             var medication1 = new Medication("abc", Form.Pill);
             var dose = new Dose("Every day for two months", 60, medication1, prescription1);
             medication1.RemoveDose(dose);
+        });
+    }
+    
+    [Test]
+    public void RemoveDose_ShouldThrowANullReferenceException()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            medication1.RemoveDose(null);
         });
     }
         

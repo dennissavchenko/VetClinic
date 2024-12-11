@@ -46,6 +46,7 @@ namespace VetClinic
         
         public void ModifyDose(Dose dose, Prescription newPrescription)
         {
+            if (dose == null || newPrescription == null) throw new NullReferenceException();
             if (!_doses.Contains(dose)) throw new NotFoundException("Dose not found in the list.");
             _doses.Remove(dose);
             if(!newPrescription.GetDoses().Contains(dose)) newPrescription.AddDose(dose);
@@ -53,6 +54,7 @@ namespace VetClinic
 
         public void RemoveDose(Dose dose)
         {
+            if (dose == null) throw new NullReferenceException();
             if (!_doses.Contains(dose)) throw new NotFoundException("This prescription in not associated with the dose.");
             if (Dose.GetDoses().Contains(dose)) dose.RemoveDose();
             if (_doses.Contains(dose)) _doses.Remove(dose);

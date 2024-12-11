@@ -152,6 +152,20 @@ public class PrescriptionTests
     }
     
     [Test]
+    public void AddDose_ShouldThrowANullReferenceException()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            prescription1.AddDose(null);
+        });
+    }
+    
+    [Test]
     public void ModifyDose_ShouldThrowANotFoundException()
     {
         // Act & Assert
@@ -167,6 +181,35 @@ public class PrescriptionTests
     }
     
     [Test]
+    public void ModifyDose_ShouldThrowANullReferenceException_ForDose()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            prescription1.ModifyDose(null, prescription2);
+        });
+    }
+    
+    [Test]
+    public void ModifyDose_ShouldThrowANullReferenceException_ForPrescription()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            prescription1.ModifyDose(dose, null);
+        });
+    }
+    
+    [Test]
     public void RemoveDose_ShouldThrowANotFoundException()
     {
         // Act & Assert
@@ -178,6 +221,20 @@ public class PrescriptionTests
             var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
             var dose = new Dose("Every day for two months", 60, medication1, prescription1);
             prescription2.RemoveDose(dose);
+        });
+    }
+    
+    [Test]
+    public void RemoveDose_ShouldThrowANullReferenceException()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+            var medication1 = new Medication("abc", Form.Pill);
+            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+            prescription1.RemoveDose(null);
         });
     }
     
