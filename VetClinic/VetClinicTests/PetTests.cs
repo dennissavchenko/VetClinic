@@ -171,6 +171,29 @@ public class PetTests
             Assert.That(pet.GetSpecie()!.Equals(cat));
         }
         
-        
+        [Test]
+        public void RemoveSpecie_ShouldAddSpecieCorrectly()
+        {
+            // Arrange
+            var pet1 = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black]);
+            var cat = new Specie("Cat", "Felis catus");
+            // Act
+            pet1.AddSpecie(cat);
+            pet1.RemoveSpecie();
+            // Assert
+            Assert.IsNull(pet1.GetSpecie());
+        }
 
+        [Test]
+        public void RemoveSpecie_ShouldThrowANullReferenceException()
+        {
+            // Assert
+            Assert.Throws<NullReferenceException>(() =>
+            {
+                // Arrange & Act
+                var pet = new Pet("Tweety", Sex.Female, 0.5, DateTime.Now.AddDays(-10), [Color.Black]);
+                pet.RemoveSpecie();
+            });
+        }
+        
     }
