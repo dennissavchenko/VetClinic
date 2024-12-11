@@ -36,7 +36,6 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         } 
     }
     private DateTime _dateOfBirth;
-
     public DateTime DateOfBirth
     {
         get => _dateOfBirth;
@@ -69,40 +68,40 @@ public class Pet: StoredObject<Pet>, IIdentifiable
             _colors = value;
         }
     }
-
     public int Age => DateTime.Now.Year - DateOfBirth.Year;
     
     private Specie? _specie;
-    private Specie? Specie { 
-        get => _specie;
-        set
-        {
-            if (_specie != value && _specie != null)
-            {
-                _specie.RemovePet(this);
-            }
-            value?.AddPet(this);
-            _specie = value;
-        } 
-    }
     
     private static List<Pet> _extent = new();
     
-    public void AssignToSpecie(Specie? specie)
+    public Specie? GetSpecie()
     {
+        return _specie;
+    }
+    
+    public void AddSpecie(Specie specie)
+    {
+        if (_specie != specie && _specie != null) _specie.RemovePet(this);
         _specie = specie;
+        if (!_specie.GetPets().Contains(this)) _specie.AddPet(this);
+    }
+    
+    public void RemoveSpecie()
+    {
+        if (_specie == null) throw new NullReferenceException("The pet is not assigned to any specie.");
+        if(_specie.GetPets().Contains(this)) _specie.RemovePet(this);
+        _specie = null;
     }
     
     public Pet() {}
 
-    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie)
+    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors)
     {
         Name = name;
         Sex = sex;
         Weight = weight;
         DateOfBirth = dateOfBirth;
         Colors = colors;
-        Specie = specie;
         AddToExtent(this);
         _extent.Add(this);
     }

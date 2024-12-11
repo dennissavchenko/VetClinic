@@ -99,10 +99,12 @@ public class SpecieTests
         {
             // Arrange
             var specie = new Specie("Dog", "Canine species");
-            var pet = new Pet("Buddy", Sex.Male, 15.0, new DateTime(2020, 1, 1), new List<Color> { Color.Brown }, specie);
+            var pet = new Pet("Buddy", Sex.Male, 15.0, new DateTime(2020, 1, 1), new List<Color> { Color.Brown });
+            pet.AddSpecie(specie);
 
             // Assert
-            Assert.That(specie.GetPets()[0].Name.Equals("Buddy"));
+            Assert.That(specie.GetPets()[0].Equals(pet));
+            Assert.That(pet.GetSpecie()!.Equals(specie));
         }
 
         [Test]
@@ -110,7 +112,8 @@ public class SpecieTests
         {
             // Arrange
             var specie = new Specie("Cat", "Feline species");
-            var pet = new Pet("Kitty", Sex.Female, 5.0, new DateTime(2021, 5, 15), new List<Color> { Color.White }, specie);
+            var pet = new Pet("Kitty", Sex.Female, 5.0, new DateTime(2021, 5, 15), [Color.White]);
+            pet.AddSpecie(specie);
 
             // Act & Assert
             Assert.Throws<DuplicatesException>(() => specie.AddPet(pet));
@@ -121,13 +124,15 @@ public class SpecieTests
         {
             // Arrange
             var specie = new Specie("Bird", "Avian species");
-            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2022, 3, 10), new List<Color> { Color.Yellow }, specie);
+            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2022, 3, 10), new List<Color> { Color.Yellow });
+            pet.AddSpecie(specie);
 
             // Act
             specie.RemovePet(pet);
 
             // Assert
             Assert.That(specie.GetPets().Count.Equals(0));
+            Assert.That(pet.GetSpecie() == null);
         }
 
         [Test]
@@ -136,7 +141,8 @@ public class SpecieTests
             // Arrange
             var specie = new Specie("Fish", "Aquatic species");
             var specie1 = new Specie("Fish1", "Aquatic species");
-            var pet = new Pet("Nemo", Sex.Male, 1.0, new DateTime(2023, 4, 12), new List<Color> { Color.Blue }, specie);
+            var pet = new Pet("Nemo", Sex.Male, 1.0, new DateTime(2023, 4, 12), new List<Color> { Color.Blue });
+            pet.AddSpecie(specie);
 
             // Act & Assert
             Assert.Throws<NotFoundException>(() => specie1.RemovePet(pet));

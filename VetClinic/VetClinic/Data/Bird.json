@@ -10,11 +10,6 @@
     "Colors": [
       8
     ],
-    "Age": 4,
-    "Specie": {
-      "Id": 3,
-      "Name": "Eagle",
-      "Description": "Aquila chrysaetos"
-    }
+    "Age": 4
   }
 ]

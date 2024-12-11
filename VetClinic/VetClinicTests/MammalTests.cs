@@ -6,14 +6,12 @@ namespace VetClinicTests;
 public class MammalTests
 {
     private string _testPathPet, _testPathMammal;
-    private Specie _dog;
 
     [SetUp]
     public void Setup()
     {
         _testPathMammal = "../../../Data/Mammal.json";
         _testPathPet = "../../../Data/Pet.json";
-        _dog = new Specie("Dog", "Canis lupus familiaris");
         File.Delete(_testPathMammal);
         File.Delete(_testPathPet);
     }
@@ -35,8 +33,8 @@ public class MammalTests
     public void AddToExtent_ShouldAddMammalCorrectly()
     {
         // Arrange
-        var mammal1 = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White], _dog, true);
-        var mammal2 = new Mammal("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], _dog, false);
+        var mammal1 = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White], true);
+        var mammal2 = new Mammal("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], false);
 
         // Act
         var extent = Mammal.GetExtentAsString();
@@ -60,7 +58,7 @@ public class MammalTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White], _dog,true);
+        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 6, 15), [Color.Brown, Color.White],true);
 
         // Act
         var json = File.ReadAllText(_testPathMammal);
@@ -95,7 +93,7 @@ public class MammalTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], _dog, true);
+        var mammal = new Mammal("Bella", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
 
         // Act
         int age = mammal.Age;
@@ -111,7 +109,7 @@ public class MammalTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var mammal = new Mammal("", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], _dog, true);
+            var mammal = new Mammal("", Sex.Female, 12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
         });
     }
 
@@ -122,7 +120,7 @@ public class MammalTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, -12.5, new DateTime(2019, 1, 1), [Color.Brown], _dog, true);
+            var mammal = new Mammal("Bella", Sex.Female, -12.5, new DateTime(2019, 1, 1), [Color.Brown], true);
         });
     }
 
@@ -133,7 +131,7 @@ public class MammalTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(1), [Color.Brown], _dog, true);
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(1), [Color.Brown], true);
         });
     }
     
@@ -144,7 +142,7 @@ public class MammalTests
         Assert.Throws<EmptyListException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [], _dog, true);
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [], true);
         });
     }
         
@@ -155,7 +153,7 @@ public class MammalTests
         Assert.Throws<DuplicatesException>(() => 
         {
             // Arrange
-            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [Color.Brown, Color.Brown], _dog, true);
+            var mammal = new Mammal("Bella", Sex.Female, 12.5, DateTime.Now.AddDays(-10), [Color.Brown, Color.Brown], true);
         });
     }
     

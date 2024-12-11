@@ -31,47 +31,83 @@ namespace VetClinic
         }
 
         private Medication _medication;
-        public Medication Medication
+        private Medication Medication
         {
             get => _medication;
             set
             {
-                if (_medication == value) return;
-
-                _medication?.RemoveDose(this); // Remove from the current medication
                 _medication = value;
-                _medication?.AddDose(this); // Add to the new medication
+                _medication.AddDose(this);
             }
         }
 
         private Prescription _prescription;
-        public Prescription Prescription
+        private Prescription Prescription
         {
             get => _prescription;
             set
             {
-                if (_prescription == value) return;
-
-                _prescription?.RemoveDose(this); // Remove from the current prescription
                 _prescription = value;
-                _prescription?.AddDose(this); // Add to the new prescription
+                _prescription.AddDose(this);
+                
             }
         }
+        
+        private static List<Dose> _extent = new();
 
+        public static List<Dose> GetDoses()
+        {
+            return new List<Dose>(_extent);
+        }
 
+        public Medication GetMedication()
+        {
+            return _medication;
+        }
+        
+        public Prescription GetPrescription()
+        {
+            return _prescription;
+        }
 
-        public Dose() { }
+        public void AddMedication(Medication medication)
+        {
+            if (_medication.GetDoses().Contains(this)) _medication.ModifyDose(this, medication);
+            _medication = medication;
+            if (!_medication.GetDoses().Contains(this)) _medication.AddDose(this);
+        }
+        
+        public void AddPrescription(Prescription prescription)
+        {
+            if (_prescription.GetDoses().Contains(this)) _prescription.ModifyDose(this, prescription);
+            _prescription = prescription;
+            if (!_prescription.GetDoses().Contains(this)) _prescription.AddDose(this);
+        }
+        
+        public Dose() {}
 
-        public Dose(string description, double amount)
+        public Dose(string description, double amount, Medication medication, Prescription prescription)
         {
             Description = description;
             Amount = amount;
+            Medication = medication;
+            Prescription = prescription;
             AddToExtent(this);
+            _extent.Add(this);
         }
 
         public override string ToString()
         {
             return $"Id={Id}, Description={Description}, Amount={Amount}";
         }
+
+        public void RemoveDose()
+        {
+            if (!_extent.Contains(this)) throw new NotFoundException("Dose not found in the list.");
+            _extent.Remove(this);
+            _medication.RemoveDose(this);
+            _prescription.RemoveDose(this);
+        }
+        
     }
 }

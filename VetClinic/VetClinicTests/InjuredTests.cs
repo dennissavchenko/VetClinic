@@ -7,14 +7,12 @@ namespace VetClinicTests;
 public class InjuredTests
 {
     private string _testPathInjured, _testPathPet;
-    private Specie _dog;
     
     [SetUp]
     public void Setup()
     {
         _testPathInjured = "../../../Data/Injured.json";
         _testPathPet = "../../../Data/Pet.json";
-        _dog = new Specie("Dog", "Canis lupus familiaris");
         File.Delete(_testPathInjured);
         File.Delete(_testPathPet);
     }
@@ -36,8 +34,8 @@ public class InjuredTests
     public void AddToExtent_ShouldAddInjuredPetCorrectly()
     {
         // Arrange
-        var injuredPet1 = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, new DateTime(2021, 5, 10));
-        var injuredPet2 = new Injured("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], _dog, InjuryType.Sprain, new DateTime(2020, 5, 10));
+        var injuredPet1 = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
+        var injuredPet2 = new Injured("Momo", Sex.Male, 4.6, new DateTime(2017, 5, 1), [Color.White, Color.Black], InjuryType.Sprain, new DateTime(2020, 5, 10));
 
         // Act
         var extent = Injured.GetExtentAsString();
@@ -63,7 +61,7 @@ public class InjuredTests
     public void SaveExtent_ShouldSerializeToJsonCorrectly()
     {
         // Arrange
-        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, new DateTime(2021, 5, 10));
+        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         
         // Act
         var json = File.ReadAllText(_testPathInjured);
@@ -103,7 +101,7 @@ public class InjuredTests
         Assert.Throws<EmptyStringException>(() =>
         {
             // Arrange
-            var injuredPet = new Injured("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -114,7 +112,7 @@ public class InjuredTests
         Assert.Throws<NegativeValueException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, -8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -125,7 +123,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], _dog, InjuryType.Wound, new DateTime(2021, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, DateTime.Now.AddDays(1), [Color.White], InjuryType.Wound, new DateTime(2021, 5, 10));
         });
     }
     
@@ -136,7 +134,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, DateTime.Now.AddDays(1));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, DateTime.Now.AddDays(1));
         });
     }
     
@@ -144,7 +142,7 @@ public class InjuredTests
     public void Age_ShouldBeCalculatedCorrectly()
     {
         // Arrange
-        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Fracture, DateTime.Now.AddDays(-1));
+        var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Fracture, DateTime.Now.AddDays(-1));
 
         // Act
         int age = injuredPet.Age;
@@ -160,7 +158,7 @@ public class InjuredTests
         Assert.Throws<InvalidDateException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], _dog, InjuryType.Wound, new DateTime(2017, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White], InjuryType.Wound, new DateTime(2017, 5, 10));
         });
     }
     
@@ -171,7 +169,7 @@ public class InjuredTests
         Assert.Throws<EmptyListException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], _dog, InjuryType.Wound, new DateTime(2020, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [], InjuryType.Wound, new DateTime(2020, 5, 10));
         });
     }
         
@@ -182,7 +180,7 @@ public class InjuredTests
         Assert.Throws<DuplicatesException>(() => 
         {
             // Arrange
-            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], _dog, InjuryType.Wound, new DateTime(2020, 5, 10));
+            var injuredPet = new Injured("Bella", Sex.Female, 8.0, new DateTime(2018, 5, 1), [Color.White, Color.White], InjuryType.Wound, new DateTime(2020, 5, 10));
         });
     }
     

@@ -19,7 +19,7 @@ public class Bird : Pet
     }
     public bool CanFly { get; set; } // it is just boolean now, not optional
     
-    public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors, specie)
+    public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors)
     {
         WingsSpan = wingsSpan;
         CanFly = canFly;

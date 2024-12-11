@@ -1,6 +1,6 @@
 [
   {
-    "DueDate": "2025-01-04T00:00:00+01:00",
+    "DueDate": "2025-01-11T00:00:00+01:00",
     "LitterSize": 3,
     "Id": 7,
     "Name": "Mimi",
@@ -10,11 +10,6 @@
     "Colors": [
       7
     ],
-    "Age": 5,
-    "Specie": {
-      "Id": 2,
-      "Name": "Cat",
-      "Description": "Felis catus"
-    }
+    "Age": 5
   }
 ]

@@ -25,7 +25,7 @@ public class Injured : Pet
         } 
     }
     
-    public Injured(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, InjuryType injuryType, DateTime injuryDate) : base(name, sex, weight, dateOfBirth, colors, specie)
+    public Injured(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, InjuryType injuryType, DateTime injuryDate) : base(name, sex, weight, dateOfBirth, colors)
     {
         InjuryType = injuryType;
         InjuryDate = injuryDate;

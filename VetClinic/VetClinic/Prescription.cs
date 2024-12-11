@@ -30,20 +30,32 @@ namespace VetClinic
         }
 
         private List<Dose> _doses = new();
-        public IReadOnlyList<Dose> Doses => _doses;
-
+        
+        private static List<Prescription> _extent = new();
+        public List<Dose> GetDoses()
+        {
+            return new List<Dose>(_doses);
+        }
+        
         public void AddDose(Dose dose)
         {
-            if (_doses.Contains(dose)) return;
+            if (_doses.Contains(dose)) throw new DuplicatesException("Dose already exists in the list.");
             _doses.Add(dose);
-            dose.Prescription = this; 
+            if (dose.GetPrescription() != this) dose.AddPrescription(this);
+        }
+        
+        public void ModifyDose(Dose dose, Prescription newPrescription)
+        {
+            if (!_doses.Contains(dose)) throw new NotFoundException("Dose not found in the list.");
+            _doses.Remove(dose);
+            if(!newPrescription.GetDoses().Contains(dose)) newPrescription.AddDose(dose);
         }
 
         public void RemoveDose(Dose dose)
         {
-            if (!_doses.Contains(dose)) return;
-            _doses.Remove(dose);
-            dose.Prescription = null; 
+            if (!_doses.Contains(dose)) throw new NotFoundException("This prescription in not associated with the dose.");
+            if (Dose.GetDoses().Contains(dose)) dose.RemoveDose();
+            if (_doses.Contains(dose)) _doses.Remove(dose);
         }
         public Prescription() { }
 
@@ -52,12 +64,24 @@ namespace VetClinic
             StartDate = startDate;
             EndDate = endDate;
             AddToExtent(this);
+            _extent.Add(this);
         }
 
         public override string ToString()
         {
             return $"Id={Id}, StartDate={StartDate:yyyy-MM-dd}, EndDate={EndDate:yyyy-MM-dd}";
         }
+        
+        public void RemovePrescription()
+        {
+            if (!_extent.Contains(this)) throw new NotFoundException("Prescription not found in the list.");
+            foreach (var dose in _doses)
+            {
+                dose.RemoveDose();
+            }
+            _extent.Remove(this);
+        }
+        
     }
 }
 

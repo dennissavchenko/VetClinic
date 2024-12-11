@@ -42,23 +42,21 @@ public class Specie: StoredObject<Specie>, IIdentifiable
 
     public List<Pet> GetPets()
     {
-        return _pets;
+        return new List<Pet>(_pets);
     }
     
-    public void AddPet (Pet pet)
+    public void AddPet(Pet pet)
     {
-        if (pet == null) throw new NullReferenceException("Pet cannot be null.");
         if (_pets.Contains(pet)) throw new DuplicatesException("Pet already exists in the list.");
         _pets.Add(pet);
-        pet.AssignToSpecie(this);
+        if (pet.GetSpecie() != this) pet.AddSpecie(this);
     }
     
     public void RemovePet (Pet pet)
     {
-        if (pet == null) throw new NullReferenceException("Pet cannot be null.");
         if (!_pets.Contains(pet)) throw new NotFoundException("Pet not found in the list.");
         _pets.Remove(pet);
-        pet.AssignToSpecie(null);
+        if (pet.GetSpecie() != null) pet.RemoveSpecie();
     }
     
     public Specie() {}

@@ -31,7 +31,7 @@ public class Pregnant : Pet
         } 
     }
     
-    public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Specie specie, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors, specie)
+    public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors)
     {
         DueDate = dueDate;
         LitterSize = litterSize;
