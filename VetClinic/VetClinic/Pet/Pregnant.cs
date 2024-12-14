@@ -31,6 +31,13 @@ public class Pregnant : Pet
         } 
     }
     
+    public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors, client)
+    {
+        DueDate = dueDate;
+        LitterSize = litterSize;
+        StoredObject<Pregnant>.AddToExtent(this);
+    }
+    
     public Pregnant(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, DateTime dueDate, int litterSize) : base(name, sex, weight, dateOfBirth, colors)
     {
         DueDate = dueDate;

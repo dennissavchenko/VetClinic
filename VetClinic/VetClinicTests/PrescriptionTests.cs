@@ -85,169 +85,159 @@ public class PrescriptionTests
     }
     
     [Test]
-    public void AddDose_ShouldAddOrModifyDoseCorrectly()
+    public void AddMedication_ShouldAddMedicationCorrectly()
     {
         // Arrange
-        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-        var medication1 = new Medication("abc", Form.Pill);
-        var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-        var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("abc", Form.Pill);
 
         // Act
-        prescription2.AddDose(dose);
+        prescription.AddMedication(medication, "Take twice per day", 25);
 
         // Assert
-        Assert.That(dose.GetPrescription().Equals(prescription2));
-        Assert.That(!prescription1.GetDoses().Contains(dose));
-        Assert.That(prescription2.GetDoses().Contains(dose));
+        Assert.That(prescription.GetDoses().Any(x => x.GetMedication().Equals(medication)));
+        Assert.That(medication.GetDoses().Any(x => x.GetPrescription().Equals(prescription)));
+        Assert.That(prescription.GetDoses().Any(x => x.Amount.Equals(25) && x.Description.Equals("Take twice per day")));
     }
     
     [Test]
-    public void ModifyDose_ShouldModifyDoseCorrectly()
+    public void AddMedication_ShouldThrowADuplicateException_CreatingDose()
     {
         // Arrange
-        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-        var medication1 = new Medication("abc", Form.Pill);
-        var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-        var dose = new Dose("Every day for two months", 60, medication1, prescription1);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("abc", Form.Pill);
 
         // Act
-        prescription1.ModifyDose(dose, prescription2);
+        prescription.AddMedication(medication, "Take twice per day", 25);
 
         // Assert
-        Assert.That(dose.GetPrescription().Equals(prescription2));
-        Assert.That(!prescription1.GetDoses().Contains(dose));
-        Assert.That(prescription2.GetDoses().Contains(dose));
-    }
-    
-    [Test]
-    public void RemoveDose_ShouldRemoveDoseCorrectly()
-    {
-        // Arrange
-        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-        var medication1 = new Medication("abc", Form.Pill);
-        var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-
-        // Act
-        prescription1.RemoveDose(dose);
-
-        // Assert
-        Assert.That(!Dose.GetDoses().Contains(dose));
-        Assert.That(!prescription1.GetDoses().Contains(dose));
-        Assert.That(!medication1.GetDoses().Contains(dose));
-    }
-    
-    [Test]
-    public void AddDose_ShouldThrowADuplicateException()
-    {
-        // Act & Assert
         Assert.Throws<DuplicatesException>(() =>
         {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription1.AddDose(dose);
+            prescription.AddMedication(medication, "Take twice per day", 10);
         });
     }
     
     [Test]
-    public void AddDose_ShouldThrowANullReferenceException()
+    public void AddMedication_ShouldThrowANullReferenceException_ForMedication()
     {
         // Act & Assert
         Assert.Throws<NullReferenceException>(() =>
         {
             // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription1.AddDose(null);
+            var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
+            prescription.AddMedication(null!, "Take twice per day", 25);
         });
     }
     
     [Test]
-    public void ModifyDose_ShouldThrowANotFoundException()
+    public void AddMedication_ShouldThrowAnEmptyStringException_ForDescription()
     {
         // Act & Assert
+        Assert.Throws<EmptyStringException>(() =>
+        {
+            // Arrange
+            var medication = new Medication("abc", Form.Pill);
+            var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
+            prescription.AddMedication(medication, null!, 25);
+        });
+    }
+    
+    [Test]
+    public void AddMedication_ShouldThrowADuplicateException_Dose()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("abc", Form.Pill);
+        var dose = new Dose("Take twice per day", 25, medication, prescription);
+        
+        // Assert
+        Assert.Throws<DuplicatesException>(() =>
+        {
+            prescription.AddMedication(dose);
+        });
+    }
+    
+    [Test]
+    public void AddMedication_ShouldThrowANullReferenceException_ForDose()
+    {
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            // Arrange
+            var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
+            prescription.AddMedication(null!);
+        });
+    }
+    
+    [Test]
+    public void RemoveMedication_ShouldRemoveMedicationCorrectly()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("abc", Form.Pill);
+        prescription.AddMedication(medication, "Take twice per day", 25);
+
+        // Act
+        prescription.RemoveMedication(medication);
+
+        // Assert
+        Assert.That(!prescription.GetDoses().Any(x => x.GetMedication().Equals(medication)));
+        Assert.That(!medication.GetDoses().Any(x => x.GetPrescription().Equals(prescription)));
+    }
+    
+    [Test]
+    public void RemoveMedication_ShouldThrowANotFoundException()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("abc", Form.Pill);
+        
+        // Assert
         Assert.Throws<NotFoundException>(() =>
         {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription2.ModifyDose(dose, prescription2);
+            prescription.RemoveMedication(medication);
         });
     }
     
     [Test]
-    public void ModifyDose_ShouldThrowANullReferenceException_ForDose()
+    public void RemoveMedication_ShouldThrowANullReferenceException()
     {
-        // Act & Assert
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        
+        // Assert
         Assert.Throws<NullReferenceException>(() =>
         {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription1.ModifyDose(null, prescription2);
+            prescription.RemoveMedication(null!);
         });
     }
     
     [Test]
-    public void ModifyDose_ShouldThrowANullReferenceException_ForPrescription()
+    public void RemovePrescription_ShouldRemoveMedicationCorrectly()
     {
-        // Act & Assert
-        Assert.Throws<NullReferenceException>(() =>
-        {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription1.ModifyDose(dose, null);
-        });
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+        var medication = new Medication("Paracetamol", Form.Pill);
+        medication.AddPrescription(prescription, "Take after meals", 500);
+
+        // Act
+        prescription.RemovePrescription();
+
+        // Assert
+        Assert.That(!Prescription.GetCurrentExtent().Contains(prescription));
+        Assert.That(!medication.GetDoses().Any(x => x.GetPrescription().Equals(prescription)));
+        Assert.That(!prescription.GetDoses().Any(x => x.GetMedication().Equals(medication)));
     }
     
     [Test]
-    public void RemoveDose_ShouldThrowANotFoundException()
+    public void RemovePrescription_ShouldThrowANotFoundExceptionException()
     {
-        // Act & Assert
+        // Assert
         Assert.Throws<NotFoundException>(() =>
         {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var prescription2 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(2));
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription2.RemoveDose(dose);
-        });
-    }
-    
-    [Test]
-    public void RemoveDose_ShouldThrowANullReferenceException()
-    {
-        // Act & Assert
-        Assert.Throws<NullReferenceException>(() =>
-        {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            var medication1 = new Medication("abc", Form.Pill);
-            var dose = new Dose("Every day for two months", 60, medication1, prescription1);
-            prescription1.RemoveDose(null);
-        });
-    }
-    
-    [Test]
-    public void RemovePrescription_ShouldThrowANotFoundException()
-    {
-        // Act & Assert
-        Assert.Throws<NotFoundException>(() =>
-        {
-            // Arrange
-            var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
-            prescription1.RemovePrescription();
-            prescription1.RemovePrescription();
+           var prescription = new Prescription(DateTime.Today, DateTime.Today.AddMonths(1));
+           prescription.RemovePrescription();
+           prescription.RemovePrescription();
         });
     }
 

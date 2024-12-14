@@ -19,6 +19,13 @@ public class Bird : Pet
     }
     public bool CanFly { get; set; } // it is just boolean now, not optional
     
+    public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors, client)
+    {
+        WingsSpan = wingsSpan;
+        CanFly = canFly;
+        StoredObject<Bird>.AddToExtent(this);
+    }
+    
     public Bird(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, double wingsSpan, bool canFly) : base(name, sex, weight, dateOfBirth, colors)
     {
         WingsSpan = wingsSpan;

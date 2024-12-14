@@ -25,6 +25,13 @@ public class Injured : Pet
         } 
     }
     
+    public Injured(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, InjuryType injuryType, DateTime injuryDate) : base(name, sex, weight, dateOfBirth, colors, client)
+    {
+        InjuryType = injuryType;
+        InjuryDate = injuryDate;
+        StoredObject<Injured>.AddToExtent(this);
+    }
+    
     public Injured(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, InjuryType injuryType, DateTime injuryDate) : base(name, sex, weight, dateOfBirth, colors)
     {
         InjuryType = injuryType;

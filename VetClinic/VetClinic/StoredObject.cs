@@ -7,12 +7,18 @@ public abstract class StoredObject<T> where T : IIdentifiable
 {
     
     private static List<T> _storageExtent = new ();
+    protected static List<T> _extent = new();
     private static string _path = "../../../Data/" + typeof(T).Name + ".json";
     
     protected static List<T> GetExtent()
     {
         LoadExtent();
         return _storageExtent;
+    }
+    
+    public static List<T> GetCurrentExtent()
+    {
+        return new List<T>(_extent);
     }
     
     protected static void AddToExtent(T obj)

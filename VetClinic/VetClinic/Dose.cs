@@ -31,34 +31,8 @@ namespace VetClinic
         }
 
         private Medication _medication;
-        private Medication Medication
-        {
-            get => _medication;
-            set
-            {
-                _medication = value;
-                _medication.AddDose(this);
-            }
-        }
 
         private Prescription _prescription;
-        private Prescription Prescription
-        {
-            get => _prescription;
-            set
-            {
-                _prescription = value;
-                _prescription.AddDose(this);
-                
-            }
-        }
-        
-        private static List<Dose> _extent = new();
-
-        public static List<Dose> GetDoses()
-        {
-            return new List<Dose>(_extent);
-        }
 
         public Medication GetMedication()
         {
@@ -69,20 +43,6 @@ namespace VetClinic
         {
             return _prescription;
         }
-
-        public void AddMedication(Medication medication)
-        {
-            if (_medication.GetDoses().Contains(this)) _medication.ModifyDose(this, medication);
-            _medication = medication;
-            if (!_medication.GetDoses().Contains(this)) _medication.AddDose(this);
-        }
-        
-        public void AddPrescription(Prescription prescription)
-        {
-            if (_prescription.GetDoses().Contains(this)) _prescription.ModifyDose(this, prescription);
-            _prescription = prescription;
-            if (!_prescription.GetDoses().Contains(this)) _prescription.AddDose(this);
-        }
         
         public Dose() {}
 
@@ -90,8 +50,10 @@ namespace VetClinic
         {
             Description = description;
             Amount = amount;
-            Medication = medication;
-            Prescription = prescription;
+            _medication = medication;
+            _prescription = prescription;
+            if (!_medication.GetDoses().Contains(this)) 
+                _medication.AddPrescription(this); // If this Dose is not already tracked by the Medication, add it to the Medication's list of Doses.
             AddToExtent(this);
             _extent.Add(this);
         }
@@ -101,12 +63,21 @@ namespace VetClinic
             return $"Id={Id}, Description={Description}, Amount={Amount}";
         }
 
+        /// <summary>
+        /// Removes this Dose from the system, ensuring the Dose is also disassociated from its Medication and Prescription.
+        /// </summary>
         public void RemoveDose()
         {
-            if (!_extent.Contains(this)) throw new NotFoundException("Dose not found in the list.");
+            // If this Dose is not found in the global extent, throw an exception.
+            if (!_extent.Contains(this))
+                throw new NotFoundException("Dose not found in the list.");
+
+            // Remove the Dose from the global extent of Doses.
             _extent.Remove(this);
-            _medication.RemoveDose(this);
-            _prescription.RemoveDose(this);
+
+            // Instruct the Prescription to remove the linked Medication from its records,
+            // which also removes this Dose object from the Prescription side.
+            _prescription.RemoveMedication(_medication);
         }
         
     }

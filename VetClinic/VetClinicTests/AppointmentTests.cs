@@ -84,4 +84,72 @@ public class AppointmentTests
                 var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), AppointmentState.Scheduled, -50);
             });
         }
+        
+        [Test]
+        public void AssignPet_ShouldAssignPetToAnAppointmentCorrectly()
+        {
+            // Arrange
+            var pet1 = new Pet { Id = 1 };
+            var appointment = new Appointment { Id = 100, DateTime = DateTime.Now, State = AppointmentState.Scheduled, Price = 100 };
+
+            // Act
+            appointment.AssignPet(pet1);
+            
+            // Assert
+            Assert.That(pet1.HasAppointments);
+            Assert.That(pet1.GetAppointments().Contains(appointment));
+            Assert.That(appointment.GetPet() == pet1);
+        }
+        
+        [Test]
+        public void AssignPet_ShouldThrowInvalidOperationExceptionIfAppointmentAlreadyHasDifferentPet()
+        {
+            // Arrange
+            var pet1 = new Pet { Id = 1 };
+            var pet2 = new Pet { Id = 2 };
+            var appointment = new Appointment { Id = 100, DateTime = DateTime.Now, State = AppointmentState.Scheduled, Price = 100 };
+
+            // pet1 has the appointment
+            appointment.AssignPet(pet1);
+
+            // Act & Assert: Trying to add the same appointment to pet2
+            Assert.Throws<InvalidOperationException>(() => appointment.AssignPet(pet2));
+        }
+        
+        [Test]
+        public void AssignPet_ShouldThrowNullReferenceExceptionIfPetIsNull()
+        {
+            // Arrange
+            var appointment = new Appointment { Id = 100, DateTime = DateTime.Now, State = AppointmentState.Scheduled, Price = 100 };
+
+            // Act & Assert
+            Assert.Throws<NullReferenceException>(() => appointment.AssignPet(null!));
+        }
+
+        [Test]
+        public void RemovePet_ShouldUnassignPetFromAppointment()
+        {
+            // Arrange
+            var pet1 = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown]);
+            var appointment = new Appointment(new DateTime(2018, 5, 1, 14, 30, 0), AppointmentState.Canceled, 150);
+            appointment.AssignPet(pet1);
+
+            // Act
+            appointment.RemovePet();
+
+            // Assert
+            Assert.IsFalse(pet1.HasAppointments(), "Pet should have no appointments after appointment.RemovePet().");
+            Assert.IsNull(appointment.GetPet(), "Appointment.GetPet() should be null after removal.");
+        }
+        
+        [Test]
+        public void RemovePet_ShouldThrowInvalidOperationException_AppointmentHasNoPet()
+        {
+            // Arrange
+            var appointment = new Appointment { Id = 100, DateTime = DateTime.Now, State = AppointmentState.Scheduled, Price = 100 };
+
+            // Act & Assert
+            Assert.Throws<InvalidOperationException>(() => appointment.RemovePet());
+        }
+        
     }

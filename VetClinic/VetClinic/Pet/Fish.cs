@@ -22,6 +22,14 @@ public class Fish : Pet
         } 
     }
     
+    public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, 
+        colors, client)
+    {
+        WaterType = waterType;
+        WaterTemperature = waterTemperature;
+        StoredObject<Fish>.AddToExtent(this);
+    }
+    
     public Fish(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, WaterType waterType, double waterTemperature) : base(name, sex, weight, dateOfBirth, 
         colors)
     {

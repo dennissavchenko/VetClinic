@@ -34,7 +34,7 @@ public class BirdTests
         {
             // Arrange
             var bird1 = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2018, 5, 1), [Color.Brown], 10, true);
-            var bird2 = new Bird("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White],  50, false);
+            var bird2 = new Bird("Momo", Sex.Male, 0.45, new DateTime(2018, 6, 12), [Color.Black, Color.White], 50, false);
 
             // Act
             var extent = Bird.GetExtentAsString();
@@ -96,7 +96,7 @@ public class BirdTests
         public void Age_ShouldBeCalculatedCorrectly()
         {
             // Arrange
-            var pet = new Pet("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow]);
+            var pet = new Bird("Tweety", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], 10, true);
 
             // Act
             int age = pet.Age;
@@ -112,7 +112,7 @@ public class BirdTests
             Assert.Throws<EmptyStringException>(() =>
             {
                 // Arrange
-                var bird = new Bird("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow],  10, true);
+                var bird = new Bird("", Sex.Female, 0.5, new DateTime(2020, 1, 1), [Color.Yellow], 10, true);
             });
         }
         
@@ -123,7 +123,7 @@ public class BirdTests
             Assert.Throws<NegativeValueException>(() => 
             {
                 // Arrange
-                var bird = new Bird("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow],  10, true);
+                var bird = new Bird("Tweety", Sex.Female, -0.5, new DateTime(2020, 1, 1), [Color.Yellow], 10, true);
             });
         }
         

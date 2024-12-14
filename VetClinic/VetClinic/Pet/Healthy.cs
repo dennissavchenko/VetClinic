@@ -25,6 +25,13 @@ public class Healthy : Pet
         } 
     } // instead of nocturnal and canFly now lastVaccinationDate is optional
     
+    public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, ActivityLevel activityLevel, DateTime? lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors, client)
+    {
+        ActivityLevel = activityLevel;
+        LastVaccinationDate = lastVaccinationDate;
+        StoredObject<Healthy>.AddToExtent(this);
+    }
+    
     public Healthy(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, ActivityLevel activityLevel, DateTime? lastVaccinationDate) : base(name, sex, weight, dateOfBirth, colors)
     {
         ActivityLevel = activityLevel;

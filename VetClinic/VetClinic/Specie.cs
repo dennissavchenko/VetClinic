@@ -37,26 +37,48 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     }
 
     private List<Pet> _pets = new();
-    
-    private static List<Specie> _extent = new();
 
     public List<Pet> GetPets()
     {
         return new List<Pet>(_pets);
     }
     
+    /// <summary>
+    /// Adds the specified Pet to this Specie's list, maintaining bidirectional consistency.
+    /// If the Pet is already in the list, a DuplicatesException is thrown.
+    /// </summary>
     public void AddPet(Pet pet)
     {
-        if (_pets.Contains(pet)) throw new DuplicatesException("Pet already exists in the list.");
+        // Throw DuplicatesException if the pet already exists in _pets.
+        if (_pets.Contains(pet)) 
+            throw new DuplicatesException("Pet already exists in the list.");
+
+        // Add the Pet to this Specie's collection.
         _pets.Add(pet);
-        if (pet.GetSpecie() != this) pet.AddSpecie(this);
+
+        // Ensure the Pet also recognizes this Specie by calling pet.AddSpecie(this).
+        // This maintains bidirectional consistency: Pet -> Specie, Specie -> Pet.
+        if (pet.GetSpecie() != this) 
+            pet.AddSpecie(this);
     }
-    
-    public void RemovePet (Pet pet)
+
+    /// <summary>
+    /// Removes the specified Pet from this Specie's list, ensuring bidirectional consistency.
+    /// If the Pet does not exist in the list, a NotFoundException is thrown.
+    /// </summary>
+    public void RemovePet(Pet pet)
     {
-        if (!_pets.Contains(pet)) throw new NotFoundException("Pet not found in the list.");
+        // Throw NotFoundException if the pet is not in the _pets list.
+        if (!_pets.Contains(pet)) 
+            throw new NotFoundException("Pet not found in the list.");
+
+        // Remove the Pet from this Specie's collection.
         _pets.Remove(pet);
-        if (pet.GetSpecie() != null) pet.RemoveSpecie();
+
+        // If the Pet is still associated with a Specie (which should be this one),
+        // call pet.RemoveSpecie() to clear that association from the Pet side as well.
+        if (pet.GetSpecie() != null) 
+            pet.RemoveSpecie();
     }
     
     public Specie() {}
@@ -75,18 +97,29 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     {
         return $"Id={Id}, Name={Name}, Description={Description}";
     }
-
-    public static void PrintSpecieExtent()
+    
+    /// <summary>
+    /// Removes this Specie entirely from the system, along with disassociating every Pet that belongs to it.
+    /// Each Pet is updated so it no longer references this Specie, ensuring bidirectional consistency.
+    /// </summary>
+    public void RemoveSpecie()
     {
-        Console.WriteLine("------------------------------------------------");
-        foreach (var specie in _extent)
+        // Throw NotFoundException if this Specie is not found in the global extent.
+        if (!_extent.Contains(this)) 
+            throw new NotFoundException("Specie not found in the list.");
+
+        // Copy the list of Pets so we can modify _pets as we iterate.
+        var pets = new List<Pet>(_pets);
+
+        // For each Pet that belongs to this Specie, call pet.RemoveSpecie(),
+        // which breaks the association from the Pet's side.
+        foreach (var pet in pets)
         {
-            Console.WriteLine(specie);
-            foreach (var pet in specie._pets)
-            {
-                Console.WriteLine("-->" + pet);
-            }
+            pet.RemoveSpecie();
         }
+
+        // Finally, remove this Specie from the global extent.
+        _extent.Remove(this);
     }
     
 }

@@ -169,7 +169,33 @@ public class SpecieTests
             specie.AddPet(pet);
 
             // Act & Assert
-            Assert.Throws<NotFoundException>(() => specie1.RemovePet(null));
+            Assert.Throws<NotFoundException>(() => specie1.RemovePet(null!));
         }
         
+        [Test]
+        public void RemoveSpecie_ShouldThrowANotFoundException()
+        {
+            // Arrange
+            var specie = new Specie("Fish", "Aquatic species");
+            specie.RemoveSpecie();
+
+            // Act & Assert
+            Assert.Throws<NotFoundException>(() => specie.RemoveSpecie());
+        }
+
+        [Test]
+        public void RemoveSpecie_ShouldRemoveSpecieCorrectly()
+        {
+            // Arrange
+            var specie = new Specie("Fish", "Aquatic species");
+            var pet = new Pet("Nemo", Sex.Male, 1.0, new DateTime(2023, 4, 12), new List<Color> { Color.Blue });
+            specie.AddPet(pet);
+            
+            // Act
+            specie.RemoveSpecie();
+            
+            // Assert
+            Assert.That(!Specie.GetCurrentExtent().Contains(specie));
+            Assert.That(pet.GetSpecie() == null);
+        }
     }
