@@ -160,10 +160,10 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     public void RemovePrescription(Prescription prescription)
     {
         if (prescription == null)
-            
+            throw new NullReferenceException("Prescription can't be null.");
 
         if (!_prescriptions.Contains(prescription))
-            
+            throw new NotFoundException("Prescription is not associated this Veterinarian.");
         
         _prescriptions.Remove(prescription);
         
