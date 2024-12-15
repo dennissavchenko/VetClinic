@@ -62,8 +62,55 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
             pet.RemoveAppointment(Id);
         }
     }
+    // One-to-one relationship from Appointment
+    private Veterinarian? _veterinarian; 
+    
+    /// <summary>
+    /// Gets the Veterinarian associated with this Appointment.
+    /// </summary>
+    public Veterinarian? GetVeterinarian()
+    {
+        return _veterinarian;
+    }
 
+    /// <summary>
+    /// Sets the Veterinarian for this Appointment and ensures the reverse connection.
+    /// </summary>
+    public void SetVeterinarian(Veterinarian veterinarian)
+    {
+        if (veterinarian == null)
+            throw new NullReferenceException("Veterinarian can't be null.");
 
+        if (_veterinarian != null && _veterinarian != veterinarian)
+            throw new MethodMisuseException("This appointment is already assigned to another Veterinarian.");
+
+        _veterinarian = veterinarian;
+
+        // Ensure the reverse connection
+        if (!veterinarian.GetAppointments().Contains(this))
+        {
+            veterinarian.AddAppointment(this);
+        }    
+    }
+
+    /// <summary>
+    /// Clears the Veterinarian that's associated with this Appointment.
+    /// </summary>
+    public void ClearVeterinarian()
+    {
+        if (_veterinarian == null)
+            throw new ForbiddenRemovalException("This appointment is not associated with any Veterinarian.");
+
+        var veterinarian = _veterinarian;
+        _veterinarian = null;
+        
+        // Synchronize the removal on the Veterinarian side
+        if (veterinarian.GetAppointments().Contains(this))
+        {
+            veterinarian.RemoveAppointment(this);
+        }    
+    }
+    
     private List<Payment> _payments = new();
 
     public List<Payment> GetPayments()
@@ -88,7 +135,7 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         _payments.Remove(payment);
 
     }
-
+    
     public Appointment() { }
 
     public Appointment(DateTime dateTime, AppointmentState state, int price)
