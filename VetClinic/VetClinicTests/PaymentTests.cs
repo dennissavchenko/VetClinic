@@ -98,5 +98,21 @@ public class PaymentTests
         Assert.That(appointment.GetPayments().Contains(payment));  
     }
 
+    [Test]
+    public void RemoveAppointment_ShouldRemoveAppointmentCorrectly()
+    {
+        // Arrange
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 203);
+        var payment = new Payment(100, PaymentType.Card, DateTime.Now, appointment);
+
+        // Act
+        appointment.RemoveAppointment();  // Assuming this removes the appointment and disassociates it from the payment
+
+        // Assert
+        Assert.That(!Appointment.GetCurrentExtent().Contains(appointment));  // The appointment is no longer in the system
+        Assert.That(payment.GetAppointment() == null);  // The payment no longer has an associated appointment
+    }
+
+
 
 }
