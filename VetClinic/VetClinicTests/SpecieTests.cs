@@ -170,7 +170,7 @@ public class SpecieTests
             specie.AddPet(pet);
 
             // Act & Assert
-            Assert.Throws<NotFoundException>(() => specie1.RemovePet(null!));
+            Assert.Throws<NullReferenceException>(() => specie1.RemovePet(null!));
         }
         
         [Test]

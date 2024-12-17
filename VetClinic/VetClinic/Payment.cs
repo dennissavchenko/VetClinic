@@ -46,7 +46,7 @@ public class Payment: StoredObject<Payment>, IIdentifiable
     public void AddAppointment(Appointment appointment)
     {
         if (appointment == null) throw new NullReferenceException("Appointment cannot be null.");
-        if (_appointment != null && _appointment != appointment) throw new InvalidOperationException("This payment is already assigned to another appointment.");
+        if (_appointment != null && _appointment != appointment) throw new MethodMisuseException("This payment is already assigned to another appointment.");
         _appointment = appointment;
         if (!appointment.GetPayments().Contains(this)) appointment.AddPayment(this);
     }

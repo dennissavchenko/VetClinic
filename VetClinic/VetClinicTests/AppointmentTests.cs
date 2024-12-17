@@ -263,5 +263,67 @@ public class AppointmentTests
             var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
             Assert.Throws<NotFoundException>(() => appointment.RemoveVeterinarian());
         }
+
+    [Test]
+    public void AddPayment_ValidPayment_AddsSuccessfully()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
         
+        // Assert
+        Assert.That(appointment.GetPayments(), Contains.Item(payment));
+        Assert.That(payment.GetAppointment(), Is.EqualTo(appointment));
     }
+
+    [Test]
+    public void AddPayment_DuplicatePayment_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => appointment.AddPayment(payment));
+    }
+
+    [Test]
+    public void RemovePayment_ValidPayment_RemovesSuccessfully()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
+        // Act
+        appointment.RemovePayment(payment);
+
+        // Assert
+        Assert.That(appointment.GetPayments(), Does.Not.Contain(payment));
+        Assert.That(() => payment.GetAppointment(), Throws.InstanceOf<NullReferenceException>()); 
+    }
+    [Test]
+    public void RemovePayment_NonExistentPayment_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var appointment1 = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => appointment1.RemovePayment(payment));
+    }
+    
+    [Test]
+public void RemovePayment_ShouldThrowANullReferenceException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() => appointment.RemovePayment(null!));
+    }
+
+
+}
