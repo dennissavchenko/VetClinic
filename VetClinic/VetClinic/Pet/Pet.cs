@@ -204,6 +204,9 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     /// </summary>
     public void ModifyClient(Client client)
     {
+        // Throw NullReferenceException if the client is null.
+        if (client == null) throw new NullReferenceException("Client cannot be null.");
+        
         // If the Pet is currently associated with a different Client, remove it from that Client's list.
         if (_client != null! && _client.GetPets().Contains(this)) 
         {
@@ -214,10 +217,8 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         _client = client;
 
         // Add this Pet to the new Client's list if it is not already in that list.
-        if (!_client.GetPets().Contains(this)) 
-        {
-            _client.AddPet(this); // Ensures the new Client tracks this Pet in its list.
-        }
+        if (!_client.GetPets().Contains(this)) _client.AddPet(this); 
+        // Ensures the new Client tracks this Pet in its list.
     }
 
     /// <summary>
@@ -228,22 +229,16 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     {
         // If the Pet is not found in the global extent of Pets, throw an exception.
         if (!_extent.Contains(this)) 
-        {
             throw new NotFoundException("Pet not found in the list.");
-        }
-
+        
         // If the Pet is associated with a Specie, remove it from that Specie's list.
         if (_specie != null) 
-        {
             RemoveSpecie(); // Ensures the Specie no longer tracks this Pet.
-        }
 
         // If the Pet is associated with a Client, remove it from that Client's list.
         if (_client.GetPets().Contains(this)) 
-        {
             _client.RemovePet(this); // Ensures the Client no longer tracks this Pet.
-        }
-
+        
         // Remove this Pet from the global extent of Pets.
         _extent.Remove(this);
     }
