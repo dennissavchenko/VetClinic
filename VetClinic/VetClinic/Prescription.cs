@@ -160,7 +160,44 @@ namespace VetClinic
             _veterinarian = null;
             if (veterinarian.GetPrescriptions().Contains(this)) veterinarian.RemovePrescription(this);
         }
-        
+
+        private Appointment? _appointment;
+
+        public Appointment? GetAppointment()
+        {
+            return _appointment;
+        }
+
+        public void AddAppointment(Appointment appointment)
+        {
+            if (appointment == null)
+                throw new NullReferenceException("Appointment cannot be null.");
+
+            // Prevent reassigning to another appointment
+            if (_appointment != null && _appointment != appointment)
+                throw new InvalidOperationException("This Prescription is already linked to another Appointment.");
+
+            _appointment = appointment;
+
+            // Ensure bidirectional consistency
+            if (appointment.GetPrescription() != this)
+                appointment.AddPrescription(this);
+        }
+
+        public void RemoveAppointment()
+        {
+            if (_appointment == null)
+                throw new InvalidOperationException("No Appointment is linked to this Prescription.");
+
+            var appointment = _appointment;
+            _appointment = null;
+
+            // Ensure bidirectional consistency
+            if (appointment.GetPrescription() == this)
+                appointment.RemovePrescription();
+        }
+
+
         public Prescription() { }
 
         public Prescription(DateTime startDate, DateTime endDate)
