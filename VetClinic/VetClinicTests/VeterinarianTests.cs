@@ -154,4 +154,191 @@ public class VeterinarianTests
         });
     }
     
+    [Test]
+    public void AddAppointment_ShouldAddAppointmentAndVerifyReverseConnection()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Piotr", "Nowak", "545333211", "piotr.nowak@gmail.com", Specialization.Surgery, ExperienceLevel.Senior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+
+        // Act
+        veterinarian.AddAppointment(appointment);
+
+        // Assert
+        Assert.That(veterinarian.GetAppointments().Contains(appointment));
+        Assert.That(appointment.GetVeterinarian() == veterinarian);
+    }
+
+    [Test]
+    public void RemoveAppointment_ShouldRemoveAppointmentAndVerifyReverseConnection()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Anna", "Kowalska", "555666777", "anna.kowalska@gmail.com", Specialization.Radiology, ExperienceLevel.Junior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 300);
+        veterinarian.AddAppointment(appointment);
+
+        // Act
+        veterinarian.RemoveAppointment(appointment);
+
+        // Assert
+        Assert.IsFalse(veterinarian.GetAppointments().Contains(appointment));
+        Assert.IsNull(appointment.GetVeterinarian());
+    }
+
+    [Test]
+    public void AddPrescription_ShouldAddPrescriptionAndVerifyReverseConnection()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Marek", "Kowalski", "888999111", "marek.kowalski@gmail.com", Specialization.Dentistry, ExperienceLevel.Advanced);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+
+        // Act
+        veterinarian.AddPrescription(prescription);
+
+        // Assert
+        Assert.That(veterinarian.GetPrescriptions().Contains(prescription));
+        Assert.That(prescription.GetVeterinarian() == veterinarian);
+    }
+
+    [Test]
+    public void RemovePrescription_ShouldRemovePrescriptionAndVerifyReverseConnection()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Marta", "Nowicka", "112233445", "marta.nowicka@gmail.com", Specialization.Dermatology, ExperienceLevel.Intermediate);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(15));
+        veterinarian.AddPrescription(prescription);
+
+        // Act
+        veterinarian.RemovePrescription(prescription);
+
+        // Assert
+        Assert.IsFalse(veterinarian.GetPrescriptions().Contains(prescription));
+        Assert.IsNull(prescription.GetVeterinarian());
+    }
+
+    [Test]
+    public void AddAppointment_ShouldThrowDuplicateException_WhenAddingDuplicateAppointment()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Piotr", "Nowak", "545333211", "piotr.nowak@gmail.com", Specialization.Surgery, ExperienceLevel.Senior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+        veterinarian.AddAppointment(appointment);
+
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => veterinarian.AddAppointment(appointment));
+    }
+
+    [Test]
+    public void RemoveAppointment_ShouldThrowNotFoundException_WhenAppointmentNotFound()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Anna", "Kowalska", "555666777", "anna.kowalska@gmail.com", Specialization.Radiology, ExperienceLevel.Junior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 300);
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => veterinarian.RemoveAppointment(appointment));
+    }
+
+    [Test]
+    public void RemovePrescription_ShouldThrowNotFoundException_WhenPrescriptionNotFound()
+    {
+        // Arrange
+        var veterinarian = new Veterinarian("Marek", "Kowalski", "888999111", "marek.kowalski@gmail.com", Specialization.Dentistry, ExperienceLevel.Advanced);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => veterinarian.RemovePrescription(prescription));
+    }
+
+    [Test]
+    public void FirstName_ShouldThrowEmptyStringException_WhenFirstNameIsNullOrWhitespace()
+    {
+        Assert.Throws<EmptyStringException>(() => new Veterinarian("", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+        Assert.Throws<EmptyStringException>(() => new Veterinarian(null!, "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void LastName_ShouldThrowEmptyStringException_WhenLastNameIsNullOrWhitespace()
+    {
+        Assert.Throws<EmptyStringException>(() => new Veterinarian("John", "", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+        Assert.Throws<EmptyStringException>(() => new Veterinarian("John", null!, "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void PhoneNumber_ShouldThrowInvalidFormatException_WhenPhoneNumberIsNot9Digits()
+    {
+        Assert.Throws<InvalidFormatException>(() => new Veterinarian("John", "Smith", "12345", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void PhoneNumber_ShouldThrowEmptyStringException_WhenPhoneNumberIsNullOrWhitespace()
+    {
+        Assert.Throws<EmptyStringException>(() => new Veterinarian("John", "Smith", "", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void Email_ShouldThrowInvalidFormatException_WhenEmailIsInvalid()
+    {
+        Assert.Throws<InvalidFormatException>(() => new Veterinarian("John", "Smith", "123456789", "invalidemail", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void Email_ShouldThrowEmptyStringException_WhenEmailIsNullOrWhitespace()
+    {
+        Assert.Throws<EmptyStringException>(() => new Veterinarian("John", "Smith", "123456789", "", Specialization.Surgery, ExperienceLevel.Junior));
+    }
+
+    [Test]
+    public void AddAppointment_ShouldThrowNullReferenceException_WhenAppointmentIsNull()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        Assert.Throws<NullReferenceException>(() => vet.AddAppointment(null!));
+    }
+
+    [Test]
+    public void AddAppointment_ShouldThrowDuplicatesException_WhenAppointmentAlreadyAdded()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+        vet.AddAppointment(appointment);
+
+        Assert.Throws<DuplicatesException>(() => vet.AddAppointment(appointment));
+    }
+
+    [Test]
+    public void RemoveAppointment_ShouldThrowNotFoundException_WhenAppointmentNotAssociated()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+
+        Assert.Throws<NotFoundException>(() => vet.RemoveAppointment(appointment));
+    }
+
+    [Test]
+    public void AddPrescription_ShouldThrowNullReferenceException_WhenPrescriptionIsNull()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        Assert.Throws<NullReferenceException>(() => vet.AddPrescription(null!));
+    }
+
+    [Test]
+    public void AddPrescription_ShouldThrowDuplicatesException_WhenPrescriptionAlreadyAdded()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        vet.AddPrescription(prescription);
+
+        Assert.Throws<DuplicatesException>(() => vet.AddPrescription(prescription));
+    }
+
+    [Test]
+    public void RemovePrescription_ShouldThrowNotFoundException_WhenPrescriptionNotAssociated()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+
+        Assert.Throws<NotFoundException>(() => vet.RemovePrescription(prescription));
+    }
+
+    
 }
