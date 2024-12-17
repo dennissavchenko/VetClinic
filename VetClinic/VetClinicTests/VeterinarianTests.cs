@@ -340,5 +340,33 @@ public class VeterinarianTests
         Assert.Throws<NotFoundException>(() => vet.RemovePrescription(prescription));
     }
 
+    [Test]
+    public void RemoveVeterinarian_ShouldRemoveVeterinarianCorrectly_AndItsAssociations()
+    {
+        // Arrange
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery,
+            ExperienceLevel.Junior);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+        vet.AddAppointment(appointment);
+        vet.AddPrescription(prescription);
+        
+        // Act
+        vet.RemoveVeterinarian();
+        
+        // Assert
+        Assert.That(!Veterinarian.GetCurrentExtent().Contains(vet));
+        Assert.That(appointment.GetVeterinarian() == null);
+        Assert.That(prescription.GetVeterinarian() == null);
+    }
+    
+    [Test]
+    public void RemoveVeterinarian_ShouldThrowNotFoundException()
+    {
+        var vet = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+        vet.RemoveVeterinarian();
+
+        Assert.Throws<NotFoundException>(() => vet.RemoveVeterinarian());
+    }
     
 }

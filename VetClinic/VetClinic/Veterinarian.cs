@@ -147,6 +147,22 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
         if (prescription.GetVeterinarian() == this) prescription.RemoveVeterinarian();
     }
     
+    public void RemoveVeterinarian()
+    {
+        if (!_extent.Contains(this)) throw new NotFoundException("Veterinarian not found in the list.");
+        var appointments = new List<Appointment>(_appointments);
+        foreach (var appointment in appointments)
+        {
+            if (appointment.GetVeterinarian() == this) appointment.RemoveVeterinarian();
+        }
+        var prescriptions = new List<Prescription>(_prescriptions);
+        foreach (var prescription in prescriptions)
+        {
+            if (prescription.GetVeterinarian() == this) prescription.RemoveVeterinarian();
+        }
+        _extent.Remove(this);
+    }
+    
     public Veterinarian() {}
 
     public Veterinarian(string firstName, string lastName, string phoneNumber, string email, Specialization specialization, ExperienceLevel experienceLevel)
@@ -157,6 +173,7 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
         Email = email;
         Specialization = specialization;
         ExperienceLevel = experienceLevel;
+        _extent.Add(this);
         AddToExtent(this);
     }
     
