@@ -28,8 +28,9 @@ public class PaymentTests
     public void AddToExtent_ShouldAddPaymentCorrectly()
     {
         // Arrange
-        var payment1 = new Payment(150, PaymentType.Cash, new DateTime(2018, 5, 1, 16, 32, 34));
-        var payment2 = new Payment(200, PaymentType.Card, new DateTime(2018, 5, 2, 16, 2, 51));
+        var appointment = new Appointment(new DateTime(2018, 5, 1), AppointmentState.Scheduled, 200);
+        var payment1 = new Payment(150, PaymentType.Cash, new DateTime(2018, 5, 1, 16, 32, 34), appointment);
+        var payment2 = new Payment(200, PaymentType.Card, new DateTime(2018, 5, 2, 16, 2, 51), appointment);
 
         // Act
         var extent = Payment.GetExtentAsString();
@@ -68,7 +69,8 @@ public class PaymentTests
         Assert.Throws<NegativeValueException>(() =>
         {
             // Arrange
-            var payment = new Payment(-100, PaymentType.Card, new DateTime(2018, 5, 1));
+            var appointment = new Appointment(new DateTime(2018, 5, 1), AppointmentState.Scheduled, 200);
+            var payment = new Payment(-100, PaymentType.Card, new DateTime(2018, 5, 1), appointment);
         });
     }
 
@@ -78,8 +80,9 @@ public class PaymentTests
         // Act & Assert
         Assert.Throws<ArgumentException>(() =>
         {
+            var appointment = new Appointment(new DateTime(2018, 5, 1), AppointmentState.Scheduled, 200);
             // Invalid cast to force an invalid Type enum value
-            var payment = new Payment(200, (PaymentType)999, new DateTime(2018, 5, 1));
+            var payment = new Payment(200, (PaymentType)999, new DateTime(2018, 5, 1), appointment);
         });
     }
 }

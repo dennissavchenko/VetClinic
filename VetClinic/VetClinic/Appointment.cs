@@ -109,39 +109,29 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
     /// <summary>
     /// Sets the Veterinarian for this Appointment and ensures the reverse connection.
     /// </summary>
-    public void SetVeterinarian(Veterinarian veterinarian)
+    public void AddVeterinarian(Veterinarian veterinarian)
     {
-        if (veterinarian == null)
-            throw new NullReferenceException("Veterinarian can't be null.");
+        if (veterinarian == null) throw new NullReferenceException("Veterinarian can't be null.");
 
-        if (_veterinarian != null && _veterinarian != veterinarian)
-            throw new MethodMisuseException("This appointment is already assigned to another Veterinarian.");
+        if (_veterinarian != null && _veterinarian != veterinarian) throw new MethodMisuseException("This appointment is already assigned to another Veterinarian.");
 
         _veterinarian = veterinarian;
-
-        // Ensure the reverse connection
-        if (!veterinarian.GetAppointments().Contains(this))
-        {
-            veterinarian.AddAppointment(this);
-        }    
+        
+        if (!veterinarian.GetAppointments().Contains(this)) veterinarian.AddAppointment(this);
     }
 
     /// <summary>
     /// Clears the Veterinarian that's associated with this Appointment.
     /// </summary>
-    public void ClearVeterinarian()
+    public void RemoveVeterinarian()
     {
-        if (_veterinarian == null)
-            throw new ForbiddenRemovalException("This appointment is not associated with any Veterinarian.");
+        if (_veterinarian == null) throw new NotFoundException("This appointment is not associated with any Veterinarian.");
 
         var veterinarian = _veterinarian;
         _veterinarian = null;
         
         // Synchronize the removal on the Veterinarian side
-        if (veterinarian.GetAppointments().Contains(this))
-        {
-            veterinarian.RemoveAppointment(this);
-        }    
+        if (veterinarian.GetAppointments().Contains(this)) veterinarian.RemoveAppointment(this);
     }
     
     public Appointment() { }
@@ -179,30 +169,6 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         foreach (var payment in paymentsCopy)
         {
             payment.RemovePayment();
-        }
-
-        _extent.Remove(this);
-    }
-   
-
-    public void RemoveAppointment()
-    {
-        if (!_extent.Contains(this))
-            throw new NotFoundException("Appointment not found in the list.");
-
-        if (_pet != null)
-        {
-            var pet = _pet;
-            _pet = null;
-
-            if (pet.GetAppointments().Contains(this))
-                pet.RemoveAppointment(Id);
-        }
-
-        var paymentsCopy = new List<Payment>(_payments); 
-        foreach (var payment in paymentsCopy)
-        {
-            payment.RemoveAppointment();
         }
 
         _extent.Remove(this);

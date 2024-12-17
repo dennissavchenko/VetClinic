@@ -131,9 +131,9 @@ namespace VetClinic
             _extent.Remove(this);
         }
 
-        private Veterinarian? _veterinarian; // One-to-one relationship from Prescription perspective
+        private Veterinarian? _veterinarian;
 
-        public Veterinarian? GetVeterinarian() // Gets the Veterinarian associated with this Prescription.
+        public Veterinarian? GetVeterinarian()
         {
             return _veterinarian;
         }
@@ -141,39 +141,24 @@ namespace VetClinic
         /// <summary>
         /// Sets the Veterinarian for this Prescription and ensures the reverse connection.
         /// </summary>
-        public void SetVeterinarian(Veterinarian veterinarian)
+        public void AddVeterinarian(Veterinarian veterinarian)
         {
-            if (_veterinarian == null)
-                throw new NullReferenceException("Veterinarian can't be null.");
-
-            if (_veterinarian != null && _veterinarian != veterinarian)
-                throw new MethodMisuseException("This prescription is already assigned to another Veterinarian");
-
+            if (_veterinarian == null) throw new NullReferenceException("Veterinarian can't be null.");
+            if (_veterinarian != null && _veterinarian != veterinarian) throw new MethodMisuseException("This prescription is already assigned to another Veterinarian");
             _veterinarian = veterinarian;
-            
             // Ensure the reverse connection
-            if (!veterinarian.GetPrescriptions().Contains(this))
-            {
-                veterinarian.AddPrescription(this);
-            }    
+            if (!veterinarian.GetPrescriptions().Contains(this)) veterinarian.AddPrescription(this);
         }
 
         /// <summary>
         /// Clears the Veterinarian associated with this Prescription.
         /// </summary>
-        public void ClearVeterinarian()
+        public void RemoveVeterinarian()
         {
-            if (_veterinarian == null)
-                throw new ForbiddenRemovalException("This prescription is not associated with any Veterinarian.");
-
+            if (_veterinarian == null) throw new NotFoundException("This prescription is not associated with any Veterinarian.");
             var veterinarian = _veterinarian;
             _veterinarian = null;
-            
-            // Synchronize the removal on the Veterinarian side
-            if (veterinarian.GetPrescriptions().Contains(this))
-            {
-                veterinarian.RemovePrescription(this);
-            }    
+            if (veterinarian.GetPrescriptions().Contains(this)) veterinarian.RemovePrescription(this);
         }
         
         public Prescription() { }

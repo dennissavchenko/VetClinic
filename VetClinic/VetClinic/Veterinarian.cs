@@ -97,7 +97,7 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
         // Set the reverse connection if it's not already established
         if (appointment.GetVeterinarian() != this)
         {
-            appointment.SetVeterinarian(this);
+            appointment.AddVeterinarian(this);
         }    
     }
 
@@ -117,20 +117,14 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
         // Remove the reverse connection
         if (appointment.GetVeterinarian() == this)
         {
-            appointment.ClearVeterinarian();
+            appointment.RemoveVeterinarian();
         }    
     }
 
     private List<Prescription> _prescriptions = new List<Prescription>();
-
-    /// <summary>
-    /// Retrieves a copy of the prescriptions list for this Veterinarian.
-    /// </summary>
+    
     public List<Prescription> GetPrescriptions()
     {
-        if (_prescriptions.Count == 0)
-            throw new EmptyListException("This Veterinarian has no prescriptions");
-
         return new List<Prescription>(_prescriptions);
     }
 
@@ -147,11 +141,7 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
         
         _prescriptions.Add(prescription);
         
-        // Set reverse connection if it's not already established
-        if (prescription.GetVeterinarian() != this)
-        {
-            prescription.SetVeterinarian(this);
-        }    
+        if (prescription.GetVeterinarian() != this) prescription.AddVeterinarian(this);
     }
     
     /// <summary>
@@ -159,19 +149,14 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     /// </summary>
     public void RemovePrescription(Prescription prescription)
     {
-        if (prescription == null)
-            throw new NullReferenceException("Prescription can't be null.");
+        if (prescription == null) throw new NullReferenceException("Prescription can't be null.");
 
-        if (!_prescriptions.Contains(prescription))
-            throw new NotFoundException("Prescription is not associated this Veterinarian.");
+        if (!_prescriptions.Contains(prescription)) throw new NotFoundException("Prescription is not associated this Veterinarian.");
         
         _prescriptions.Remove(prescription);
         
         // Remove the reverse connection
-        if (prescription.GetVeterinarian() == this)
-        {
-            prescription.ClearVeterinarian();
-        }    
+        if (prescription.GetVeterinarian() == this) prescription.RemoveVeterinarian();
     }
     
     public Veterinarian() {}
