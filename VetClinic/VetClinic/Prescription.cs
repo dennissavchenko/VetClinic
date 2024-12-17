@@ -31,6 +31,7 @@ namespace VetClinic
         }
 
         private List<Dose> _doses = new();
+        
         public List<Dose> GetDoses()
         {
             return new List<Dose>(_doses);

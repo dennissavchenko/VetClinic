@@ -63,27 +63,23 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
             pet.RemoveAppointment(Id);
         }
     }
-
-
+    
     private List<Payment> _payments = new();
 
     public List<Payment> GetPayments()
     {
         return new List<Payment>(_payments);
     }
+    
     public void AddPayment(Payment payment)
     {
-        if (payment == null)
-            throw new NullReferenceException("Payment cannot be null.");
+     if (payment == null) throw new NullReferenceException("Payment cannot be null.");
 
-        if (_payments.Contains(payment))
-            throw new DuplicatesException("Payment already exists in the list.");
+        if (_payments.Contains(payment)) throw new DuplicatesException("Payment already exists in the list.");
 
         _payments.Add(payment);
-
-        // Ensure bidirectional consistency
-        if (payment.GetAppointment() != this)
-            payment.AssignAppointment(this);
+        
+        if (!payment.GetAppointment().Equals(this)) payment.AddAppointment(this);
     }
 
     public void RemovePayment(Payment payment)
@@ -95,10 +91,8 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
             throw new NotFoundException("Payment not found in the Appointment.");
 
         _payments.Remove(payment);
-
-        // Ensure bidirectional consistency
-        if (payment.GetAppointment() == this)
-            payment.AssignAppointment(null); // Unassign the payment
+        
+        if (payment.GetAppointment() == this) payment.RemovePayment();
     }
 
     // One-to-one relationship from Appointment
@@ -165,6 +159,31 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
     {
         return $"Id={Id}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}, State={State.ToString()} Price={Price}";
     }
+
+
+    public void RemoveAppointment()
+    {
+        if (!_extent.Contains(this))
+            throw new NotFoundException("Appointment not found in the list.");
+
+        if (_pet != null)
+        {
+            var pet = _pet;
+            _pet = null;
+
+            if (pet.GetAppointments().Contains(this))
+                pet.RemoveAppointment(Id);
+        }
+
+        var paymentsCopy = new List<Payment>(_payments); 
+        foreach (var payment in paymentsCopy)
+        {
+            payment.RemovePayment();
+        }
+
+        _extent.Remove(this);
+    }
+   
 
     public void RemoveAppointment()
     {
