@@ -133,7 +133,45 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         // Synchronize the removal on the Veterinarian side
         if (veterinarian.GetAppointments().Contains(this)) veterinarian.RemoveAppointment(this);
     }
-    
+
+
+    private Prescription? _prescription;
+
+    public Prescription? GetPrescription()
+    {
+        return _prescription;
+    }
+
+    public void AddPrescription(Prescription prescription)
+    {
+        if (prescription == null)
+            throw new NullReferenceException("Prescription cannot be null.");
+
+        // Prevent reassigning to another prescription
+        if (_prescription != null && _prescription != prescription)
+            throw new InvalidOperationException("This Appointment is already assigned to another Prescription.");
+
+        _prescription = prescription;
+
+        // Ensure bidirectional consistency
+        if (prescription.GetAppointment() != this)
+            prescription.AddAppointment(this);
+    }
+
+    public void RemovePrescription()
+    {
+        if (_prescription == null)
+            throw new InvalidOperationException("No Prescription is assigned to this Appointment.");
+
+        var prescription = _prescription;
+        _prescription = null;
+
+        // Ensure bidirectional consistency
+        if (prescription.GetAppointment() == this)
+            prescription.RemoveAppointment();
+    }
+
+
     public Appointment() { }
 
     public Appointment(DateTime dateTime, AppointmentState state, int price)
