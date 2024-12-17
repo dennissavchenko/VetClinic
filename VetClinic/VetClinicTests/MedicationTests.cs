@@ -241,4 +241,80 @@ public class MedicationTests
         });
     }
     
+    [Test]
+    public void AddComponent_ValidMedication_ShouldSucceed()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+        var medB = new Medication("MedB", Form.Injection);
+
+        // Act
+        medA.AddComponent(medB);
+
+        // Assert
+        Assert.That(medA.GetComponents().Contains(medB));
+        Assert.That(medB.GetComponentOf().Contains(medA));
+    }
+
+    [Test]
+    public void AddComponent_DuplicateMedication_ShouldThrowDuplicatesException()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+        var medB = new Medication("MedB", Form.Injection);
+        medA.AddComponent(medB);
+
+        // Act & Assert
+        Assert.Throws<DuplicatesException>(() => medA.AddComponent(medB));
+    }
+    
+    [Test]
+    public void AddComponent_SelfAsComponent_ShouldThrowInvalidOperationException()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => medA.AddComponent(medA));
+    }
+
+    [Test]
+    public void AddComponent_CyclicDependency_ShouldThrowInvalidOperationException()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+        var medB = new Medication("MedB", Form.Injection);
+        medA.AddComponent(medB);
+
+        // Act & Assert
+        Assert.Throws<InvalidOperationException>(() => medB.AddComponent(medA));
+    }
+    
+    [Test]
+    public void RemoveComponent_ValidComponent_ShouldSucceed()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+        var medB = new Medication("MedB", Form.Injection);
+        medA.AddComponent(medB);
+
+        // Act
+        medA.RemoveComponent(medB);
+
+        // Assert
+        Assert.That(!medA.GetComponents().Contains(medB));
+        Assert.That(!medB.GetComponentOf().Contains(medA));
+    }
+        
+    [Test]
+    public void RemoveComponent_NotAComponent_ShouldThrowNotFoundException()
+    {
+        // Arrange
+        var medA = new Medication("MedA", Form.Pill);
+        var medB = new Medication("MedB", Form.Injection);
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => medA.RemoveComponent(medB));
+    }
+    
 }

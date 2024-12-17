@@ -170,6 +170,7 @@ public class PetTests
 
         // Assert
         Assert.That(pet.GetSpecie()!.Equals(cat));
+        Assert.That(cat.GetPets().Contains(pet));
     }
 
     [Test]

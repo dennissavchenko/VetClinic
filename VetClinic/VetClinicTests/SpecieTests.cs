@@ -119,6 +119,7 @@ public class SpecieTests
             Assert.Throws<DuplicatesException>(() => specie.AddPet(pet));
         }
         
+        [Test]
         public void AddPet_ShouldThrowANullReferenceException()
         {
             // Arrange
@@ -127,7 +128,7 @@ public class SpecieTests
             specie.AddPet(pet);
 
             // Act & Assert
-            Assert.Throws<DuplicatesException>(() => specie.AddPet(null));
+            Assert.Throws<NullReferenceException>(() => specie.AddPet(null!));
         }
 
         [Test]

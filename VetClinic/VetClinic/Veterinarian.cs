@@ -69,15 +69,9 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     private static readonly int MaxAppointmentsPerDay = 8;
 
     private List<Appointment> _appointments = new List<Appointment>();
-
-    /// <summary>
-    /// Retrieves a copy of the appointments list for this Veterinarian.
-    /// </summary>
+    
     public List<Appointment> GetAppointments()
     {
-        if (_appointments.Count == 0)
-            throw new EmptyListException("This Veterinarian has no appointments.");
-
         return new List<Appointment>(_appointments);
     }
 
@@ -86,11 +80,9 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     /// </summary>
     public void AddAppointment(Appointment appointment)
     {
-        if (appointment == null)
-            throw new NullReferenceException("Appointment can't be null.");
+        if (appointment == null) throw new NullReferenceException("Appointment can't be null.");
 
-        if (_appointments.Contains(appointment))
-            throw new DuplicatesException("Appointment is already associated with this Veterinarian.");
+        if (_appointments.Contains(appointment)) throw new DuplicatesException("Appointment is already associated with this Veterinarian.");
         
         _appointments.Add(appointment);
 
@@ -106,11 +98,9 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     /// </summary>
     public void RemoveAppointment(Appointment appointment)
     {
-        if (appointment == null)
-            throw new NullReferenceException("Appointment can't be null.");
+        if (appointment == null) throw new NullReferenceException("Appointment can't be null.");
 
-        if (_appointments.Contains(appointment))
-            throw new DuplicatesException("Appointment is already associated with this Veterinarian.");
+        if (!_appointments.Contains(appointment)) throw new NotFoundException("Appointment is not associated with this Veterinarian.");
 
         _appointments.Remove(appointment);
         
@@ -133,11 +123,9 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     /// </summary>
     public void AddPrescription(Prescription prescription)
     {
-        if (prescription == null)
-            throw new NullReferenceException("Prescription can't be null.");
+        if (prescription == null) throw new NullReferenceException("Prescription can't be null.");
 
-        if (_prescriptions.Contains(prescription))
-            throw new DuplicatesException("Prescription is already associated with this Veterinarian.");
+        if (_prescriptions.Contains(prescription)) throw new DuplicatesException("Prescription is already associated with this Veterinarian.");
         
         _prescriptions.Add(prescription);
         

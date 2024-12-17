@@ -144,31 +144,26 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
 
     public void AddPrescription(Prescription prescription)
     {
-        if (prescription == null)
-            throw new NullReferenceException("Prescription cannot be null.");
+        if (prescription == null) throw new NullReferenceException("Prescription cannot be null.");
 
         // Prevent reassigning to another prescription
-        if (_prescription != null && _prescription != prescription)
-            throw new InvalidOperationException("This Appointment is already assigned to another Prescription.");
+        if (_prescription != null && _prescription != prescription) throw new MethodMisuseException("This Appointment is already assigned to another Prescription.");
 
         _prescription = prescription;
 
         // Ensure bidirectional consistency
-        if (prescription.GetAppointment() != this)
-            prescription.AddAppointment(this);
+        if (prescription.GetAppointment() != this) prescription.AddAppointment(this);
     }
 
     public void RemovePrescription()
     {
-        if (_prescription == null)
-            throw new InvalidOperationException("No Prescription is assigned to this Appointment.");
+        if (_prescription == null) throw new InvalidOperationException("No Prescription is assigned to this Appointment.");
 
         var prescription = _prescription;
         _prescription = null;
 
         // Ensure bidirectional consistency
-        if (prescription.GetAppointment() == this)
-            prescription.RemoveAppointment();
+        if (prescription.GetAppointment() == this) prescription.RemoveAppointment();
     }
 
 
@@ -191,22 +186,28 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
 
     public void RemoveAppointment()
     {
-        if (!_extent.Contains(this))
-            throw new NotFoundException("Appointment not found in the list.");
+        if (!_extent.Contains(this)) throw new NotFoundException("Appointment not found in the list.");
 
         if (_pet != null)
         {
             var pet = _pet;
             _pet = null;
 
-            if (pet.GetAppointments().Contains(this))
-                pet.RemoveAppointment(Id);
+            if (pet.GetAppointments().Contains(this)) pet.RemoveAppointment(Id);
         }
 
         var paymentsCopy = new List<Payment>(_payments); 
         foreach (var payment in paymentsCopy)
         {
             payment.RemovePayment();
+        }
+        
+        if (_veterinarian != null)
+        {
+            var veterinarian = _veterinarian;
+            _veterinarian = null;
+
+            if (veterinarian.GetAppointments().Contains(this)) veterinarian.RemoveAppointment(this);
         }
 
         _extent.Remove(this);

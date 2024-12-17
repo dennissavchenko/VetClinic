@@ -50,16 +50,14 @@ public class Specie: StoredObject<Specie>, IIdentifiable
     public void AddPet(Pet pet)
     {
         // Throw DuplicatesException if the pet already exists in _pets.
-        if (_pets.Contains(pet)) 
-            throw new DuplicatesException("Pet already exists in the list.");
+        if (_pets.Contains(pet)) throw new DuplicatesException("Pet already exists in the list.");
 
         // Add the Pet to this Specie's collection.
         _pets.Add(pet);
 
         // Ensure the Pet also recognizes this Specie by calling pet.AddSpecie(this).
         // This maintains bidirectional consistency: Pet -> Specie, Specie -> Pet.
-        if (pet.GetSpecie() != this) 
-            pet.AddSpecie(this);
+        if (pet.GetSpecie() != this) pet.AddSpecie(this);
     }
 
     /// <summary>
@@ -77,8 +75,7 @@ public class Specie: StoredObject<Specie>, IIdentifiable
 
         // If the Pet is still associated with a Specie (which should be this one),
         // call pet.RemoveSpecie() to clear that association from the Pet side as well.
-        if (pet.GetSpecie() != null) 
-            pet.RemoveSpecie();
+        if (pet.GetSpecie() != null) pet.RemoveSpecie();
     }
     
     public Specie() {}
