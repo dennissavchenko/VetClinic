@@ -73,7 +73,7 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
     
     public void AddPayment(Payment payment)
     {
-     if (payment == null) throw new NullReferenceException("Payment cannot be null.");
+        if (payment == null) throw new NullReferenceException("Payment cannot be null.");
 
         if (_payments.Contains(payment)) throw new DuplicatesException("Payment already exists in the list.");
 

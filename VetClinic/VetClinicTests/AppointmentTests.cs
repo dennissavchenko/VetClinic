@@ -300,7 +300,7 @@ public class AppointmentTests
 
         // Assert
         Assert.That(appointment.GetPayments(), Does.Not.Contain(payment));
-        Assert.That(() => payment.GetAppointment(), Throws.InstanceOf<NullReferenceException>()); 
+        Assert.That(!Payment.GetCurrentExtent().Contains(payment)); 
     }
     [Test]
     public void RemovePayment_NonExistentPayment_ThrowsException()
