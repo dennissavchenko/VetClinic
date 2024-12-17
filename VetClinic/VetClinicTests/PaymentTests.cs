@@ -85,4 +85,18 @@ public class PaymentTests
             var payment = new Payment(200, (PaymentType)999, new DateTime(2018, 5, 1), appointment);
         });
     }
+
+    [Test]
+    public void Payment_ShouldAssociateWithAppointmentCorrectly()
+    {
+        // Arrange
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now,appointment);  
+
+        // Assert
+        Assert.That(payment.GetAppointment().Equals(appointment)); 
+        Assert.That(appointment.GetPayments().Contains(payment));  
+    }
+
+
 }

@@ -1,0 +1,42 @@
+[
+  {
+    "Id": 1,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 2,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 3,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 4,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 5,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 6,
+    "Name": "abc",
+    "Form": 0
+  },
+  {
+    "Id": 7,
+    "Name": "Antibiotic",
+    "Form": 0
+  },
+  {
+    "Id": 8,
+    "Name": "Paracetamol",
+    "Form": 0
+  }
+]

@@ -143,7 +143,7 @@ namespace VetClinic
         /// </summary>
         public void AddVeterinarian(Veterinarian veterinarian)
         {
-            if (_veterinarian == null) throw new NullReferenceException("Veterinarian can't be null.");
+            if (veterinarian == null) throw new NullReferenceException("Veterinarian can't be null.");
             if (_veterinarian != null && _veterinarian != veterinarian) throw new MethodMisuseException("This prescription is already assigned to another Veterinarian");
             _veterinarian = veterinarian;
             // Ensure the reverse connection

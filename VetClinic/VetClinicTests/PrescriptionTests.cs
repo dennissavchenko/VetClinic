@@ -240,5 +240,81 @@ public class PrescriptionTests
            prescription.RemovePrescription();
         });
     }
+    
+    [Test]
+    public void AddVeterinarian_ShouldSetVeterinarianAndVerifyReverseConnection()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var veterinarian = new Veterinarian("Marek", "Kowalski", "888999111", "marek.kowalski@gmail.com", Specialization.Dentistry, ExperienceLevel.Advanced);
+
+        // Act
+        prescription.AddVeterinarian(veterinarian);
+
+        // Assert
+        Assert.That(prescription.GetVeterinarian() == veterinarian);
+        Assert.That(veterinarian.GetPrescriptions().Contains(prescription));
+    }
+
+    [Test]
+    public void RemoveVeterinarian_ShouldClearAssociationAndVerifyReverseConnection()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var veterinarian = new Veterinarian("Marta", "Nowicka", "112233445", "marta.nowicka@gmail.com", Specialization.Dermatology, ExperienceLevel.Intermediate);
+        prescription.AddVeterinarian(veterinarian);
+
+        // Act
+        prescription.RemoveVeterinarian();
+
+        // Assert
+        Assert.IsNull(prescription.GetVeterinarian());
+        Assert.IsFalse(veterinarian.GetPrescriptions().Contains(prescription));
+    }
+
+    [Test]
+    public void AddVeterinarian_ShouldThrowMethodMisuseException_WhenVeterinarianAlreadySet()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var veterinarian1 = new Veterinarian("Marek", "Kowalski", "888999111", "marek.kowalski@gmail.com", Specialization.Dentistry, ExperienceLevel.Advanced);
+        var veterinarian2 = new Veterinarian("Piotr", "Nowak", "545333211", "piotr.nowak@gmail.com", Specialization.Surgery, ExperienceLevel.Senior);
+        prescription.AddVeterinarian(veterinarian1);
+
+        // Act & Assert
+        Assert.Throws<MethodMisuseException>(() => prescription.AddVeterinarian(veterinarian2));
+    }
+
+    [Test]
+    public void RemoveVeterinarian_ShouldThrowNotFoundException_WhenNoVeterinarianSet()
+    {
+        // Arrange
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => prescription.RemoveVeterinarian());
+    }
+
+    [Test]
+    public void StartDate_ShouldThrowInvalidDateException_WhenStartDateIsAfterEndDate()
+    {
+        Assert.Throws<InvalidDateException>(() => new Prescription(DateTime.Today.AddDays(5), DateTime.Today));
+    }
+
+    [Test]
+    public void AddMedication_ShouldThrowNullReferenceException_WhenMedicationIsNull()
+    {
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        Assert.Throws<NullReferenceException>(() => prescription.AddMedication(null!, "Take daily", 100));
+    }
+
+    [Test]
+    public void RemoveMedication_ShouldThrowNotFoundException_WhenMedicationNotAssociated()
+    {
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var medication = new Medication("Antibiotic", Form.Pill);
+
+        Assert.Throws<NotFoundException>(() => prescription.RemoveMedication(medication));
+    }
 
 }
