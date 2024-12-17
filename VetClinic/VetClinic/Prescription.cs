@@ -130,6 +130,52 @@ namespace VetClinic
             // Finally, remove this Prescription from the global extent, completing the removal process.
             _extent.Remove(this);
         }
+
+        private Veterinarian? _veterinarian; // One-to-one relationship from Prescription perspective
+
+        public Veterinarian? GetVeterinarian() // Gets the Veterinarian associated with this Prescription.
+        {
+            return _veterinarian;
+        }
+
+        /// <summary>
+        /// Sets the Veterinarian for this Prescription and ensures the reverse connection.
+        /// </summary>
+        public void SetVeterinarian(Veterinarian veterinarian)
+        {
+            if (_veterinarian == null)
+                throw new NullReferenceException("Veterinarian can't be null.");
+
+            if (_veterinarian != null && _veterinarian != veterinarian)
+                throw new MethodMisuseException("This prescription is already assigned to another Veterinarian");
+
+            _veterinarian = veterinarian;
+            
+            // Ensure the reverse connection
+            if (!veterinarian.GetPrescriptions().Contains(this))
+            {
+                veterinarian.AddPrescription(this);
+            }    
+        }
+
+        /// <summary>
+        /// Clears the Veterinarian associated with this Prescription.
+        /// </summary>
+        public void ClearVeterinarian()
+        {
+            if (_veterinarian == null)
+                throw new ForbiddenRemovalException("This prescription is not associated with any Veterinarian.");
+
+            var veterinarian = _veterinarian;
+            _veterinarian = null;
+            
+            // Synchronize the removal on the Veterinarian side
+            if (veterinarian.GetPrescriptions().Contains(this))
+            {
+                veterinarian.RemovePrescription(this);
+            }    
+        }
+        
         public Prescription() { }
 
         public Prescription(DateTime startDate, DateTime endDate)

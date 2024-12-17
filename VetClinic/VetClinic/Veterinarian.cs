@@ -67,6 +67,112 @@ public class Veterinarian: StoredObject<Veterinarian>, IIdentifiable
     public ExperienceLevel ExperienceLevel { get; set; }
     
     private static readonly int MaxAppointmentsPerDay = 8;
+
+    private List<Appointment> _appointments = new List<Appointment>();
+
+    /// <summary>
+    /// Retrieves a copy of the appointments list for this Veterinarian.
+    /// </summary>
+    public List<Appointment> GetAppointments()
+    {
+        if (_appointments.Count == 0)
+            throw new EmptyListException("This Veterinarian has no appointments.");
+
+        return new List<Appointment>(_appointments);
+    }
+
+    /// <summary>
+    /// Adds an appointment to this Veterinarian and establishes the reverse connection.
+    /// </summary>
+    public void AddAppointment(Appointment appointment)
+    {
+        if (appointment == null)
+            throw new NullReferenceException("Appointment can't be null.");
+
+        if (_appointments.Contains(appointment))
+            throw new DuplicatesException("Appointment is already associated with this Veterinarian.");
+        
+        _appointments.Add(appointment);
+
+        // Set the reverse connection if it's not already established
+        if (appointment.GetVeterinarian() != this)
+        {
+            appointment.SetVeterinarian(this);
+        }    
+    }
+
+    /// <summary>
+    /// Removes and appointment from this Veterinarian and updates the reverse connection.
+    /// </summary>
+    public void RemoveAppointment(Appointment appointment)
+    {
+        if (appointment == null)
+            throw new NullReferenceException("Appointment can't be null.");
+
+        if (_appointments.Contains(appointment))
+            throw new DuplicatesException("Appointment is already associated with this Veterinarian.");
+
+        _appointments.Remove(appointment);
+        
+        // Remove the reverse connection
+        if (appointment.GetVeterinarian() == this)
+        {
+            appointment.ClearVeterinarian();
+        }    
+    }
+
+    private List<Prescription> _prescriptions = new List<Prescription>();
+
+    /// <summary>
+    /// Retrieves a copy of the prescriptions list for this Veterinarian.
+    /// </summary>
+    public List<Prescription> GetPrescriptions()
+    {
+        if (_prescriptions.Count == 0)
+            throw new EmptyListException("This Veterinarian has no prescriptions");
+
+        return new List<Prescription>(_prescriptions);
+    }
+
+    /// <summary>
+    /// Adds a prescription to this Veterinarian and establishes the reverse connection.
+    /// </summary>
+    public void AddPrescription(Prescription prescription)
+    {
+        if (prescription == null)
+            throw new NullReferenceException("Prescription can't be null.");
+
+        if (_prescriptions.Contains(prescription))
+            throw new DuplicatesException("Prescription is already associated with this Veterinarian.");
+        
+        _prescriptions.Add(prescription);
+        
+        // Set reverse connection if it's not already established
+        if (prescription.GetVeterinarian() != this)
+        {
+            prescription.SetVeterinarian(this);
+        }    
+    }
+    
+    /// <summary>
+    /// Removes the prescription from this Veterinarian and updates the reverse connection.
+    /// </summary>
+    public void RemovePrescription(Prescription prescription)
+    {
+        if (prescription == null)
+            throw new NullReferenceException("Prescription can't be null.");
+
+        if (!_prescriptions.Contains(prescription))
+            throw new NotFoundException("Prescription is not associated this Veterinarian.");
+        
+        _prescriptions.Remove(prescription);
+        
+        // Remove the reverse connection
+        if (prescription.GetVeterinarian() == this)
+        {
+            prescription.ClearVeterinarian();
+        }    
+    }
     
     public Veterinarian() {}
 

@@ -73,7 +73,7 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
     
     public void AddPayment(Payment payment)
     {
-        if (payment == null) throw new NullReferenceException("Payment cannot be null.");
+     if (payment == null) throw new NullReferenceException("Payment cannot be null.");
 
         if (_payments.Contains(payment)) throw new DuplicatesException("Payment already exists in the list.");
 
@@ -94,6 +94,55 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         
         if (payment.GetAppointment() == this) payment.RemovePayment();
     }
+
+    // One-to-one relationship from Appointment
+    private Veterinarian? _veterinarian; 
+    
+    /// <summary>
+    /// Gets the Veterinarian associated with this Appointment.
+    /// </summary>
+    public Veterinarian? GetVeterinarian()
+    {
+        return _veterinarian;
+    }
+
+    /// <summary>
+    /// Sets the Veterinarian for this Appointment and ensures the reverse connection.
+    /// </summary>
+    public void SetVeterinarian(Veterinarian veterinarian)
+    {
+        if (veterinarian == null)
+            throw new NullReferenceException("Veterinarian can't be null.");
+
+        if (_veterinarian != null && _veterinarian != veterinarian)
+            throw new MethodMisuseException("This appointment is already assigned to another Veterinarian.");
+
+        _veterinarian = veterinarian;
+
+        // Ensure the reverse connection
+        if (!veterinarian.GetAppointments().Contains(this))
+        {
+            veterinarian.AddAppointment(this);
+        }    
+    }
+
+    /// <summary>
+    /// Clears the Veterinarian that's associated with this Appointment.
+    /// </summary>
+    public void ClearVeterinarian()
+    {
+        if (_veterinarian == null)
+            throw new ForbiddenRemovalException("This appointment is not associated with any Veterinarian.");
+
+        var veterinarian = _veterinarian;
+        _veterinarian = null;
+        
+        // Synchronize the removal on the Veterinarian side
+        if (veterinarian.GetAppointments().Contains(this))
+        {
+            veterinarian.RemoveAppointment(this);
+        }    
+    }
     
     public Appointment() { }
 
@@ -110,6 +159,7 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
     {
         return $"Id={Id}, DateTime={DateTime:yyyy-MM-ddTHH:mm:ss}, State={State.ToString()} Price={Price}";
     }
+
 
     public void RemoveAppointment()
     {
@@ -133,7 +183,29 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
 
         _extent.Remove(this);
     }
+   
+
+    public void RemoveAppointment()
+    {
+        if (!_extent.Contains(this))
+            throw new NotFoundException("Appointment not found in the list.");
+
+        if (_pet != null)
+        {
+            var pet = _pet;
+            _pet = null;
+
+            if (pet.GetAppointments().Contains(this))
+                pet.RemoveAppointment(Id);
+        }
+
+        var paymentsCopy = new List<Payment>(_payments); 
+        foreach (var payment in paymentsCopy)
+        {
+            payment.RemoveAppointment();
+        }
+
+        _extent.Remove(this);
+    }
 
 }
-    
-

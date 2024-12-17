@@ -1,4 +1,4 @@
-﻿using VetClinic.Exceptions;
+using VetClinic.Exceptions;
 
 namespace VetClinic;
 
