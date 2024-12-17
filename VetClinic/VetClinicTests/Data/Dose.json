@@ -1,0 +1,52 @@
+[
+  {
+    "Id": 1,
+    "Description": "Take after meals",
+    "Amount": 500
+  },
+  {
+    "Id": 2,
+    "Description": "Take after meals",
+    "Amount": 500
+  },
+  {
+    "Id": 3,
+    "Description": "Take after meals",
+    "Amount": 500
+  },
+  {
+    "Id": 4,
+    "Description": "Take after meals",
+    "Amount": 500
+  },
+  {
+    "Id": 5,
+    "Description": "Take after meals",
+    "Amount": 500
+  },
+  {
+    "Id": 6,
+    "Description": "Take twice per day",
+    "Amount": 25
+  },
+  {
+    "Id": 7,
+    "Description": "Take twice per day",
+    "Amount": 25
+  },
+  {
+    "Id": 8,
+    "Description": "Take twice per day",
+    "Amount": 25
+  },
+  {
+    "Id": 9,
+    "Description": "Take twice per day",
+    "Amount": 25
+  },
+  {
+    "Id": 10,
+    "Description": "Take after meals",
+    "Amount": 500
+  }
+]

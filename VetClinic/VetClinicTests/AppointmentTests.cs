@@ -1,4 +1,5 @@
 ﻿using VetClinic;
+using VetClinic.Exceptions;
 
 namespace VetClinicTests;
 
@@ -150,6 +151,117 @@ public class AppointmentTests
 
             // Act & Assert
             Assert.Throws<InvalidOperationException>(() => appointment.RemovePet());
+        }
+        
+        [Test]
+        public void AddVeterinarian_ShouldSetVeterinarianAndVerifyReverseConnection()
+        {
+            // Arrange
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+            var veterinarian = new Veterinarian("Piotr", "Nowak", "545333211", "piotr.nowak@gmail.com", Specialization.Surgery, ExperienceLevel.Senior);
+
+            // Act
+            appointment.AddVeterinarian(veterinarian);
+
+            // Assert
+            Assert.That(appointment.GetVeterinarian() == veterinarian);
+            Assert.That(veterinarian.GetAppointments().Contains(appointment));
+        }
+
+        [Test]
+        public void RemoveVeterinarian_ShouldClearAssociationAndVerifyReverseConnection()
+        {
+            // Arrange
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+            var veterinarian = new Veterinarian("Anna", "Kowalska", "555666777", "anna.kowalska@gmail.com", Specialization.Radiology, ExperienceLevel.Junior);
+            appointment.AddVeterinarian(veterinarian);
+
+            // Act
+            appointment.RemoveVeterinarian();
+
+            // Assert
+            Assert.IsNull(appointment.GetVeterinarian());
+            Assert.IsFalse(veterinarian.GetAppointments().Contains(appointment));
+        }
+
+        [Test]
+        public void AddVeterinarian_ShouldThrowMethodMisuseException_WhenVeterinarianAlreadySet()
+        {
+            // Arrange
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+            var veterinarian1 = new Veterinarian("Piotr", "Nowak", "545333211", "piotr.nowak@gmail.com", Specialization.Surgery, ExperienceLevel.Senior);
+            var veterinarian2 = new Veterinarian("Anna", "Kowalska", "555666777", "anna.kowalska@gmail.com", Specialization.Radiology, ExperienceLevel.Junior);
+            appointment.AddVeterinarian(veterinarian1);
+
+            // Act & Assert
+            Assert.Throws<MethodMisuseException>(() => appointment.AddVeterinarian(veterinarian2));
+        }
+
+        [Test]
+        public void RemoveVeterinarian_ShouldThrowNotFoundException_WhenNoVeterinarianSet()
+        {
+            // Arrange
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 200);
+
+            // Act & Assert
+            Assert.Throws<NotFoundException>(() => appointment.RemoveVeterinarian()); 
+        }
+
+        [Test]
+        public void Price_ShouldThrowArgumentOutOfRangeException_WhenPriceIsZeroOrNegative()
+        {
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Appointment(DateTime.Now, AppointmentState.Scheduled, -100));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Appointment(DateTime.Now, AppointmentState.Scheduled, 0));
+        }
+
+        [Test]
+        public void AssignPet_ShouldThrowNullReferenceException_WhenPetIsNull()
+        { 
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            Assert.Throws<NullReferenceException>(() => appointment.AssignPet(null!));
+        }
+
+        [Test]
+        public void AssignPet_ShouldThrowInvalidOperationException_WhenReassignedToDifferentPet()
+        {
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            var pet1 = new Pet { Id = 1 };
+            var pet2 = new Pet { Id = 2 };
+
+            appointment.AssignPet(pet1);
+            Assert.Throws<InvalidOperationException>(() => appointment.AssignPet(pet2));
+        }
+
+        [Test]
+        public void RemovePet_ShouldThrowInvalidOperationException_WhenNoPetAssigned()
+        {
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            Assert.Throws<InvalidOperationException>(() => appointment.RemovePet());
+        }
+
+        [Test]
+        public void AddVeterinarian_ShouldThrowNullReferenceException_WhenVeterinarianIsNull()
+        {
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            Assert.Throws<NullReferenceException>(() => appointment.AddVeterinarian(null!));
+        }
+
+        [Test]
+        public void AddVeterinarian_ShouldThrowMethodMisuseException_WhenVeterinarianAlreadyAssigned()
+        {
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            var vet1 = new Veterinarian("John", "Smith", "123456789", "email@example.com", Specialization.Surgery, ExperienceLevel.Junior);
+            var vet2 = new Veterinarian("Anna", "Kowalska", "987654321", "anna@example.com", Specialization.Radiology, ExperienceLevel.Intermediate);
+
+            appointment.AddVeterinarian(vet1);
+            Assert.Throws<MethodMisuseException>(() => appointment.AddVeterinarian(vet2));
+        }
+
+        [Test]
+        public void RemoveVeterinarian_ShouldThrowNotFoundException_WhenNoVeterinarianAssigned()
+        {
+            var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 150);
+            Assert.Throws<NotFoundException>(() => appointment.RemoveVeterinarian());
         }
         
     }
