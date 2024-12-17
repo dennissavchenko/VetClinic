@@ -63,27 +63,23 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
             pet.RemoveAppointment(Id);
         }
     }
-
-
+    
     private List<Payment> _payments = new();
 
     public List<Payment> GetPayments()
     {
         return new List<Payment>(_payments);
     }
+    
     public void AddPayment(Payment payment)
     {
-        if (payment == null)
-            throw new NullReferenceException("Payment cannot be null.");
+        if (payment == null) throw new NullReferenceException("Payment cannot be null.");
 
-        if (_payments.Contains(payment))
-            throw new DuplicatesException("Payment already exists in the list.");
+        if (_payments.Contains(payment)) throw new DuplicatesException("Payment already exists in the list.");
 
         _payments.Add(payment);
-
-        // Ensure bidirectional consistency
-        if (payment.GetAppointment() != this)
-            payment.AssignAppointment(this);
+        
+        if (!payment.GetAppointment().Equals(this)) payment.AddAppointment(this);
     }
 
     public void RemovePayment(Payment payment)
@@ -95,14 +91,10 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
             throw new NotFoundException("Payment not found in the Appointment.");
 
         _payments.Remove(payment);
-
-        // Ensure bidirectional consistency
-        if (payment.GetAppointment() == this)
-            payment.AssignAppointment(null); // Unassign the payment
+        
+        if (payment.GetAppointment() == this) payment.RemovePayment();
     }
-
-
-
+    
     public Appointment() { }
 
     public Appointment(DateTime dateTime, AppointmentState state, int price)
@@ -136,12 +128,12 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         var paymentsCopy = new List<Payment>(_payments); 
         foreach (var payment in paymentsCopy)
         {
-            payment.RemoveAppointment();
+            payment.RemovePayment();
         }
 
         _extent.Remove(this);
     }
 
 }
-
+    
 
