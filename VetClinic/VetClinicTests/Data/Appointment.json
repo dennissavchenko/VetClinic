@@ -85,43 +85,71 @@
   },
   {
     "Id": 15,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.686206+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.5519953+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 200
   },
   {
     "Id": 16,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.686913+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.5571513+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 200
   },
   {
     "Id": 17,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.687418+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.57632+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 150
   },
   {
     "Id": 18,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.692306+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.6836204+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 300
   },
   {
     "Id": 19,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.692744+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.6892765+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 150
   },
   {
     "Id": 20,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.69321+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.7139342+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 300
   },
   {
     "Id": 21,
+<<<<<<< Updated upstream
     "DateTime": "2024-12-18T13:07:34.695158+01:00",
+=======
+    "DateTime": "2024-12-18T13:08:49.7907042+01:00",
+>>>>>>> Stashed changes
     "State": 0,
     "Price": 150
   }
