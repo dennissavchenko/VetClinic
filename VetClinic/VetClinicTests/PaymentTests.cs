@@ -1,4 +1,4 @@
-﻿using VetClinic;
+using VetClinic;
 using VetClinic.Exceptions;
 
 namespace VetClinicTests;
@@ -91,28 +91,61 @@ public class PaymentTests
     {
         // Arrange
         var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
-        var payment = new Payment(100, PaymentType.Card,DateTime.Now,appointment);  
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now, appointment);  
 
         // Assert
         Assert.That(payment.GetAppointment().Equals(appointment)); 
         Assert.That(appointment.GetPayments().Contains(payment));  
     }
-
+    
     [Test]
-    public void RemoveAppointment_ShouldRemoveAppointmentCorrectly()
+    public void AddAppointment_ShouldThrowMethodMisuseException_TryingToModifyWithAdd()
     {
         // Arrange
-        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 203);
-        var payment = new Payment(100, PaymentType.Card, DateTime.Now, appointment);
-
-        // Act
-        appointment.RemoveAppointment();  // Assuming this removes the appointment and disassociates it from the payment
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
+        var appointment1 = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 39);
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now, appointment); 
 
         // Assert
-        Assert.That(!Appointment.GetCurrentExtent().Contains(appointment));  // The appointment is no longer in the system
-        Assert.That(payment.GetAppointment() == null);  // The payment no longer has an associated appointment
+        Assert.Throws<MethodMisuseException>(() => payment.AddAppointment(appointment1));
     }
+    
+    [Test]
+    public void AddAppointment_ShouldThrowNullReferenceException()
+    {
+        // Arrange
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now, appointment); 
 
+        // Assert
+        Assert.Throws<NullReferenceException>(() => payment.AddAppointment(null!));
+    }
+    
+    [Test]
+    public void RemovePayment_ShouldRemovePaymentCorrectly_AndItsAssociations()
+    {
+        // Arrange
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now, appointment); 
 
+        // Act
+        payment.RemovePayment();
+        
+        // Assert
+        Assert.That(!appointment.GetPayments().Contains(payment));
+        Assert.That(!Payment.GetCurrentExtent().Contains(payment));
+    }
+    
+    [Test]
+    public void AddAppointment_ShouldThrowNotFoundException_TryingToDeleteAlreadyDeletedObject()
+    {
+        // Arrange
+        var appointment = new Appointment(new DateTime(2024, 12, 17), AppointmentState.Scheduled, 300); 
+        var payment = new Payment(100, PaymentType.Card,DateTime.Now, appointment);
+        payment.RemovePayment();
+
+        // Assert
+        Assert.Throws<NotFoundException>(() => payment.RemovePayment());
+    }
 
 }

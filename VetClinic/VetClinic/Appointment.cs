@@ -157,7 +157,7 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
 
     public void RemovePrescription()
     {
-        if (_prescription == null) throw new InvalidOperationException("No Prescription is assigned to this Appointment.");
+        if (_prescription == null) throw new NotFoundException("No Prescription is assigned to this Appointment.");
 
         var prescription = _prescription;
         _prescription = null;
@@ -204,10 +204,12 @@ public class Appointment : StoredObject<Appointment>, IIdentifiable
         
         if (_veterinarian != null)
         {
-            var veterinarian = _veterinarian;
-            _veterinarian = null;
-
-            if (veterinarian.GetAppointments().Contains(this)) veterinarian.RemoveAppointment(this);
+            if (_veterinarian.GetAppointments().Contains(this)) _veterinarian.RemoveAppointment(this);
+        }
+        
+        if (_prescription != null)
+        {
+            if (_prescription.GetAppointment() == this) _prescription.RemoveAppointment();
         }
 
         _extent.Remove(this);

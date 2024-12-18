@@ -126,6 +126,10 @@ namespace VetClinic
             {
                 dose.RemoveDose();
             }
+            
+            _veterinarian?.RemovePrescription(this);
+            
+            _appointment?.RemovePrescription();
 
             // Finally, remove this Prescription from the global extent, completing the removal process.
             _extent.Remove(this);
@@ -183,7 +187,7 @@ namespace VetClinic
 
         public void RemoveAppointment()
         {
-            if (_appointment == null) throw new InvalidOperationException("No Appointment is linked to this Prescription.");
+            if (_appointment == null) throw new NotFoundException("No Appointment is linked to this Prescription.");
 
             var appointment = _appointment;
             _appointment = null;

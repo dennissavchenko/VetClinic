@@ -287,7 +287,20 @@ public class AppointmentTests
         // Act & Assert
         Assert.Throws<DuplicatesException>(() => appointment.AddPayment(payment));
     }
+    
+    [Test]
+    public void AddPayment_NullReference_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
 
+        // Act & Assert
+        Assert.Throws<NullReferenceException>(() =>
+        {
+            var payment = new Payment(50, PaymentType.Cash, DateTime.Now, null!);
+        });
+    }
+    
     [Test]
     public void RemovePayment_ValidPayment_RemovesSuccessfully()
     {
@@ -302,6 +315,7 @@ public class AppointmentTests
         Assert.That(appointment.GetPayments(), Does.Not.Contain(payment));
         Assert.That(!Payment.GetCurrentExtent().Contains(payment)); 
     }
+    
     [Test]
     public void RemovePayment_NonExistentPayment_ThrowsException()
     {
@@ -315,7 +329,7 @@ public class AppointmentTests
     }
     
     [Test]
-public void RemovePayment_ShouldThrowANullReferenceException()
+    public void RemovePayment_ShouldThrowANullReferenceException()
     {
         // Arrange
         var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
@@ -324,6 +338,114 @@ public void RemovePayment_ShouldThrowANullReferenceException()
         // Act & Assert
         Assert.Throws<NullReferenceException>(() => appointment.RemovePayment(null!));
     }
+    
+    [Test]
+    public void AddPrescription_ValidPrescription_AddsSuccessfully()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        
+        appointment.AddPrescription(prescription);
 
+        // Assert
+        Assert.That(appointment.GetPrescription()!.Equals(prescription));
+        Assert.That(prescription.GetAppointment()!.Equals(appointment));
+    }
+    
+    [Test]
+    public void AddPrescription_MethodMisuseException_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var prescription1 = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        
+        appointment.AddPrescription(prescription);
 
+        // Assert
+        Assert.Throws<MethodMisuseException>(() => appointment.AddPrescription(prescription1));
+    }
+    
+    [Test]
+    public void AddPrescription_NullReferenceException_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+
+        // Assert
+        Assert.Throws<NullReferenceException>(() => appointment.AddPrescription(null!));
+    }
+    
+    [Test]
+    public void RemovePrescription_RemovesSuccessfully()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        
+        appointment.AddPrescription(prescription);
+        Assert.That(appointment.GetPrescription()!.Equals(prescription));
+        appointment.RemovePrescription();
+
+        // Assert
+        Assert.That(appointment.GetPrescription() == null);
+        Assert.That(prescription.GetAppointment() == null);
+    }
+    
+    [Test]
+    public void AddPrescription_NotFoundException_ThrowsException()
+    {
+        // Arrange
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+
+        // Act & Assert
+        Assert.Throws<NotFoundException>(() => appointment.RemovePrescription());
+    }
+
+    [Test]
+    public void RemoveAppointment_RemovesSuccessfully_WithAssociations()
+    {
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        var pet = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), new List<Color> { Color.Brown });
+        var vet = new Veterinarian("Anna", "Kowalska", "555666777", "anna.kowalska@gmail.com", Specialization.Radiology, ExperienceLevel.Junior);
+        var prescription = new Prescription(DateTime.Today, DateTime.Today.AddDays(10));
+        var payment = new Payment(50, PaymentType.Cash, DateTime.Now, appointment);
+
+        appointment.AssignPet(pet);
+        Assert.That(pet.GetAppointments().Contains(appointment));
+        Assert.That(appointment.GetPet() == pet);
+
+        appointment.AddVeterinarian(vet);
+        Assert.That(vet.GetAppointments().Contains(appointment));
+        Assert.That(appointment.GetVeterinarian() == vet);
+
+        appointment.AddPrescription(prescription);
+        Assert.That(appointment.GetPrescription() == prescription);
+        Assert.That(prescription.GetAppointment() == appointment);
+        
+        // Act
+        appointment.RemoveAppointment();
+        
+        // Assert
+        Assert.IsFalse(pet.GetAppointments().Contains(appointment));
+        Assert.IsNull(appointment.GetPet());
+        Assert.IsFalse(vet.GetAppointments().Contains(appointment));
+        Assert.IsNull(appointment.GetVeterinarian());
+        Assert.IsNull(appointment.GetPrescription());
+        Assert.IsNull(prescription.GetAppointment());
+        Assert.IsFalse(appointment.GetPayments().Contains(payment));
+        Assert.That(!Appointment.GetCurrentExtent().Contains(appointment));
+        
+    }
+    
+    [Test]
+    public void RemoveAppointment_ShouldThrowNotFoundException()
+    {
+        var appointment = new Appointment(DateTime.Now, AppointmentState.Scheduled, 100);
+        appointment.RemoveAppointment();
+
+        Assert.Throws<NotFoundException>(() => appointment.RemoveAppointment());
+    }
+    
 }
