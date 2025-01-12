@@ -8,7 +8,13 @@
     "Colors": [
       1
     ],
-    "Age": 3
+    "Age": 4,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 2,
@@ -19,7 +25,13 @@
     "Colors": [
       1
     ],
-    "Age": 3
+    "Age": 4,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 3,
@@ -30,7 +42,13 @@
     "Colors": [
       2
     ],
-    "Age": 4
+    "Age": 5,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 4,
@@ -41,7 +59,13 @@
     "Colors": [
       6
     ],
-    "Age": 1
+    "Age": 2,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 5,
@@ -52,7 +76,13 @@
     "Colors": [
       6
     ],
-    "Age": 1
+    "Age": 2,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 6,
@@ -63,7 +93,13 @@
     "Colors": [
       8
     ],
-    "Age": 2
+    "Age": 3,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   },
   {
     "Id": 7,
@@ -74,6 +110,12 @@
     "Colors": [
       6
     ],
-    "Age": 1
+    "Age": 2,
+    "ActivityLevel": null,
+    "LastVaccinationDate": null,
+    "DueDate": null,
+    "LitterSize": null,
+    "InjuryType": null,
+    "InjuryDate": null
   }
 ]

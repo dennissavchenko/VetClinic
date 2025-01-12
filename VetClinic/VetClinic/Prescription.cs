@@ -51,8 +51,7 @@ namespace VetClinic
             var dose = medication.GetDoses().Find(x => x.GetPrescription().Equals(this));
 
             // If no such Dose exists, create a new one with the given doseDescription and doseAmount.
-            if (dose == null) 
-                dose = new Dose(doseDescription, doseAmount, medication, this);
+            if (dose == null) dose = new Dose(doseDescription, doseAmount, medication, this);
 
             // If the Medication’s list of Doses doesn’t contain this new or retrieved Dose,
             // inform the Medication to add it, maintaining bidirectional consistency.

@@ -50,18 +50,15 @@ public class Medication : StoredObject<Medication>, IIdentifiable
     {
         // Ensure that the specified medication is not already in _components.
         // If it is, throw a DuplicatesException to prevent adding duplicates.
-        if (_components.Contains(medication))
-            throw new DuplicatesException($"Medication '{medication.Name}' already exists as a component.");
+        if (_components.Contains(medication)) throw new DuplicatesException("Medication already exists as a component.");
 
         // Check if the medication we're trying to add is actually the current object (this).
         // A medication cannot be a component of itself, so throw an exception if they match.
-        if (medication == this)
-            throw new InvalidOperationException("A medication cannot be a component of itself.");
+        if (medication == this) throw new InvalidOperationException("A medication cannot be a component of itself.");
 
         // Prevent a simple cycle: if the specified medication's _components already contains this Medication,
         // it implies a direct bidirectional cycle (this → medication and medication → this).
-        if (medication.GetComponents().Contains(this))
-            throw new InvalidOperationException("Cyclic dependency detected.");
+        if (medication.GetComponents().Contains(this)) throw new InvalidOperationException("Cyclic dependency detected.");
 
         // If all checks pass, add the medication to our _components list.
         _components.Add(medication);

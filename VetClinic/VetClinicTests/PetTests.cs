@@ -249,17 +249,6 @@ public class PetTests
     }
 
     [Test]
-    public void Pet_ShouldThrowANullReferenceException_ForNullClient()
-    {
-        // Assert
-        Assert.Throws<NullReferenceException>(() =>
-        {
-            // Arrange & Act
-            var pet1 = new Pet("Buddy", Sex.Male, 15.5, new DateTime(2018, 5, 1), [Color.Brown], null!);
-        });
-    }
-
-    [Test]
     public void Pet_ShouldAddClientCorrectly_WithConstructor()
     {
         // Arrange

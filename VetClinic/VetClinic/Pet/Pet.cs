@@ -5,6 +5,9 @@ namespace VetClinic;
 public enum Sex { Male, Female }
 
 public enum Color { Black, White, Brown, Gray, Golden, Red, Blue, Cream, Yellow, Green }
+
+public enum PetsCondition { Healthy, Pregnant, Injured }
+
 public class Pet: StoredObject<Pet>, IIdentifiable
 {
     public int Id { get; set; }
@@ -79,6 +82,132 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     }
     
     public int Age => DateTime.Now.Year - DateOfBirth.Year;
+    
+    // Dynamic, Overlapping Inheritance
+    
+    private HashSet<PetsCondition> _conditions = new();
+    
+    // Healthy
+    
+    public ActivityLevel? ActivityLevel { get; set; }
+    
+    private DateTime? _lastVaccinationDate;
+    public DateTime? LastVaccinationDate
+    {
+        get => _lastVaccinationDate;
+        set
+        {
+            if (value > DateTime.Now)
+            {
+                throw new InvalidDateException("Last vaccination date cannot be in the future.");
+            }
+            if (value < DateOfBirth)
+            {
+                throw new InvalidDateException("Last vaccination date cannot be before the date of birth.");
+            }
+
+            _lastVaccinationDate = value;
+        } 
+    }
+    
+    // Pregnant
+    
+    private DateTime? _dueDate;
+    public DateTime? DueDate
+    {
+        get => _dueDate;
+        set
+        {
+            if (value < DateOfBirth)
+            {
+                throw new InvalidDateException("Due date cannot be before the date of birth.");
+            }
+            _dueDate = value;
+        } 
+    }
+    
+    private int? _litterSize;
+    public int? LitterSize
+    {
+        get => _litterSize;
+        set
+        {
+            if (value <= 0)
+            {
+                throw new NegativeValueException("Expected litter size must be greater than 0.");
+            } 
+            _litterSize = value;
+        } 
+    } 
+    
+    // Injured
+    
+    public InjuryType? InjuryType { get; set; }
+    
+    private DateTime? _injuryDate;
+    public DateTime? InjuryDate
+    {
+        get => _injuryDate;
+        set
+        {
+            if (value > DateTime.Now)
+            {
+                throw new InvalidDateException("Injury date cannot be in the future.");
+            }
+            if (value < DateOfBirth)
+            {
+                throw new InvalidDateException("Injury date cannot be before the date of birth.");
+            }
+
+            _injuryDate = value;
+        } 
+    }
+    
+    public void AssignHealthyState(ActivityLevel activityLevel, DateTime? lastVaccinationDate)
+    {
+        if(_conditions.Contains(PetsCondition.Injured)) ClearInjuredState();
+        ActivityLevel = activityLevel;
+        LastVaccinationDate = lastVaccinationDate;
+        _conditions.Add(PetsCondition.Healthy);
+    }
+    
+    public void AssignPregnantState(DateTime dueDate, int litterSize)
+    {
+        DueDate = dueDate;
+        LitterSize = litterSize;
+        _conditions.Add(PetsCondition.Pregnant);
+    }
+    
+    public void AssignInjuredState(InjuryType injuryType, DateTime injuryDate)
+    {
+        if(_conditions.Contains(PetsCondition.Healthy)) ClearHealthyState();
+        InjuryType = injuryType;
+        InjuryDate = injuryDate;
+        _conditions.Add(PetsCondition.Injured);
+    }
+    
+    public void ClearHealthyState()
+    {
+        ActivityLevel = null;
+        LastVaccinationDate = null;
+        _conditions.Remove(PetsCondition.Healthy);
+    }
+    
+    public void ClearPregnantState()
+    {
+        DueDate = null;
+        LitterSize = null;
+        _conditions.Remove(PetsCondition.Pregnant);
+    }
+    
+    public void ClearInjuredState()
+    {
+        InjuryType = null;
+        InjuryDate = null;
+        _conditions.Remove(PetsCondition.Injured);
+    }
+    
+    // Associations
     
     private Specie? _specie;
 
@@ -244,8 +373,8 @@ public class Pet: StoredObject<Pet>, IIdentifiable
     }
     
     public Pet() {}
-
-    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client)
+    
+    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, Client client, ActivityLevel? activityLevel = null, DateTime? lastVaccinationDate = null, DateTime? dueDate = null, int? litterSize = null, InjuryType? injuryType = null, DateTime? injuryDate = null)
     {
         Name = name;
         Sex = sex;
@@ -253,26 +382,38 @@ public class Pet: StoredObject<Pet>, IIdentifiable
         DateOfBirth = dateOfBirth;
         Colors = colors;
         ModifyClient(client); // Establishes the association between the Pet and the specified Client.
+        ActivityLevel = activityLevel;
+        LastVaccinationDate = lastVaccinationDate;
+        DueDate = dueDate;
+        LitterSize = litterSize;
+        InjuryType = injuryType;
+        InjuryDate = injuryDate;
         AddToExtent(this);
         _extent.Add(this);
     }
     
-    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors)
+    public Pet(string name, Sex sex, double weight, DateTime dateOfBirth, List<Color> colors, ActivityLevel? activityLevel = null, DateTime? lastVaccinationDate = null, DateTime? dueDate = null, int? litterSize = null, InjuryType? injuryType = null, DateTime? injuryDate = null)
     {
         Name = name;
         Sex = sex;
         Weight = weight;
         DateOfBirth = dateOfBirth;
         Colors = colors;
+        ActivityLevel = activityLevel;
+        LastVaccinationDate = lastVaccinationDate;
+        DueDate = dueDate;
+        LitterSize = litterSize;
+        InjuryType = injuryType;
+        InjuryDate = injuryDate;
         _client = new Client(); // Creates a dummy client for the Pet.
         _client.AddPet(this); // Adds this Pet to the dummy client's list, ensuring consistency.
         AddToExtent(this);
         _extent.Add(this);
     }
-
+    
     public override string ToString()
     {
-        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}";
+        return $"Id={Id}, Name={Name}, Sex={Sex}, Weight={Weight.ToString(System.Globalization.CultureInfo.InvariantCulture)}, DateOfBirth={DateOfBirth:yyyy-MM-dd}, Colors=({string.Join(", ", Colors)}), Age={Age}, ActivityLevel={ActivityLevel}, LastVaccinationDate={LastVaccinationDate:yyyy-MM-dd}, DueDate={DueDate:yyyy-MM-dd}, LitterSize={LitterSize}, InjuryType={InjuryType}, InjuryDate={InjuryDate:yyyy-MM-dd}";
     }
     
 }
