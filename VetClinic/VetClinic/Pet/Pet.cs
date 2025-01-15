@@ -4,9 +4,15 @@ namespace VetClinic;
 
 public enum Sex { Male, Female }
 
+public enum InjuryType { Fracture, Wound, Sprain }
+
 public enum Color { Black, White, Brown, Gray, Golden, Red, Blue, Cream, Yellow, Green }
 
 public enum PetsCondition { Healthy, Pregnant, Injured }
+
+public enum WaterType { Freshwater, Saltwater, Brackish }
+
+public enum ActivityLevel { Low, Medium, High }
 
 public class Pet: StoredObject<Pet>, IIdentifiable
 {

@@ -2,8 +2,6 @@ using VetClinic.Exceptions;
 
 namespace VetClinic;
 
-public enum WaterType { Freshwater, Saltwater, Brackish }
-
 public class Fish : Pet
 {
     

@@ -29,10 +29,6 @@ Medication medication1 = new Medication("abc", Form.Pill);
 Prescription prescription2 = new Prescription(new DateTime(2000, 3, 24), new DateTime(2019, 3, 22));
 Medication medication2 = new Medication("vnvnvnvnv", Form.Pill);
 //Dose dose1 = new Dose("xyz kkk kkk", 2.5, medication1, prescription1);
-Injured injured1 = new Injured("Lola", Sex.Female, 3.5, new DateTime(2020, 2, 14), [Color.Gray], client1, InjuryType.Fracture, new DateTime(2021, 3, 15));
-Healthy healthy1 = new Healthy("Momo", Sex.Male, 2.5, new DateTime(2015, 4, 13), [Color.Black, Color.White],
-    ActivityLevel.Low, null);
-Pregnant pregnant1 = new Pregnant("Mimi", Sex.Female, 1.5, new DateTime(2019, 6, 15), [Color.Cream], DateTime.Today.AddMonths(1), 3);
 
 Dose dose = new Dose("fff", 1, medication1, prescription1);
 
